@@ -3,16 +3,23 @@
 <head>
 	<meta charset="utf-8">
 	<title>My first Vue app</title>
-	Hello world!
-
-	<link rel="stylesheet" href="./static/css/main.css">
+	
 	<script src="https://cdn.jsdelivr.net/npm/vue/dist/vue.js"></script>
+	<link href="./static/css/main.css" rel="stylesheet">
 </head>
 <body>
 	<div id="app">
-		{{ message }}
+		[[ message ]]
 	</div>
 
-	<script scr="./js/index.js"></script>
+	<script src="https://cdn.jsdelivr.net/npm/vue-resource@1.5.1"></script>
+	<script>
+		var app = new Vue({
+			el: '#app',
+			data: {
+				message: 'Hello Vue!'
+			}
+		})
+	</script>
 </body>
 </html>
