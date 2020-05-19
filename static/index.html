@@ -5,21 +5,14 @@
 	<title>My first Vue app</title>
 	
 	<script src="https://cdn.jsdelivr.net/npm/vue/dist/vue.js"></script>
-	<link href="./static/css/main.css" rel="stylesheet">
+	<link href="{{ url_for('static', filename='css/main.css') }}" rel="stylesheet">
 </head>
 <body>
 	<div id="app">
-		[[ message ]]
+		<h1>[[ message ]]</h1>
 	</div>
-
+	<script scr="https://cdnjs.cloudflare.com/ajax/libs/vue/2.6.11/vue.js"></script>
 	<script src="https://cdn.jsdelivr.net/npm/vue-resource@1.5.1"></script>
-	<script>
-		var app = new Vue({
-			el: '#app',
-			data: {
-				message: 'Hello Vue!'
-			}
-		})
-	</script>
+	<script src="{{ url_for('static', filename='js/index.js') }}"></script>
 </body>
 </html>
