@@ -5,6 +5,8 @@
 	<title>My first Vue app</title>
 	
 	<script src="https://cdn.jsdelivr.net/npm/vue/dist/vue.js"></script>
+	<script src="https://cdn.jsdelivr.net/npm/axios@0.12.0/dist/axios.min.js"></script>
+	<script src="https://cdn.jsdelivr.net/npm/lodash@4.13.1/lodash.min.js"></script>
 	<link href="%% url_for('static', filename='css/main.css') %%" rel="stylesheet">
 </head>
 <body>
@@ -58,6 +60,19 @@
 		<greetings-item 
 		v-bind:greetingsprop="greetingsList"
 		></greetings-item>
+	</div>
+
+	<div id="example">
+		<p>Original message: "{{ message }}"</p>
+		<p>Computed reversed message: "{{ reversedMessage }}"</p>
+	</div>
+
+	<div id="watch-example">
+		<p>
+			Ask a yes/no question:
+			<input v-model="question">
+		</p>
+		<p>{{ answer }}</p>
 	</div>
 
 	<script src="%% url_for('static', filename='js/index.js') %%"></script>
