@@ -8,24 +8,26 @@
 	import { eventBus } from '../main';
 
 	export default {
-		props: ['editLinkname', 'editLinkpath', 'editIconpath', 'editDatecreated', 'index'],
+		props: ['items', 'editLinkname', 'editLinkpath', 'editIconpath', 'editDatecreated', 'index'],
 		methods: {
 			editItem: function(){
 				if(this.editLinkname != ""){
-					eventBus.items[this.index].linkname = this.editLinkname
+					this.items[this.index].linkname = this.editLinkname
 				}
 				
 				if(this.editLinkpath != ""){
-					eventBus.items[this.index].linkpath = this.editLinkpath
+					this.items[this.index].linkpath = this.editLinkpath
 				}
 				
 				if(this.editIconpath != ""){
-					eventBus.items[this.index].iconpath = this.editIconpath
+					this.items[this.index].iconpath = this.editIconpath
 				}
 
 				if(this.editDatecreated != ""){
-					eventBus.items[this.index].datecreated = this.editDatecreated
+					this.items[this.index].datecreated = this.editDatecreated
 				}			
+
+				eventBus.$emit('itemWasUpdated', this.items);					
 			}
 		}
 	}

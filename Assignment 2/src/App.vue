@@ -1,6 +1,7 @@
 <template>
 	<div>
 		<app-form></app-form>
+		<br><br>
 		<app-items></app-items>
 	</div>
 </template>

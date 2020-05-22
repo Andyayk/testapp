@@ -8,10 +8,12 @@
 	import { eventBus } from '../main';
 
 	export default {
-		props: ['index'],
+		props: ['items', 'index'],
 		methods: {
 			deleteItem: function(){
-				eventBus.items.splice(this.index, 1)
+				this.items.splice(this.index, 1)
+
+				eventBus.$emit('itemWasUpdated', this.items);				
 			}
 		}
 	}

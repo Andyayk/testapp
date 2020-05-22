@@ -11,14 +11,16 @@
 		props: ['id', 'linkname', 'linkpath', 'iconpath', 'datecreated', 'editenable'],
 		methods: {
 			addItem: function(){
-				eventBus.items.push({
+				var item = {
 					id: this.id,
 					linkname: this.linkname, 
 					linkpath: this.linkpath, 
 					iconpath: this.iconpath, 
 					datecreated: this.datecreated,
 					editenable: this.editenable
-				})
+				};
+
+				eventBus.$emit('itemWasCreated', item);
 			}
 		}
 	}
