@@ -1,6 +1,6 @@
 <template>
 	<div>
-		<form @submit.prevent="increaseCount()">
+		<form @submit.prevent="resetAddForm()">
 			<p>Name of Link: <input type="text" v-model="linkname"></p>
 			<p>Link Path: <input type="text" v-model="linkpath"></p>
 			<p>Icon Path: <input type="text" v-model="iconpath"></p>
@@ -11,7 +11,6 @@
 				:linkpath="linkpath"
 				:iconpath="iconpath"
 				:datecreated="datecreated"
-				:editenable="editenable"
 			></add-item>
 		</form>				
 	</div>
@@ -19,7 +18,7 @@
 
 <script>
 	import { eventBus } from '../main';
-	import AddItem from "./Add.vue";
+	import AddItem from './Add.vue';
 
 	export default {
 		data: function() {
@@ -28,12 +27,11 @@
 				linkname: '', 
 				linkpath: '',
 				iconpath: '',
-				datecreated: '',
-				editenable: ''			
+				datecreated: ''		
 			};
 		},
 		methods: {
-			increaseCount: function(){
+			resetAddForm: function(){
 				this.id = ++this.id
 				this.linkname = ''
 				this.linkpath = ''

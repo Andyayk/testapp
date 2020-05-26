@@ -8,7 +8,7 @@
 	import { eventBus } from '../main';
 
 	export default {
-		props: ['id', 'linkname', 'linkpath', 'iconpath', 'datecreated', 'editenable'],
+		props: ['id', 'linkname', 'linkpath', 'iconpath', 'datecreated'],
 		methods: {
 			addItem: function(){
 				var item = {
@@ -16,8 +16,7 @@
 					linkname: this.linkname, 
 					linkpath: this.linkpath, 
 					iconpath: this.iconpath, 
-					datecreated: this.datecreated,
-					editenable: this.editenable
+					datecreated: this.datecreated
 				};
 
 				eventBus.$emit('itemWasCreated', item);
