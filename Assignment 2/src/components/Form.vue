@@ -4,7 +4,7 @@
 			<p>Name of Link: <input type="text" v-model="linkname"></p>
 			<p>Link Path: <input type="text" v-model="linkpath"></p>
 			<p>Icon Path: <input type="text" v-model="iconpath"></p>
-			<p>Date Created: <input type="text" v-model="datecreated"></p>
+			<p>Date Created: <input type="text" v-model="datecreated" disabled></p>
 			<add-item 
 				:id="id"
 				:linkname="linkname"
@@ -27,16 +27,16 @@
 				linkname: '', 
 				linkpath: '',
 				iconpath: '',
-				datecreated: ''		
+				datecreated: new Date().toISOString().split('T')[0]	
 			};
 		},
 		methods: {
 			resetAddForm: function(){
 				this.id = ++this.id
+				//reset form
 				this.linkname = ''
 				this.linkpath = ''
-				this.iconpath = ''
-				this.datecreated = ''				
+				this.iconpath = ''			
 			}		
 		},
 		components: {

@@ -1,8 +1,13 @@
 <!DOCTYPE html>
 <html lang="en">
 <head>
-	<meta charset="utf-8">
 	<title>Assignment 1</title>
+	<meta charset="utf-8">
+	<meta name="viewport" content="width=device-width, initial-scale=1">
+	<link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/4.5.0/css/bootstrap.min.css">
+	<script src="https://ajax.googleapis.com/ajax/libs/jquery/3.5.1/jquery.min.js"></script>
+	<script src="https://cdnjs.cloudflare.com/ajax/libs/popper.js/1.16.0/umd/popper.min.js"></script>
+	<script src="https://maxcdn.bootstrapcdn.com/bootstrap/4.5.0/js/bootstrap.min.js"></script>
 
 	<script src="https://unpkg.com/vue/dist/vue.js"></script>
 </head>
@@ -18,44 +23,61 @@
 	3.	Methods: Add, delete, edit
 	4.	When user click on it, it would take user to the link
 	-->	
-
 	<div id="app">
-		<form @submit.prevent="addItem">
-			<p>Name of Link: <input type="text" v-model="linkname"></p>
-			<p>Link Path: <input type="text" v-model="linkpath"></p>
-			<p>Icon Path: <input type="text" v-model="iconpath"></p>
-			<p>Date Created: <input type="text" v-model="datecreated"></p>
-			<button>Add</button>
-		</form>
-		<br><br>
-		<div v-for="(item, index) in items" :key="item.id">
-			<div>
-				<hr>
+		<div class="container p-3 my-3 border">
+			<h2>My Favourites</h2>
+			<form @submit.prevent="addItem">
+				<div class="form-group">
+					<label>Link:</label>			
+					<input type="text" class="form-control" v-model="linkname" placeholder="Enter Name of Link">
+				</div>
+				<div class="form-group">
+					<label>Link Path:</label>			
+					<input type="text" class="form-control" v-model="linkpath" placeholder="Enter Link Path">
+				</div>
+				<div class="form-group">
+					<label>Icon Path:</label>			
+					<input type="text" class="form-control" v-model="iconpath" placeholder="Enter Icon Path">
+				</div>
+				<div class="form-group">
+					<label>Date Created:</label>			
+					<input type="text" class="form-control" v-model="datecreated" placeholder="Enter Name of Link" disabled>
+				</div>					
+				<button class="btn btn-success">Add</button>
+			</form>
+		</div>
+
+		<br>
+
+		<div class="container p-3 my-3 border">
+		<h2>Saved Favourites</h2>
+		<div class="card" v-for="(item, index) in items" :key="item.id">
+			<div class="card-body">
 				<div>
-					Item {{ item.id }}:
+					<h5>Item {{ item.id }}:</h5>
 					{{ item.linkname }}
 					<img :src="item.iconpath" height="50" width="100" alt="item.linkname">
 				</div>
 				<div align="right">
-					<button @click="deleteItem(index)">Delete</button>				
-					<button @click="toggleEdit(index)">Edit</button>
+					<button class="btn btn-danger" @click="deleteItem(index)">Delete</button>				
+					<button class="btn btn-primary" @click="toggleEdit(index)">Edit</button>
 					<div v-if="item.editenable">
 						<form @submit.prevent="editItem(index)">
 							<font color="red">Only completed textboxes will be updated</font>
 							<p>New Name of Link: <input type="text" v-model="editLinkname"></p>
 							<p>New Link Path: <input type="text" v-model="editLinkpath"></p>
 							<p>New Icon Path: <input type="text" v-model="editIconpath"></p>
-							<p>New Date Created: <input type="text" v-model="editDatecreated"></p>
-							<button>Update</button>
+							<p>New Date Created: <input type="text" v-model="editDatecreated" disabled></p>
+							<button class="btn btn-success">Update</button>
 						</form>
 					</div>
 				</div>
 				<a :href="item.linkpath" target="_blank"> {{ item.linkpath }} </a>
 				<br>
 				Date Created: {{ item.datecreated }}
-				<hr>
 			</div>
 		</div>	
+	</div>
 	</div>
 
 	<script>
@@ -63,41 +85,58 @@
 			el: '#app',
 			data: {
 				counter: 1,
-				linkname: "",
-				linkpath: "",
-				iconpath: "",
-				datecreated: "",
+				linkname: '',
+				linkpath: '',
+				iconpath: '',
+				datecreated: new Date().toISOString().split('T')[0],
 				items: [
 				{ 	'id': 1,
 					'linkname': 'Google', 
 					'linkpath': 'https://google.com/',
 					'iconpath': 'https://www.google.com/images/branding/googlelogo/2x/googlelogo_color_92x30dp.png',
-					'datecreated': '11/12/2020',
+					'datecreated': '2020-01-01',
 					'editenable': false}
 				],
-				editLinkname: "",
-				editLinkpath: "",
-				editIconpath: "",
-				editDatecreated: ""				
+				editLinkname: '',
+				editLinkpath: '',
+				editIconpath: '',
+				editDatecreated: new Date().toISOString().split('T')[0]			
 			},
 			methods: {
 				addItem: function(){
+					/*
+export const getValidUrl = (url = "") => {
+    let newUrl = window.decodeURIComponent(url);
+    newUrl = newUrl.trim().replace(/\s/g, "");
+
+    if(/^(:\/\/)/.test(newUrl)){
+        return `http${newUrl}`;
+    }
+    if(!/^(f|ht)tps?:\/\//i.test(newUrl)){
+        return `http://${newUrl}`;
+    }
+
+    return newUrl;
+};					
+					*/
+
 					this.items.push({
 						'id': ++this.counter,
 						'linkname': this.linkname, 
-						'linkpath': this.linkpath, 
+						'linkpath': "http://" + this.linkpath, 
 						'iconpath': this.iconpath, 
 						'datecreated': this.datecreated,
 						'editenable': false})
+					//reset form
 					this.linkname = ''
 					this.linkpath = ''
 					this.iconpath = ''
-					this.datecreated = ''
 				},
 				toggleEdit: function(index){
 					this.items[index].editenable = !this.items[index].editenable
 				},
 				editItem: function(index){
+					//only completed textboxes will be updated
 					if(this.editLinkname != ""){
 						this.items[index].linkname = this.editLinkname
 					}
@@ -113,10 +152,12 @@
 					if(this.editDatecreated != ""){
 						this.items[index].datecreated = this.editDatecreated
 					}
+					//reset form
 					this.editLinkname = ''
 					this.editLinkpath = ''
 					this.editIconpath = ''
-					this.editDatecreated = ''					
+
+					this.items[index].editenable = !this.items[index].editenable //close editing box			
 				},
 				deleteItem: function(index){
 					this.items.splice(index, 1)
