@@ -1,9 +1,12 @@
 <template>
 	<div>
 		<app-form></app-form>
-		<br><br>
-		<div v-if="items.length">
-			<div class="component" v-for="(item, index) in items" :key="item.id">		
+
+		<br>
+		
+		<div class="container p-3 my-3 border" v-if="items.length">
+			<h2>Saved Favourites</h2>
+			<div class="card" v-for="(item, index) in items" :key="item.id">	
 			<app-item
 				:items="items"
 				:item="item"
@@ -47,8 +50,5 @@
 </script>
 
 <style>
-    div.component {
-        border: 1px solid black;
-        padding: 30px;
-    }
+
 </style>

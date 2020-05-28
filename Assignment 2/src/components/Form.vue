@@ -1,24 +1,31 @@
 <template>
-	<div>
-		<form @submit.prevent="resetAddForm()">
-			<p>Name of Link: <input type="text" v-model="linkname"></p>
-			<p>Link Path: <input type="text" v-model="linkpath"></p>
-			<p>Icon Path: <input type="text" v-model="iconpath"></p>
-			<p>Date Created: <input type="text" v-model="datecreated" disabled></p>
-			<add-item 
-				:id="id"
-				:linkname="linkname"
-				:linkpath="linkpath"
-				:iconpath="iconpath"
-				:datecreated="datecreated"
-			></add-item>
-		</form>				
+	<div class="container p-3 my-3 border">
+		<h2>Add Favourites</h2>
+		<form @submit.prevent="addItem()">
+			<div class="form-group">
+				<label>Link:</label>			
+				<input type="text" class="form-control" v-model="linkname" placeholder="Enter Name of Link">
+			</div>
+			<div class="form-group">
+				<label>Link Path:</label>			
+				<input type="text" class="form-control" v-model="linkpath" placeholder="Enter Link Path">
+			</div>
+			<div class="form-group">
+				<label>Icon Path:</label>			
+				<input type="text" class="form-control" v-model="iconpath" placeholder="Enter Icon Path">
+			</div>
+			<div class="form-group">
+				<label>Date Created:</label>			
+				<input type="text" class="form-control" v-model="datecreated" placeholder="Enter Name of Link" disabled>
+			</div>					
+			<add-button></add-button>
+		</form>
 	</div>
 </template>
 
 <script>
 	import { eventBus } from '../main';
-	import AddItem from './Add.vue';
+	import AddButton from './AddButton.vue';
 
 	export default {
 		data: function() {
@@ -31,16 +38,29 @@
 			};
 		},
 		methods: {
-			resetAddForm: function(){
+			addItem: function(){
+				var processedLinkpath = eventBus.processURLpath(this.linkpath);
+				var processedIconpath = eventBus.processURLpath(this.iconpath);
+
+				var item = {
+					id: this.id,
+					linkname: this.linkname, 
+					linkpath: processedLinkpath, 
+					iconpath: processedIconpath, 
+					datecreated: this.datecreated
+				};
+
+				eventBus.$emit('itemWasCreated', item);
+
 				this.id = ++this.id
 				//reset form
 				this.linkname = ''
 				this.linkpath = ''
-				this.iconpath = ''			
-			}		
+				this.iconpath = ''					
+			}				
 		},
 		components: {
-			addItem: AddItem
+			addButton: AddButton
 		}
 	}
 </script>

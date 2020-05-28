@@ -25,7 +25,7 @@
 	-->	
 	<div id="app">
 		<div class="container p-3 my-3 border">
-			<h2>My Favourites</h2>
+			<h2>Add Favourites</h2>
 			<form @submit.prevent="addItem">
 				<div class="form-group">
 					<label>Link:</label>			
@@ -49,37 +49,47 @@
 
 		<br>
 
-		<div class="container p-3 my-3 border">
-		<h2>Saved Favourites</h2>
-		<div class="card" v-for="(item, index) in items" :key="item.id">
-			<div class="card-body">
-				<div>
-					<h5>Item {{ item.id }}:</h5>
-					{{ item.linkname }}
-					<img :src="item.iconpath" height="50" width="100" alt="item.linkname">
-				</div>
-				<div align="right">
-					<button class="btn btn-danger" @click="deleteItem(index)">Delete</button>				
-					<button class="btn btn-primary" @click="toggleEdit(index)">Edit</button>
-					<div v-if="item.editenable">
-						<form @submit.prevent="editItem(index)">
-							<font color="red">Only completed textboxes will be updated</font>
-							<p>New Name of Link: <input type="text" v-model="editLinkname"></p>
-							<p>New Link Path: <input type="text" v-model="editLinkpath"></p>
-							<p>New Icon Path: <input type="text" v-model="editIconpath"></p>
-							<p>New Date Created: <input type="text" v-model="editDatecreated" disabled></p>
-							<button class="btn btn-success">Update</button>
-						</form>
+		<div class="container p-3 my-3 border" v-if="items.length">
+			<h2>Saved Favourites</h2>
+			<div class="card" v-for="(item, index) in items" :key="item.id">
+				<div class="card-body">
+					<div class="row">
+						<div class="col-sm-6">
+							<div class="container">					
+								<h5>Item {{ item.id }}:</h5>
+								{{ item.linkname }}
+								<img :src="item.iconpath" height="50" width="100" alt="item.linkname">
+								<br>
+								<a :href="item.linkpath" target="_blank"> {{ item.linkpath }} </a>
+								<br>
+								Date Created: {{ item.datecreated }}
+							</div>
+						</div>
+						<div class="col-sm-6">
+							<div class="container">
+								<div class="row justify-content-end">
+									<button class="btn btn-danger" @click="deleteItem(index)">Delete</button>				
+									<button class="btn btn-primary" @click="toggleEdit(index)">Edit</button>
+								</div>
+								<div align="right">	
+									<div v-if="item.editenable">
+										<form @submit.prevent="editItem(index)">
+											<font color="red">Only completed textboxes will be updated</font>
+											<p>New Name of Link: <input type="text" v-model="editLinkname"></p>
+											<p>New Link Path: <input type="text" v-model="editLinkpath"></p>
+											<p>New Icon Path: <input type="text" v-model="editIconpath"></p>
+											<p>New Date Created: <input type="text" v-model="editDatecreated" disabled></p>
+											<button class="btn btn-success">Update</button>
+										</form>
+									</div>
+								</div>
+							</div>
+						</div>	
 					</div>
 				</div>
-				<a :href="item.linkpath" target="_blank"> {{ item.linkpath }} </a>
-				<br>
-				Date Created: {{ item.datecreated }}
 			</div>
-		</div>	
+		</div>
 	</div>
-	</div>
-
 	<script>
 		var app = new Vue({
 			el: '#app',
@@ -104,27 +114,14 @@
 			},
 			methods: {
 				addItem: function(){
-					/*
-export const getValidUrl = (url = "") => {
-    let newUrl = window.decodeURIComponent(url);
-    newUrl = newUrl.trim().replace(/\s/g, "");
-
-    if(/^(:\/\/)/.test(newUrl)){
-        return `http${newUrl}`;
-    }
-    if(!/^(f|ht)tps?:\/\//i.test(newUrl)){
-        return `http://${newUrl}`;
-    }
-
-    return newUrl;
-};					
-					*/
+					var processedLinkpath = this.processURLpath(this.linkpath);
+					var processedIconpath = this.processURLpath(this.iconpath);
 
 					this.items.push({
 						'id': ++this.counter,
 						'linkname': this.linkname, 
-						'linkpath': "http://" + this.linkpath, 
-						'iconpath': this.iconpath, 
+						'linkpath': processedLinkpath, 
+						'iconpath': processedIconpath, 
 						'datecreated': this.datecreated,
 						'editenable': false})
 					//reset form
@@ -136,20 +133,23 @@ export const getValidUrl = (url = "") => {
 					this.items[index].editenable = !this.items[index].editenable
 				},
 				editItem: function(index){
+					var processedLinkpath = this.processURLpath(this.editLinkpath);
+					var processedIconpath = this.processURLpath(this.editIconpath);
+
 					//only completed textboxes will be updated
-					if(this.editLinkname != ""){
+					if(this.editLinkname != ''){
 						this.items[index].linkname = this.editLinkname
 					}
 					
-					if(this.editLinkpath != ""){
-						this.items[index].linkpath = this.editLinkpath
+					if(this.editLinkpath != ''){
+						this.items[index].linkpath = processedLinkpath
 					}
 					
-					if(this.editIconpath != ""){
-						this.items[index].iconpath = this.editIconpath
+					if(this.editIconpath != ''){
+						this.items[index].iconpath = processedIconpath
 					}
 
-					if(this.editDatecreated != ""){
+					if(this.editDatecreated != ''){
 						this.items[index].datecreated = this.editDatecreated
 					}
 					//reset form
@@ -161,6 +161,21 @@ export const getValidUrl = (url = "") => {
 				},
 				deleteItem: function(index){
 					this.items.splice(index, 1)
+				},
+				processURLpath: function(urlPath){
+					var newPath = window.decodeURIComponent(urlPath);					
+					if(urlPath != ''){
+					    newPath = newPath.trim().replace(/\s+/g, ''); //remove whitespaces before/after/in-between
+
+					    if(/^(:\/\/)/.test(newPath)){ //if start with ://
+					        newPath = `http${newPath}`;
+					    }
+
+					    if(!/^https?:\/\//i.test(newPath)){ //if does not start with http:// or https:// 
+					        newPath = `http://${newPath}`;
+	    				}
+					}
+		    			return newPath 				
 				}
 			}
 		})
