@@ -7,9 +7,14 @@ import { routes } from './routes';
 
 Vue.use(VueRouter);
 
+const router = new VueRouter({
+	routes,
+  	mode: 'history'
+});
+
 new Vue({
-  el: '#app',
-  router,
-  store,
-  render: h => h(App)
+	el: '#app',
+	router,
+	store,
+	render: h => h(App)
 })
