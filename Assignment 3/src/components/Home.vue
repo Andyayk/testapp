@@ -4,7 +4,7 @@
         <div class="col-xs-12 col-sm-12 col-md-12">
             <h3>Home</h3>
             <hr>
-            <p>Welcome! This is the home page. You may search for jobs and skills on the respective tabs
+            <p>Welcome! This is the home page. You may search for jobs and skills under the respective tabs
             </p>
         </div>
     </div>
