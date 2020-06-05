@@ -1,21 +1,28 @@
 <template>
 <div class="container p-3 my-3 border">
+    <h3>Skills</h3>
+    <hr>
+    <p>You may search for skills on this page, an empty submission will return all results</p>
+    <hr>
     <div class="row">
-        <div class="col-xs-12 col-sm-12 col-md-12">
-            <h1>The Skills Page</h1>
-            <hr>
-            <p>Display data for all skills</p>
-            <button class="btn btn-primary" @click="retrieveAllSkills">Retrieve All</button>
-            <br><br>
+        <div class="col-xs-6 col-sm-6 col-md-6">
+            <h5>Search for a skill</h5>
             <div class="form-group">
                 <label>Skill ID:</label>
                 <input class="form-control" type="text" v-model="id">
             </div>
-            <button class="btn btn-primary" @click="retrieveSpecificSkill">Retrieve Skill</button>
-            <br><br>
-            <ul class="list-group">
-                <li class="list-group-item" v-for="skill in skills"><b>ID</b>: {{ skill.uuid }}<br><b>Normalized Skill Title</b>: {{ skill.normalized_skill_name }}</li>
-            </ul>
+            <button class="btn btn-primary" @click="id==='' ? retrieveAllSkills() : retrieveSpecificSkill()">Submit</button>
+        </div>
+        <div class="col-xs-6 col-sm-6 col-md-6">
+            <h5>Results:</h5>
+            <div v-if="errors">
+                Job Not Found! Please Try Another Job ID.
+            </div>
+            <div class="d-flex" v-else>
+                <ul class="list-group justify-content-center">
+                    <li class="list-group-item" v-for="skill in skills"><b>ID</b>: {{ skill.uuid }}<br><b>Normalized Skill Title</b>: {{ skill.normalized_skill_name }}</li>
+                </ul>
+            </div>
         </div>
     </div>
 </div>
@@ -25,13 +32,10 @@
 export default {
     data() {
         return {
-            user: {
-                username: '',
-                email: ''
-            },
             resource: {},
-            id: '02eb7ff7569c9beedda699580d679557',
-            skills: []
+            id: '',
+            skills: [],
+            errors: false
         };
     },
     methods: {
@@ -41,11 +45,16 @@ export default {
                     return response.json();
                 })
                 .then(data => {
+                    this.errors = false; // no errors
                     const resultArray = [];
                     for (let key in data) {
                         resultArray.push(data[key]);
                     }
                     this.skills = resultArray;
+                })
+                .catch(e => {
+                    this.errors = true;
+                    console.log(e);
                 });
         },
         retrieveSpecificSkill() {
@@ -56,9 +65,14 @@ export default {
                     return response.json();
                 })
                 .then(data => {
+                    this.errors = false; // no errors
                     const resultArray = [];
                     resultArray.push(data);
                     this.skills = resultArray;
+                })
+                .catch(e => {
+                    this.errors = true;
+                    console.log(e);
                 });
         }
     },
@@ -70,7 +84,7 @@ export default {
             retrieveSpecificSkillData: {
                 method: 'GET',
                 url: 'skills{/id}'
-            }       
+            }
         };
         this.resource = this.$resource('skills', {}, customActions);
     }
