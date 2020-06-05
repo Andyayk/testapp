@@ -8,19 +8,19 @@
         <div class="col-xs-6 col-sm-6 col-md-6">
             <h5>Search for a job</h5>
             <div class="form-group">
-                <label>Job ID:</label>
-                <input class="form-control" type="text" v-model="id">
+                <label>Job Title:</label>
+                <input class="form-control" type="text" v-model="jobTitle">
             </div>
-            <button class="btn btn-primary" @click="id==='' ? retrieveAllJobs() : retrieveSpecificJob()">Submit</button>
+            <button class="btn btn-primary" @click="jobTitle==='' ? retrieveAllJobs() : retrieveSpecificJob()">Submit</button>
         </div>
         <div class="col-xs-6 col-sm-6 col-md-6">
             <h5>Results:</h5>
             <div v-if="errors">
-                Job Not Found! Please Try Another Job ID.
+                Job not found! Please try another job title.
             </div>
             <div class="d-flex" v-else>
                 <ul class="list-group justify-content-center">
-                    <li class="list-group-item" v-for="job in jobs"><b>ID</b>: {{ job.uuid }}<br><b>Job Title</b>: {{ job.title }}<br><b>Normalized Job Title</b>: {{ job.normalized_job_title }}</li>
+                    <li class="list-group-item" v-for="job in jobs"><b>ID</b>: {{ job.uuid }}<br><b>Job Title</b>: {{ job.normalized_job_title }}</li>
                 </ul>
             </div>
         </div>
@@ -33,7 +33,7 @@ export default {
     data() {
         return {
             resource: {},
-            id: '',
+            jobTitle: '',
             jobs: [],
             errors: false
         };
@@ -59,7 +59,7 @@ export default {
         },
         retrieveSpecificJob() {
             this.resource.retrieveSpecificJobData({
-                    id: this.id
+                    contains: this.jobTitle
                 })
                 .then(response => {
                     return response.json();
@@ -67,7 +67,10 @@ export default {
                 .then(data => {
                     this.errors = false; // no errors
                     const resultArray = [];
-                    resultArray.push(data);
+                    for (let key in data) {
+                        resultArray.push(data[key]);
+                    }
+                    //resultArray.push(data);
                     this.jobs = resultArray;
                 })
                 .catch(e => {
@@ -83,7 +86,7 @@ export default {
             },
             retrieveSpecificJobData: {
                 method: 'GET',
-                url: 'jobs{/id}'
+                url: 'jobs/autocomplete{/jobTitle}'
             }
         };
         this.resource = this.$resource('jobs', {}, customActions);

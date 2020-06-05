@@ -9,18 +9,18 @@
             <h5>Search for a skill</h5>
             <div class="form-group">
                 <label>Skill ID:</label>
-                <input class="form-control" type="text" v-model="id">
+                <input class="form-control" type="text" v-model="skillTitle">
             </div>
-            <button class="btn btn-primary" @click="id==='' ? retrieveAllSkills() : retrieveSpecificSkill()">Submit</button>
+            <button class="btn btn-primary" @click="skillTitle==='' ? retrieveAllSkills() : retrieveSpecificSkill()">Submit</button>
         </div>
         <div class="col-xs-6 col-sm-6 col-md-6">
             <h5>Results:</h5>
             <div v-if="errors">
-                Job Not Found! Please Try Another Job ID.
+                Skill Not Found! Please Try Another Skill Title.
             </div>
             <div class="d-flex" v-else>
                 <ul class="list-group justify-content-center">
-                    <li class="list-group-item" v-for="skill in skills"><b>ID</b>: {{ skill.uuid }}<br><b>Normalized Skill Title</b>: {{ skill.normalized_skill_name }}</li>
+                    <li class="list-group-item" v-for="skill in skills"><b>ID</b>: {{ skill.uuid }}<br><b>Skill Title</b>: {{ skill.normalized_skill_name }}</li>
                 </ul>
             </div>
         </div>
@@ -33,7 +33,7 @@ export default {
     data() {
         return {
             resource: {},
-            id: '',
+            skillTitle: '',
             skills: [],
             errors: false
         };
@@ -59,7 +59,7 @@ export default {
         },
         retrieveSpecificSkill() {
             this.resource.retrieveSpecificSkillData({
-                    id: this.id
+                    contains: this.skillTitle
                 })
                 .then(response => {
                     return response.json();
@@ -67,7 +67,10 @@ export default {
                 .then(data => {
                     this.errors = false; // no errors
                     const resultArray = [];
-                    resultArray.push(data);
+                    for (let key in data) {
+                        resultArray.push(data[key]);
+                    }                    
+                    //resultArray.push(data);
                     this.skills = resultArray;
                 })
                 .catch(e => {
@@ -83,7 +86,7 @@ export default {
             },
             retrieveSpecificSkillData: {
                 method: 'GET',
-                url: 'skills{/id}'
+                url: 'skills/autocomplete{/skillTitle}',
             }
         };
         this.resource = this.$resource('skills', {}, customActions);
