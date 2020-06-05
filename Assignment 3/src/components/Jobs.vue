@@ -1,21 +1,28 @@
 <template>
 <div class="container p-3 my-3 border">
+    <h3>The Jobs Page</h3>
+    <hr>
+    <p>You may search for jobs on this page, an empty submission will return all results</p>
+    <hr>
     <div class="row">
-        <div class="col-xs-12 col-sm-12 col-md-12">
-            <h1>The Jobs Page</h1>
-            <hr>
-            <p>Display data for all jobs</p>
-            <button class="btn btn-primary" @click="retrieveAllJobs">Retrieve All</button>
-            <br><br>
+        <div class="col-xs-6 col-sm-6 col-md-6">
+            <h5>Search for a job</h5>
             <div class="form-group">
                 <label>Job ID:</label>
                 <input class="form-control" type="text" v-model="id">
             </div>
-            <button class="btn btn-primary" @click="retrieveSpecificJob">Retrieve Job</button>
-            <br><br>
-            <ul class="list-group">
-                <li class="list-group-item" v-for="job in jobs"><b>ID</b>: {{ job.uuid }}<br><b>Job Title</b>: {{ job.title }}<br><b>Normalized Job Title</b>: {{ job.normalized_job_title }}</li>
-            </ul>
+            <button class="btn btn-primary" @click="id==='' ? retrieveAllJobs() : retrieveSpecificJob()">Submit</button>
+        </div>
+        <div class="col-xs-6 col-sm-6 col-md-6">
+			<h5>Results:</h5>
+			<div v-if="errors">
+				Job Not Found! Please Try Another Job ID.
+			</div>
+            <div class="d-flex" v-else>
+                <ul class="list-group justify-content-center">
+                    <li class="list-group-item" v-for="job in jobs"><b>ID</b>: {{ job.uuid }}<br><b>Job Title</b>: {{ job.title }}<br><b>Normalized Job Title</b>: {{ job.normalized_job_title }}</li>
+                </ul>
+            </div>			
         </div>
     </div>
 </div>
@@ -29,9 +36,10 @@ export default {
                 username: '',
                 email: ''
             },
-            jobs: [],
             resource: {},
-            id: '26bc4486dfd0f60b3bb0d8d64e001800'
+            id: '',
+            jobs: [],
+			errors: false
         };
     },
     methods: {
@@ -41,12 +49,17 @@ export default {
                     return response.json();
                 })
                 .then(data => {
+					this.errors = false;
                     const resultArray = [];
                     for (let key in data) {
                         resultArray.push(data[key]);
                     }
                     this.jobs = resultArray;
-                });
+                })
+				.catch(e => { 
+					this.errors = true;
+					console.log(e);
+				});
         },
         retrieveSpecificJob() {
             this.resource.retrieveSpecificJobData({
@@ -56,10 +69,15 @@ export default {
                     return response.json();
                 })
                 .then(data => {
+					this.errors = false;
                     const resultArray = [];
                     resultArray.push(data);
                     this.jobs = resultArray;
-                });
+                })
+				.catch(e => {
+					this.errors = true;
+					console.log(e);
+				});				
         }
     },
     created() {
@@ -72,7 +90,7 @@ export default {
                 url: 'jobs{/id}'
             }
         };
-        this.resource = this.$resource('jobs{/id}', {}, customActions);
+        this.resource = this.$resource('jobs', {}, customActions);
     }
 }
 </script>
