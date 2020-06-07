@@ -15,18 +15,18 @@ const Skills = resolve => {
 export const routes = [
     {
         path: '', name: 'home', components: {
-        	default: Home
-    	}
+            default: Home
+        }
     },
     {
-    	path: '/jobs', name: 'jobs', components: {
-    		default: Jobs
-    	}
+        path: '/jobs', name: 'jobs', components: {
+            default: Jobs
+        }
     },
     {
-    	path: '/skills', name: 'skills', components: {
-    		default: Skills
-    	}
+        path: '/skills', name: 'skills', components: {
+            default: Skills
+        }
     },
-    {path: '*', redirect: '/'} //redirect to home page
+    { path: '*', redirect: '/' } //redirect to home page
 ];

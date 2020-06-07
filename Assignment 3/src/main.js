@@ -13,7 +13,7 @@ Vue.http.options.root = 'http://api.dataatwork.org/v1/'; // set root http
 
 const router = new VueRouter({
 	routes,
-  	mode: 'history' // remove # in url
+	mode: 'history' // remove # in url
 });
 
 new Vue({
