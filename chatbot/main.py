@@ -10,6 +10,7 @@ db = DBHelper()
 TOKEN = ""
 URL = "https://api.telegram.org/bot{}/".format(TOKEN)
 
+
 def get_url(url):
     response = requests.get(url)
     content = response.content.decode("utf8")

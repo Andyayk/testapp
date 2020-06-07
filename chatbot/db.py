@@ -1,5 +1,6 @@
 import sqlite3
 
+
 class DBHelper:
     def __init__(self, dbname="todo.sqlite"):
         self.dbname = dbname
@@ -7,13 +8,13 @@ class DBHelper:
 
     def setup(self):
         tblstmt = "CREATE TABLE IF NOT EXISTS items (description text, owner text)"
-        itemidx = "CREATE INDEX IF NOT EXISTS itemIndex ON items (description ASC)" 
+        itemidx = "CREATE INDEX IF NOT EXISTS itemIndex ON items (description ASC)"
         ownidx = "CREATE INDEX IF NOT EXISTS ownIndex ON items (owner ASC)"
         self.conn.execute(tblstmt)
         self.conn.execute(itemidx)
         self.conn.execute(ownidx)
         self.conn.commit()
-        
+
     def add_item(self, item_text, owner):
         stmt = "INSERT INTO items (description, owner) VALUES (?, ?)"
         args = (item_text, owner)
@@ -22,7 +23,7 @@ class DBHelper:
 
     def delete_item(self, item_text, owner):
         stmt = "DELETE FROM items WHERE description = (?) AND owner = (?)"
-        args = (item_text, owner )
+        args = (item_text, owner)
         self.conn.execute(stmt, args)
         self.conn.commit()
 
