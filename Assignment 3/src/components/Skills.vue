@@ -6,9 +6,9 @@
         <hr />
         <div class="row">
             <div class="col-xs-6 col-sm-6 col-md-6">
-                <h5>Search for a skill</h5>
+                <h5>Search for a Skill</h5>
                 <div class="form-group">
-                    <label>Skill ID:</label>
+                    <label>Skill Title:</label>
                     <input class="form-control" type="text" v-model="skillTitle" />
                 </div>
                 <button
@@ -21,12 +21,18 @@
                 <div v-if="errors">Skill Not Found! Please Try Another Skill Title.</div>
                 <div class="d-flex" v-else>
                     <ul class="list-group justify-content-center">
-                        <li class="list-group-item" v-for="skill in skills">
-                            <b>ID</b>
-                            : {{ skill.uuid }}
+                        <li
+                            class="list-group-item"
+                            v-for="(skill,index) in skills"
+                            :key="skill.uuid"
+                        >
+                            {{ index+1 }})
                             <br />
-                            <b>Skill Title</b>
-                            : {{ skill.normalized_skill_name }}
+                            <b>ID:</b>
+                            {{ skill.uuid }}
+                            <br />
+                            <b>Skill Title:</b>
+                            {{ skill.normalized_skill_name }}
                         </li>
                     </ul>
                 </div>
