@@ -19,10 +19,6 @@
         <v-card-actions>
             <v-spacer></v-spacer>
             <v-btn @click="!model ? retrieveAll() : retrieveSpecific()">Submit</v-btn>
-            <v-btn @click="clear()">
-                Clear
-                <v-icon right>mdi-close-circle</v-icon>
-            </v-btn>
         </v-card-actions>
         <v-divider></v-divider>
         <v-expand-transition>
@@ -58,8 +54,7 @@ export default {
         return {
             isLoading: false,
             model: null,
-            search: null,
-            isClear: false
+            search: null
         };
     },
     methods: {
@@ -68,18 +63,10 @@ export default {
         },
         retrieveSpecific: function() {
             eventBus.$emit("retrieveSpecificActivated", this.model);
-        },
-        clear: function() {
-            this.model = null; // reset
-            this.isClear = true; // reset
         }
     },
     computed: {
         fields() {
-            if (this.isClear) {
-                this.isClear = false;
-                return [];
-            }
             return this.results;
         }
     },

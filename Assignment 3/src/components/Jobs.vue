@@ -4,7 +4,7 @@
             <h3>Jobs</h3>
         </v-card-title>
         <v-card>
-            <v-card-text>You may search for jobs on this page</v-card-text>
+            <v-card-text>You may search for jobs on this page, an empty submission will return all results</v-card-text>
             <app-search
                 :text="text"
                 :value="value"
@@ -122,7 +122,7 @@ export default {
         eventBus.$on("retrieveAllActivated", () => {
             this.retrieveAllJobs();
         });
-        
+
         eventBus.$on("retrieveSpecificActivated", (model) => {
             this.jobTitle = model.normalized_job_title;
             this.retrieveSpecificJob();

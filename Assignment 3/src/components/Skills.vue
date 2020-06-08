@@ -4,7 +4,7 @@
             <h3>Skills</h3>
         </v-card-title>
         <v-card>
-            <v-card-text>You may search for skills on this page</v-card-text>
+            <v-card-text>You may search for skills on this page, an empty submission will return all results</v-card-text>
             <app-search :text="text" :value="value" :label="label" :items="items"></app-search>
         </v-card>
     </v-card>
