@@ -1,15 +1,15 @@
 <template>
-    <div>
-        <ul class="nav nav-pills">
-            <li class="nav-item">
-                <router-link to="/" class="nav-link" active-class="active" exact>Home</router-link>
-            </li>
-            <li class="nav-item">
-                <router-link to="/jobs" class="nav-link" active-class="active">Jobs</router-link>
-            </li>
-            <li class="nav-item">
-                <router-link to="/skills" class="nav-link" active-class="active">Skills</router-link>
-            </li>
-        </ul>
-    </div>
+    <v-card>
+        <v-tabs center-active>
+            <v-tab to="/" exact>
+                <v-icon>mdi-home</v-icon>Home
+            </v-tab>
+            <v-tab to="/jobs">
+                <v-icon>mdi-briefcase</v-icon>Jobs
+            </v-tab>
+            <v-tab to="/skills">
+                <v-icon>mdi-file-document </v-icon>Skills
+            </v-tab>
+        </v-tabs>
+    </v-card>
 </template>

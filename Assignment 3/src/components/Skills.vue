@@ -1,44 +1,46 @@
 <template>
-    <div class="container p-3 my-3 border">
-        <h3>Skills</h3>
-        <hr />
-        <p>You may search for skills on this page, an empty submission will return all results</p>
-        <hr />
-        <div class="row">
-            <div class="col-xs-6 col-sm-6 col-md-6">
-                <h5>Search for a Skill</h5>
-                <div class="form-group">
-                    <label>Skill Title:</label>
-                    <input class="form-control" type="text" v-model="skillTitle" />
-                </div>
-                <button
-                    class="btn btn-primary"
-                    @click="skillTitle==='' ? retrieveAllSkills() : retrieveSpecificSkill()"
-                >Submit</button>
-            </div>
-            <div class="col-xs-6 col-sm-6 col-md-6">
-                <h5>Results:</h5>
-                <div v-if="errors">Skill Not Found! Please Try Another Skill Title.</div>
-                <div class="d-flex" v-else>
-                    <ul class="list-group justify-content-center">
-                        <li
-                            class="list-group-item"
-                            v-for="(skill,index) in skills"
-                            :key="skill.uuid"
-                        >
-                            {{ index+1 }})
-                            <br />
-                            <b>ID:</b>
-                            {{ skill.uuid }}
-                            <br />
-                            <b>Skill Title:</b>
-                            {{ skill.normalized_skill_name }}
-                        </li>
-                    </ul>
-                </div>
-            </div>
-        </div>
-    </div>
+    <v-card>
+        <v-card-title>
+            <h3>Skills</h3>
+        </v-card-title>
+        <v-card>
+            <v-card-text>You may search for skills on this page</v-card-text>
+            <v-card-text>
+                <v-autocomplete
+                    v-model="model"
+                    :items="items"
+                    :loading="isLoading"
+                    :search-input.sync="search"
+                    hide-no-data
+                    hide-selected
+                    item-text="name"
+                    item-value="uuid"
+                    label="Skill Name"
+                    placeholder="Start typing to Search"
+                    prepend-icon="mdi-magnify"
+                    return-object
+                ></v-autocomplete>
+            </v-card-text>
+            <v-card-actions>
+                <v-spacer></v-spacer>
+                <v-btn :disabled="!model" @click="model = null">
+                    Clear
+                    <v-icon right>mdi-close-circle</v-icon>
+                </v-btn>
+            </v-card-actions>
+            <v-divider></v-divider>
+            <v-expand-transition>
+                <v-list v-if="model">
+                    <v-list-item v-for="(field, index) in fields" :key="index">
+                        <v-list-item-content>
+                            <v-list-item-title v-text="field.value"></v-list-item-title>
+                            <v-list-item-subtitle v-text="field.key"></v-list-item-subtitle>
+                        </v-list-item-content>
+                    </v-list-item>
+                </v-list>
+            </v-expand-transition>
+        </v-card>
+    </v-card>
 </template>
 
 <script>
@@ -46,9 +48,12 @@ export default {
     data() {
         return {
             resource: {},
-            skillTitle: "",
-            skills: [],
-            errors: false
+            entries: [],
+            errors: false,
+            descriptionLimit: 60,
+            isLoading: false,
+            model: null,
+            search: null
         };
     },
     methods: {
@@ -64,44 +69,58 @@ export default {
                     for (let key in data) {
                         resultArray.push(data[key]);
                     }
-                    this.skills = resultArray;
+                    resultArray.pop(); // remove last entry
+                    this.entries = resultArray;
                 })
                 .catch(e => {
                     this.errors = true;
                     console.log(e);
+                })
+                .finally(() => {
+                    this.isLoading = false;
                 });
+        }
+    },
+    computed: {
+        fields() {
+            if (!this.model) return [];
+
+            return Object.keys(this.model).map(key => {
+                return {
+                    key,
+                    value: this.model[key] || "n/a"
+                };
+            });
         },
-        retrieveSpecificSkill() {
-            this.resource
-                .retrieveSpecificSkillData({
-                    contains: this.skillTitle
-                })
-                .then(response => {
-                    return response.json();
-                })
-                .then(data => {
-                    this.errors = false; // no errors
-                    const resultArray = [];
-                    for (let key in data) {
-                        resultArray.push(data[key]);
-                    }
-                    //resultArray.push(data);
-                    this.skills = resultArray;
-                })
-                .catch(e => {
-                    this.errors = true;
-                    console.log(e);
-                });
+        items() {
+            return this.entries.map(entry => {
+                const name =
+                    entry.name.length > this.descriptionLimit
+                        ? entry.name.slice(0, this.descriptionLimit) + "..."
+                        : entry.name; // shortern the length
+
+                return Object.assign({}, entry, { name }); // replace
+            });
+        }
+    },
+    watch: {
+        search(val) {
+            // Items have already been loaded
+            if (this.items.length > 0) return;
+
+            // Items have already been requested
+            if (this.isLoading) return;
+
+            this.isLoading = true;
+
+            // Lazily load input items
+            this.retrieveAllSkills();
         }
     },
     created() {
         const customActions = {
             retrieveAllSkillsData: {
                 method: "GET"
-            },
-            retrieveSpecificSkillData: {
-                method: "GET",
-                url: "skills/autocomplete{/skillTitle}"
             }
         };
         this.resource = this.$resource("skills", {}, customActions);

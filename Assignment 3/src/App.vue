@@ -1,11 +1,12 @@
 <template>
     <v-app>
-        <div class="container p-3 my-3">
+        <v-container>
             <h1>Employment Portal</h1>
-            <hr />
+            <br />
             <app-header></app-header>
+            <br />
             <router-view></router-view>
-        </div>
+        </v-container>
     </v-app>
 </template>
 
