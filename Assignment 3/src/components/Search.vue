@@ -16,31 +16,34 @@
                 return-object
             ></v-autocomplete>
         </v-card-text>
-        <v-btn @click="retrieveAll()">Retrieve All</v-btn>
-            <v-list>
-                <v-list-item v-for="(item, index) in allResults" :key="index">
-                    <v-list-item-content>
-                        <v-list-item-title v-text="item.title"></v-list-item-title>
-                        <v-list-item-subtitle v-text="item.title"></v-list-item-subtitle>
-                    </v-list-item-content>
-                </v-list-item>
-            </v-list>
         <v-card-actions>
             <v-spacer></v-spacer>
-            <v-btn :disabled="!model" @click="model = null">
+            <v-btn @click="!model ? retrieveAll() : retrieveSpecific()">Submit</v-btn>
+            <v-btn @click="clear()">
                 Clear
                 <v-icon right>mdi-close-circle</v-icon>
             </v-btn>
         </v-card-actions>
         <v-divider></v-divider>
         <v-expand-transition>
-            <v-list v-if="model">
-                <v-list-item v-for="(field, index) in fields" :key="index">
-                    <v-list-item-content>
-                        <v-list-item-title v-text="field.value"></v-list-item-title>
-                        <v-list-item-subtitle v-text="field.key"></v-list-item-subtitle>
-                    </v-list-item-content>
-                </v-list-item>
+            <v-list two-line v-if="fields.length>0">
+                <template v-for="(item, index) in fields">
+                    <v-list-item :key="index+'A'">
+                        <v-list-item-content>
+                            <v-list-item-title v-text="index+1+')'"></v-list-item-title>
+                            <v-list-item
+                                v-for="(value, propertyName, itemIndex) in item"
+                                :key="itemIndex+'B'"
+                            >
+                                <v-list-item-content>
+                                    <v-list-item-title v-text="value"></v-list-item-title>
+                                    <v-list-item-subtitle v-text="propertyName"></v-list-item-subtitle>
+                                </v-list-item-content>
+                            </v-list-item>
+                        </v-list-item-content>
+                    </v-list-item>
+                    <v-divider v-if="index + 1 < fields.length" :key="index+'C'"></v-divider>
+                </template>
             </v-list>
         </v-expand-transition>
     </div>
@@ -50,29 +53,34 @@
 import { eventBus } from "../main";
 
 export default {
-    props: ["text", "value", "label", "items", "allResults"],
+    props: ["text", "value", "label", "items", "results"],
     data: function() {
         return {
             isLoading: false,
             model: null,
-            search: null
+            search: null,
+            isClear: false
         };
     },
     methods: {
-        retrieveAll: function(){
-            eventBus.$emit('retrieveAllActivated', '');
+        retrieveAll: function() {
+            eventBus.$emit("retrieveAllActivated", "");
+        },
+        retrieveSpecific: function() {
+            eventBus.$emit("retrieveSpecificActivated", this.model);
+        },
+        clear: function() {
+            this.model = null; // reset
+            this.isClear = true; // reset
         }
     },
     computed: {
         fields() {
-            if (!this.model) return [];
-
-            return Object.keys(this.model).map(key => {
-                return {
-                    key,
-                    value: this.model[key] || "n/a"
-                };
-            });
+            if (this.isClear) {
+                this.isClear = false;
+                return [];
+            }
+            return this.results;
         }
     },
     watch: {
@@ -86,7 +94,7 @@ export default {
             this.isLoading = true;
 
             // Lazily load input items
-            eventBus.$emit('itemWasSearched', '');
+            eventBus.$emit("itemWasSearched", "");
 
             this.isLoading = false;
         }
