@@ -12,6 +12,8 @@ Vue.use(VueRouter); // to use router
 Vue.use(VueResource); // to send http request
 Vue.use(Vuetify); // use components inside vuetify
 
+export const eventBus = new Vue({});
+
 Vue.http.options.root = 'http://api.dataatwork.org/v1/'; // set root http
 
 const router = new VueRouter({
