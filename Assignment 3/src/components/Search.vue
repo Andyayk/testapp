@@ -1,7 +1,7 @@
 <template>
     <div>
         <v-card-text>
-            <v-autocomplete
+            <v-combobox
                 v-model="model"
                 :items="items"
                 :loading="isLoading"
@@ -14,7 +14,7 @@
                 placeholder="Start typing to Search"
                 prepend-icon="mdi-magnify"
                 return-object
-            ></v-autocomplete>
+            ></v-combobox>
         </v-card-text>
         <v-card-actions>
             <v-spacer></v-spacer>
@@ -46,7 +46,7 @@
 </template>
 
 <script>
-import { eventBus } from "../main";
+//import { eventBus } from "../main";
 
 export default {
     props: ["text", "value", "label", "items", "results"],
@@ -59,15 +59,15 @@ export default {
     },
     methods: {
         retrieveAll: function() {
-            eventBus.$emit("retrieveAllActivated", "");
+            this.$emit("retrieveAllActivated", "");
         },
         retrieveSpecific: function() {
-            eventBus.$emit("retrieveSpecificActivated", this.model);
+            this.$emit("retrieveSpecificActivated", this.model);
         }
     },
     computed: {
         fields() {
-            return this.results;
+            return this.results.slice(0,20); // return top 20 results
         }
     },
     watch: {
@@ -81,7 +81,7 @@ export default {
             this.isLoading = true;
 
             // Lazily load input items
-            eventBus.$emit("itemWasSearched", "");
+            this.$emit("itemWasSearched", "");
 
             this.isLoading = false;
         }
