@@ -67,7 +67,6 @@ export default {
 						resultArray.push(data[key]);
 					}
 					resultArray.pop(); // remove last entry
-					console.log(resultArray);
 					this.results = resultArray;
 				})
 				.catch(e => {
