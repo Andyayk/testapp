@@ -1,5 +1,5 @@
 <template>
-    <div>
+    <v-container>
         <v-card-text>
             <v-combobox
                 v-model="model"
@@ -18,9 +18,10 @@
         </v-card-text>
         <v-card-actions>
             <v-spacer></v-spacer>
-            <v-btn @click="!model ? retrieveAll() : retrieveSpecific()">Submit</v-btn>
+            <v-btn color="success" @click="!model ? retrieveAll() : retrieveSpecific()">Submit</v-btn>
         </v-card-actions>
         <v-divider></v-divider>
+        <app-form></app-form>
         <v-expand-transition>
             <v-list two-line v-if="fields.length>0">
                 <template v-for="(item, index) in fields">
@@ -42,12 +43,14 @@
                 </template>
             </v-list>
         </v-expand-transition>
-    </div>
+    </v-container>
 </template>
 
 <script>
+import Form from "./Form.vue";
+
 export default {
-    props: ['text', 'value', 'label', 'items', 'results'],
+    props: ["text", "value", "label", "items", "results"],
     data: function() {
         return {
             isLoading: false,
@@ -57,15 +60,15 @@ export default {
     },
     methods: {
         retrieveAll: function() {
-            this.$emit('retrieveAllActivated', '');
+            this.$emit("retrieveAllActivated", "");
         },
         retrieveSpecific: function() {
-            this.$emit('retrieveSpecificActivated', this.model);
+            this.$emit("retrieveSpecificActivated", this.model);
         }
     },
     computed: {
         fields() {
-            return this.results.slice(0,20); // return top 20 results
+            return this.results.slice(0, 20); // return top 20 results
         }
     },
     watch: {
@@ -79,10 +82,13 @@ export default {
             this.isLoading = true;
 
             // Lazily load input items
-            this.$emit('itemWasSearched', '');
+            this.$emit("itemWasSearched", "");
 
             this.isLoading = false;
         }
+    },
+    components: {
+        appForm: Form
     }
 };
 </script>
