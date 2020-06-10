@@ -1,6 +1,6 @@
 <template>
     <v-container>
-        <h2>Add Favourites</h2>
+        <h3>Add Favourites</h3>
         <v-form @submit.prevent="addItem">
             <v-text-field v-model="linkname" label="Link"></v-text-field>
             <v-text-field v-model="linkpath" label="Link Path"></v-text-field>

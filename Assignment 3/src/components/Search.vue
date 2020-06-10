@@ -21,7 +21,6 @@
             <v-btn color="success" @click="!model ? retrieveAll() : retrieveSpecific()">Submit</v-btn>
         </v-card-actions>
         <v-divider></v-divider>
-        <app-form></app-form>
         <v-expand-transition>
             <v-list two-line v-if="fields.length>0">
                 <template v-for="(item, index) in fields">
@@ -37,6 +36,9 @@
                                     <v-list-item-subtitle v-text="propertyName"></v-list-item-subtitle>
                                 </v-list-item-content>
                             </v-list-item>
+                            <v-card-actions>
+                                <add-button></add-button>
+                            </v-card-actions>
                         </v-list-item-content>
                     </v-list-item>
                     <v-divider v-if="index + 1 < fields.length" :key="index+'C'"></v-divider>
@@ -48,6 +50,7 @@
 
 <script>
 import Form from "./Form.vue";
+import AddButton from "./AddButton.vue";
 
 export default {
     props: ["text", "value", "label", "items", "results"],
@@ -88,7 +91,8 @@ export default {
         }
     },
     components: {
-        appForm: Form
+        appForm: Form,
+        addButton: AddButton
     }
 };
 </script>

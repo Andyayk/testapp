@@ -5,13 +5,15 @@
             <br />
             <app-header></app-header>
             <br />
-            <router-view></router-view>
+            <keep-alive>
+                <router-view></router-view>
+            </keep-alive>
         </v-container>
     </v-app>
 </template>
 
 <script>
-import Header from './components/Header.vue';
+import Header from "./components/Header.vue";
 
 export default {
     components: {

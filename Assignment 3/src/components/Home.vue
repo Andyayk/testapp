@@ -5,9 +5,11 @@
         </v-card-title>
         <v-card>
             <v-card-text>Welcome! You may search for jobs and skills under the respective tabs and your favourites will be shown here.</v-card-text>
-            <br />
+            <v-divider></v-divider>
+            <app-form></app-form>
+            <v-divider></v-divider>
             <v-container v-if="items.length">
-                <h2>Saved Favourites</h2>
+                <h3>Saved Favourites</h3>
                 <v-card v-for="(item, index) in items" :key="item.id">
                     <app-item :items="items" :item="item" :index="index"></app-item>
                 </v-card>
@@ -18,6 +20,7 @@
 
 <script>
 import { eventBus } from "../main";
+import Form from "./Form.vue";
 import Item from "./Item.vue";
 
 export default {
@@ -44,6 +47,7 @@ export default {
             });
     },
     components: {
+        appForm: Form,
         appItem: Item
     }
 };
