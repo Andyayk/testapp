@@ -12,17 +12,17 @@
 </template>
 
 <script>
-import { eventBus } from "../main";
-import EditButton from "./EditButton.vue";
+import { eventBus } from '../main';
+import EditButton from './EditButton.vue';
 
 export default {
-    props: ["items", "index", "toggleEditFunction"],
+    props: ['items', 'index', 'toggleEditFunction'],
     data: function() {
         return {
-            editLinkname: "",
-            editLinkpath: "",
-            editIconpath: "",
-            editDatecreated: new Date().toISOString().split("T")[0]
+            editLinkname: '',
+            editLinkpath: '',
+            editIconpath: '',
+            editDatecreated: new Date().toISOString().split('T')[0]
         };
     },
     methods: {
@@ -31,28 +31,28 @@ export default {
             var processedIconpath = eventBus.processURLpath(this.editIconpath);
 
             //only completed textboxes will be updated
-            if (this.editLinkname != "") {
+            if (this.editLinkname != '') {
                 this.items[this.index].linkname = this.editLinkname;
             }
 
-            if (this.editLinkpath != "") {
+            if (this.editLinkpath != '') {
                 this.items[this.index].linkpath = processedLinkpath;
             }
 
-            if (this.editIconpath != "") {
+            if (this.editIconpath != '') {
                 this.items[this.index].iconpath = processedIconpath;
             }
 
-            if (this.editDatecreated != "") {
+            if (this.editDatecreated != '') {
                 this.items[this.index].datecreated = this.editDatecreated;
             }
 
             //reset form
-            this.editLinkname = "";
-            this.editLinkpath = "";
-            this.editIconpath = "";
+            this.editLinkname = '';
+            this.editLinkpath = '';
+            this.editIconpath = '';
 
-            eventBus.$emit("itemWasUpdated", this.items);
+            eventBus.$emit('itemWasUpdated', this.items);
 
             this.toggleEditFunction(); //close editing box
         }

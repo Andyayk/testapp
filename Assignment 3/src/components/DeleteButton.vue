@@ -1,15 +1,17 @@
 <template>
-	<div>
-		<v-btn color="#E53935" dark @click="onclickFunction()">Delete</v-btn>
-	</div>
+    <div>
+        <v-btn @click="onClickFunction" color="#E53935" dark>Delete</v-btn>
+    </div>
 </template>
 
 <script>
-	import { eventBus } from '../main';
-
-	export default {
-		props: ['onclickFunction']
-	}
+export default {
+    methods: {
+        onClickFunction: function() {
+            this.$emit('deleteButtonActivated', '');
+        }
+    }
+};
 </script>
 
 <style>

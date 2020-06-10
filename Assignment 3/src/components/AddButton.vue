@@ -1,15 +1,17 @@
 <template>
-	<div>
-		<v-btn type="submit" color="success">Add</v-btn>
-	</div>
+    <div>
+        <v-btn @click="onClickFunction" color="success">Add</v-btn>
+    </div>
 </template>
 
 <script>
-	import { eventBus } from '../main';
-
-	export default {
-
-	}
+export default {
+    methods: {
+        onClickFunction: function() {
+            this.$emit('addButtonActivated', '');
+        }
+    }
+};
 </script>
 
 <style>

@@ -4,7 +4,7 @@
             <v-row>
                 <v-col cols="7">
                     <v-container>
-                        <h3>Item {{ item.id }}</h3>
+                        <h3>Item {{ index + 1 }}</h3>
 						<br />
                         <img
                             :src="item.iconpath"
@@ -22,7 +22,7 @@
                     <v-container>
                         <v-card-actions>
 							 <v-spacer></v-spacer>
-                            <delete-button :onclickFunction="deleteItem"></delete-button>
+                            <delete-button @deleteButtonActivated="deleteItem"></delete-button>
                             <v-btn color="primary" @click="toggleEdit">Edit</v-btn>
                         </v-card-actions>
                         <app-edit-form
@@ -39,12 +39,12 @@
 </template>
 
 <script>
-import { eventBus } from "../main";
-import DeleteButton from "./DeleteButton.vue";
-import EditForm from "./EditForm.vue";
+import { eventBus } from '../main';
+import DeleteButton from './DeleteButton.vue';
+import EditForm from './EditForm.vue';
 
 export default {
-    props: ["items", "item", "index"],
+    props: ['items', 'item', 'index'],
     data: function() {
         return {
             editenable: false
@@ -57,7 +57,7 @@ export default {
         deleteItem: function() {
             this.items.splice(this.index, 1);
 
-            eventBus.$emit("itemWasUpdated", this.items);
+            eventBus.$emit('itemWasUpdated', this.items);
         }
     },
     components: {
