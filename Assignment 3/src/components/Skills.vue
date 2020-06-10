@@ -20,19 +20,19 @@
 </template>
 
 <script>
-import Search from './Search.vue';
+import Search from "./Search.vue";
 
 export default {
     data() {
         return {
             resource: {},
-            skillName: '',
+            skillName: "",
             entries: [],
             results: [],
             descriptionLimit: 60,
-            text: 'normalized_skill_name',
-            value: 'uuid',
-            label: 'Skill Name'
+            text: "normalized_skill_name",
+            value: "uuid",
+            label: "Skill Name"
         };
     },
     methods: {
@@ -93,13 +93,13 @@ export default {
                 });
         },
         processRetrieveSpecificSkill(model) {
-            if (typeof model == 'string') {
+            if (typeof model == "string") {
                 // either return a user input string or object from autocomplete
                 this.skillName = model;
             } else {
                 this.skillName = model.normalized_skill_name;
             }
-			this.retrieveSpecificSkill();
+            this.retrieveSpecificSkill();
         }
     },
     computed: {
@@ -110,7 +110,7 @@ export default {
                         ? entry.normalized_skill_name.slice(
                               0,
                               this.descriptionLimit
-                          ) + '...'
+                          ) + "..."
                         : entry.normalized_skill_name; // shortern the length
 
                 return Object.assign({}, entry, { normalized_skill_name }); // replace
@@ -120,14 +120,14 @@ export default {
     created() {
         const customActions = {
             retrieveAllSkillsData: {
-                method: 'GET'
+                method: "GET"
             },
             retrieveSpecificSkillData: {
-                method: 'GET',
-                url: 'skills/autocomplete{/skillName}'
+                method: "GET",
+                url: "skills/autocomplete{/skillName}"
             }
         };
-        this.resource = this.$resource('skills', {}, customActions);
+        this.resource = this.$resource("skills", {}, customActions);
     },
     components: {
         appSearch: Search

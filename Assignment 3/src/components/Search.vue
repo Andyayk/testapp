@@ -37,9 +37,7 @@
                                 </v-list-item-content>
                             </v-list-item>
                             <v-card-actions>
-                                <add-button
-                                    @addButtonActivated="addItem(item)"
-                                ></add-button>
+                                <add-button @addButtonActivated="addItem(item)"></add-button>
                             </v-card-actions>
                         </v-list-item-content>
                     </v-list-item>
@@ -51,40 +49,34 @@
 </template>
 
 <script>
-import { eventBus } from '../main';
-import Form from './Form.vue';
-import AddButton from './AddButton.vue';
+import { eventBus } from "../main";
+import Form from "./Form.vue";
+import AddButton from "./AddButton.vue";
 
 export default {
-    props: ['text', 'value', 'label', 'items', 'results'],
+    props: ["text", "value", "label", "items", "results"],
     data: function() {
         return {
             isLoading: false,
             model: null,
             search: null,
-            id: 2,
-            datecreated: new Date().toISOString().split('T')[0]
+            datecreated: new Date().toISOString().split("T")[0]
         };
     },
     methods: {
         retrieveAll: function() {
-            this.$emit('retrieveAllActivated', '');
+            this.$emit("retrieveAllActivated", "");
         },
         retrieveSpecific: function() {
-            this.$emit('retrieveSpecificActivated', this.model);
+            this.$emit("retrieveSpecificActivated", this.model);
         },
         addItem: function(item) {
-            var item = {
-                id: this.id,
-                linkname: 'test',
-                linkpath: 'test',
-                iconpath: 'test',
-                datecreated: this.datecreated
-            };
+            item.linkname = "test";
+            item.linkpath = "test";
+            item.iconpath = "test";
+            item.datecreated = this.datecreated;
 
-            eventBus.$emit('itemWasCreated', item);
-  
-            this.id = ++this.id;
+            eventBus.$emit("itemWasCreated", item);
         }
     },
     computed: {
@@ -103,7 +95,7 @@ export default {
             this.isLoading = true;
 
             // Lazily load input items
-            this.$emit('itemWasSearched', '');
+            this.$emit("itemWasSearched", "");
 
             this.isLoading = false;
         }

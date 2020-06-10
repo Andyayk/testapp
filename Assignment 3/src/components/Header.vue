@@ -8,16 +8,14 @@
                 <v-icon>mdi-briefcase</v-icon>Jobs
             </v-tab>
             <v-tab to="/skills">
-                <v-icon>mdi-file-document </v-icon>Skills
+                <v-icon>mdi-file-document</v-icon>Skills
             </v-tab>
         </v-tabs>
     </v-card>
 </template>
 
 <script>
-export default {
-    
-}
+export default {};
 </script>
 
 <style>

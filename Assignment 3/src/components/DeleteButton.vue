@@ -8,7 +8,7 @@
 export default {
     methods: {
         onClickFunction: function() {
-            this.$emit('deleteButtonActivated', '');
+            this.$emit("deleteButtonActivated", "");
         }
     }
 };

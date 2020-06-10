@@ -19,29 +19,29 @@
 </template>
 
 <script>
-import { eventBus } from '../main';
-import Form from './Form.vue';
-import Item from './Item.vue';
+import { eventBus } from "../main";
+import Form from "./Form.vue";
+import Item from "./Item.vue";
 
 export default {
     data: function() {
         return {
             items: [
                 {
-                    linkname: 'Google',
-                    linkpath: 'https://google.com/',
+                    linkname: "Google",
+                    linkpath: "https://google.com/",
                     iconpath:
-                        'https://www.google.com/images/branding/googlelogo/2x/googlelogo_color_92x30dp.png',
-                    datecreated: '2020-01-01'
+                        "https://www.google.com/images/branding/googlelogo/2x/googlelogo_color_92x30dp.png",
+                    datecreated: "2020-01-01"
                 }
             ]
         };
     },
     created() {
-        eventBus.$on('itemWasCreated', item => {
+        eventBus.$on("itemWasCreated", item => {
             this.items.push(item);
         }),
-            eventBus.$on('itemWasUpdated', items => {
+            eventBus.$on("itemWasUpdated", items => {
                 this.items = items;
             });
     },

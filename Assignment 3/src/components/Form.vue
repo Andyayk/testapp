@@ -6,24 +6,22 @@
             <v-text-field v-model="linkpath" label="Link Path"></v-text-field>
             <v-text-field v-model="iconpath" label="Icon Path"></v-text-field>
             <v-text-field v-model="datecreated" label="Date Created" disabled></v-text-field>
-            <add-button
-                @addButtonActivated="addItem"
-            ></add-button>
+            <add-button @addButtonActivated="addItem"></add-button>
         </v-form>
     </v-container>
 </template>
 
 <script>
-import { eventBus } from '../main';
-import AddButton from './AddButton.vue';
+import { eventBus } from "../main";
+import AddButton from "./AddButton.vue";
 
 export default {
     data: function() {
         return {
-            linkname: '',
-            linkpath: '',
-            iconpath: '',
-            datecreated: new Date().toISOString().split('T')[0]
+            linkname: "",
+            linkpath: "",
+            iconpath: "",
+            datecreated: new Date().toISOString().split("T")[0]
         };
     },
     methods: {
@@ -38,12 +36,12 @@ export default {
                 datecreated: this.datecreated
             };
 
-            eventBus.$emit('itemWasCreated', item);
-  
+            eventBus.$emit("itemWasCreated", item);
+
             //reset form
-            this.linkname = '';
-            this.linkpath = '';
-            this.iconpath = '';
+            this.linkname = "";
+            this.linkpath = "";
+            this.iconpath = "";
         }
     },
     components: {

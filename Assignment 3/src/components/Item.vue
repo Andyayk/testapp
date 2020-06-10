@@ -5,15 +5,12 @@
                 <v-col cols="7">
                     <v-container>
                         <h3>Item {{ index + 1 }}</h3>
-						<br />
-                        <img
-                            :src="item.iconpath"
-                            alt="item.linkname"
-                        />		
-						<br />				
-                        Name: {{ item.linkname }}
                         <br />
-                        Link: <a :href="item.linkpath" target="_blank">{{ item.linkpath }}</a>
+                        <img :src="item.iconpath" alt="item.linkname" />
+                        <br />
+                        Name: {{ item.linkname }}
+                        <br />Link:
+                        <a :href="item.linkpath" target="_blank">{{ item.linkpath }}</a>
                         <br />
                         Date Created: {{ item.datecreated }}
                     </v-container>
@@ -21,7 +18,7 @@
                 <v-col cols="5" class="text-right">
                     <v-container>
                         <v-card-actions>
-							 <v-spacer></v-spacer>
+                            <v-spacer></v-spacer>
                             <delete-button @deleteButtonActivated="deleteItem"></delete-button>
                             <v-btn color="primary" @click="toggleEdit">Edit</v-btn>
                         </v-card-actions>
@@ -39,12 +36,12 @@
 </template>
 
 <script>
-import { eventBus } from '../main';
-import DeleteButton from './DeleteButton.vue';
-import EditForm from './EditForm.vue';
+import { eventBus } from "../main";
+import DeleteButton from "./DeleteButton.vue";
+import EditForm from "./EditForm.vue";
 
 export default {
-    props: ['items', 'item', 'index'],
+    props: ["items", "item", "index"],
     data: function() {
         return {
             editenable: false
@@ -57,7 +54,7 @@ export default {
         deleteItem: function() {
             this.items.splice(this.index, 1);
 
-            eventBus.$emit('itemWasUpdated', this.items);
+            eventBus.$emit("itemWasUpdated", this.items);
         }
     },
     components: {
