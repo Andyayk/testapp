@@ -20,7 +20,6 @@
 </template>
 
 <script>
-//import { eventBus } from '../main';
 import Search from './Search.vue';
 
 export default {
@@ -94,7 +93,7 @@ export default {
 				});
 		},
 		processRetrieveSpecificJob(model) {
-			if(typeof model == "string"){ // either return a user input string or object from autocomplete
+			if(typeof model == 'string'){ // either return a user input string or object from autocomplete
 				this.jobTitle = model;
 			} else {
 				this.jobTitle = model.normalized_job_title;
@@ -107,7 +106,7 @@ export default {
 			return this.entries.map(entry => {
 				const normalized_job_title =
 					entry.normalized_job_title.length > this.descriptionLimit
-						? entry.normalized_job_title.slice(0, this.descriptionLimit) + "..."
+						? entry.normalized_job_title.slice(0, this.descriptionLimit) + '...'
 						: entry.normalized_job_title; // shortern the length
 
 				return Object.assign({}, entry, { normalized_job_title }); // replace
@@ -117,14 +116,14 @@ export default {
 	created() {
 		const customActions = {
 			retrieveAllJobsData: {
-				method: "GET"
+				method: 'GET'
 			},
 			retrieveSpecificJobData: {
-				method: "GET",
-				url: "jobs/autocomplete{/jobTitle}"
+				method: 'GET',
+				url: 'jobs/autocomplete{/jobTitle}'
 			}
 		};
-		this.resource = this.$resource("jobs", {}, customActions);   
+		this.resource = this.$resource('jobs', {}, customActions);   
 	},
 	components: {
 		appSearch: Search

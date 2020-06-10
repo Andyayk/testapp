@@ -46,10 +46,8 @@
 </template>
 
 <script>
-//import { eventBus } from "../main";
-
 export default {
-    props: ["text", "value", "label", "items", "results"],
+    props: ['text', 'value', 'label', 'items', 'results'],
     data: function() {
         return {
             isLoading: false,
@@ -59,10 +57,10 @@ export default {
     },
     methods: {
         retrieveAll: function() {
-            this.$emit("retrieveAllActivated", "");
+            this.$emit('retrieveAllActivated', '');
         },
         retrieveSpecific: function() {
-            this.$emit("retrieveSpecificActivated", this.model);
+            this.$emit('retrieveSpecificActivated', this.model);
         }
     },
     computed: {
@@ -81,7 +79,7 @@ export default {
             this.isLoading = true;
 
             // Lazily load input items
-            this.$emit("itemWasSearched", "");
+            this.$emit('itemWasSearched', '');
 
             this.isLoading = false;
         }

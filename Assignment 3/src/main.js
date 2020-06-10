@@ -12,7 +12,25 @@ Vue.use(VueRouter); // to use router
 Vue.use(VueResource); // to send http request
 Vue.use(Vuetify); // use components inside vuetify
 
-export const eventBus = new Vue({});
+export const eventBus = new Vue({
+	methods: {
+		processURLpath: function(urlPath){
+			var newPath = window.decodeURIComponent(urlPath);					
+			if(urlPath != ''){
+			    newPath = newPath.trim().replace(/\s+/g, ''); //remove whitespaces before/after/in-between
+
+			    if(/^(:\/\/)/.test(newPath)){ //if start with ://
+			        newPath = `http${newPath}`;
+			    }
+
+			    if(!/^https?:\/\//i.test(newPath)){ //if does not start with http:// or https:// 
+			        newPath = `http://${newPath}`;
+				}
+			}
+    			return newPath 				
+		}
+	}
+});
 
 Vue.http.options.root = 'http://api.dataatwork.org/v1/'; // set root http
 
