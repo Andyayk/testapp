@@ -1,12 +1,12 @@
 <template>
     <v-container>
-        <v-form @submit.prevent="editItem">
+        <v-form @submit.prevent>
             <font color="red">Only completed textboxes will be updated</font>
-            <v-text-field v-model="editLinkname" label="Link"></v-text-field>
+            <v-text-field v-model="editLinkname" label="Link Name"></v-text-field>
             <v-text-field v-model="editLinkpath" label="Link Path"></v-text-field>
             <v-text-field v-model="editIconpath" label="Icon Path"></v-text-field>
             <v-text-field v-model="editDatecreated" label="Date Created" disabled></v-text-field>
-            <edit-button></edit-button>
+            <edit-button @editButtonActivated="editItem"></edit-button>
         </v-form>
     </v-container>
 </template>

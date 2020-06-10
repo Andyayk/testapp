@@ -1,11 +1,17 @@
 <template>
     <div>
-        <v-btn type="submit" color="success">Update</v-btn>
+        <v-btn @click="onClickFunction" color="success">Update</v-btn>
     </div>
 </template>
 
 <script>
-export default {};
+export default {
+    methods: {
+        onClickFunction: function() {
+            this.$emit("editButtonActivated", "");
+        }
+    }
+};
 </script>
 
 <style>

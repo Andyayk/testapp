@@ -71,12 +71,20 @@ export default {
             this.$emit("retrieveSpecificActivated", this.model);
         },
         addItem: function(item) {
-            item.linkname = "test";
-            item.linkpath = "test";
-            item.iconpath = "test";
-            item.datecreated = this.datecreated;
+            var newItem = {
+                linkname: "",
+                linkpath: "https://vuejs.org/",
+                iconpath: "https://i.ya-webdesign.com/images/new-ribbon-png-2.png",
+                datecreated: this.datecreated              
+            };
 
-            eventBus.$emit("itemWasCreated", item);
+            if (this.text == "normalized_job_title") {
+                newItem.linkname = item.normalized_job_title;
+            } else {
+                newItem.linkname = item.normalized_skill_name;
+            }
+
+            eventBus.$emit("itemWasCreated", newItem);
         }
     },
     computed: {

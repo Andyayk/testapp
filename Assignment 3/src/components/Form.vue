@@ -2,7 +2,7 @@
     <v-container>
         <h3>Add Favourites</h3>
         <v-form @submit.prevent>
-            <v-text-field v-model="linkname" label="Link"></v-text-field>
+            <v-text-field v-model="linkname" label="Link Name"></v-text-field>
             <v-text-field v-model="linkpath" label="Link Path"></v-text-field>
             <v-text-field v-model="iconpath" label="Icon Path"></v-text-field>
             <v-text-field v-model="datecreated" label="Date Created" disabled></v-text-field>
@@ -26,6 +26,18 @@ export default {
     },
     methods: {
         addItem: function() {
+            if (this.linkname == "") {
+                this.linkname = "Default Name";
+            }
+            
+            if (this.linkpath == "") {
+                this.linkpath = "https://vuejs.org/";
+            }
+
+            if (this.iconpath == "") {
+                this.iconpath = "https://i.ya-webdesign.com/images/new-ribbon-png-2.png";
+            }
+
             var processedLinkpath = eventBus.processURLpath(this.linkpath);
             var processedIconpath = eventBus.processURLpath(this.iconpath);
 

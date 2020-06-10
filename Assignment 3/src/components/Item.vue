@@ -6,11 +6,11 @@
                     <v-container>
                         <h3>Item {{ index + 1 }}</h3>
                         <br />
-                        <img :src="item.iconpath" alt="item.linkname" />
+                        <v-img :src="item.iconpath" max-height="150px" max-width="150px" :alt="item.linkname"></v-img>
                         <br />
                         Name: {{ item.linkname }}
                         <br />Link:
-                        <a :href="item.linkpath" target="_blank">{{ item.linkpath }}</a>
+                        <a :href="item.linkpath" rel="noopener" target="_blank">{{ item.linkpath }}</a>
                         <br />
                         Date Created: {{ item.datecreated }}
                     </v-container>
