@@ -1,10 +1,15 @@
 package com.example.demo;
 
+import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Component;
 
 @Component
 public class Alien {
-    public void code(){
-        System.out.println("HI");
+
+    @Autowired
+    Laptop lap;
+
+    public void code() {
+        lap.compile();
     }
 }
