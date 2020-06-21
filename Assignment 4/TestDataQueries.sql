@@ -22,3 +22,19 @@ GO
 SELECT *
 	FROM alien
 GO
+
+CREATE TABLE users
+   (id varchar(25) PRIMARY KEY NOT NULL,  
+   username varchar(25) NOT NULL,
+   password varchar(25) NOT NULL)  
+GO  
+
+INSERT users (id, username, password)  
+    VALUES (108, 'andy8', '123'),
+	(107, 'andy7', '123')
+GO  
+
+SELECT *
+	FROM users
+GO
+
