@@ -6,6 +6,6 @@
 <title>Insert Title here></title>
 </head>
 <body>
-    Result is : ${alien}
+    Result is : ${aliensresults}
 </body>
 </html>

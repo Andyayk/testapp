@@ -1,18 +1,16 @@
 package com.example.springmvcboot;
 
 import com.example.springmvcboot.model.Alien;
+import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
-import org.springframework.web.bind.annotation.ModelAttribute;
-import org.springframework.web.bind.annotation.RequestMapping;
-import org.springframework.web.bind.annotation.RequestParam;
-import org.springframework.web.servlet.ModelAndView;
+import org.springframework.web.bind.annotation.*;
 
-import javax.servlet.http.HttpServletRequest;
-import javax.servlet.http.HttpSession;
 
 @Controller
 public class HomeController {
+    @Autowired
+    Alienrepo repo;
 
     @ModelAttribute
     public void modelData(Model m){
@@ -32,8 +30,21 @@ public class HomeController {
         return "result";
     }
 
-    @RequestMapping("addAlien")
-    public String addAlien(@ModelAttribute("a1") Alien a){
+    @GetMapping("getAliens")
+    public String getAlien(Model m){
+        m.addAttribute("aliensresults", repo.findAll());
+        return "showAliens";
+    }
+
+    @GetMapping("getAlien")
+    public String getAlien(@RequestParam int aid, Model m){
+        m.addAttribute("aliensresults", repo.getOne(aid));
+        return "showAliens";
+    }
+
+    @PostMapping("addAlien")
+    public String addAlien(@ModelAttribute("alien") Alien a){
+        repo.save(a);
         return "result";
     }
 }
