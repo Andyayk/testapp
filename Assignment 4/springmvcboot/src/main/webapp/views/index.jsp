@@ -3,7 +3,7 @@
 <html>
 <head>
 <meta charset="UTF-8">
-<title>Insert Title here></title>
+<title>Aliens Page</title>
 </head>
 <body>
     Welcome
