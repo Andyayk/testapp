@@ -29,6 +29,8 @@
 </template>
 
 <script>
+import { eventBus } from "../main";
+
 export default {
     name: "Login",
     data: function() {
@@ -45,11 +47,11 @@ export default {
     },
     methods: {
         loginUser: function() {
-            if (this.username == "user" && this.password == 1234) {
-                console.log("a");
+            if ((this.username == "user2" || this.username == "user4") && this.password == 1234) {
+                eventBus.username = this.username;
                 this.message = "";
-            } else if (this.username == "admin" && this.password == 1234) {
-                console.log("b");
+            } else if ((this.username == "user1" || this.username == "user3") && this.password == 1234) {
+                eventBus.username = this.username;
                 this.message = "";
             } else {
                 this.message = "Wrong Username/Password";

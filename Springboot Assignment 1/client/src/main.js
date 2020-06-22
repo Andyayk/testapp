@@ -7,6 +7,9 @@ import 'vuetify/dist/vuetify.min.css';
 Vue.use(Vuetify); // use components inside vuetify
 
 export const eventBus = new Vue({
+    data: {
+        username: ''
+    }
 });
 
 Vue.config.productionTip = false

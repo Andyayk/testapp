@@ -24,6 +24,7 @@
 import axios from "axios";
 
 const API_URL = "http://localhost:8080/instructors";
+
 export default {
     name: "JobList",
     data: function() {
