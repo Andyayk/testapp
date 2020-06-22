@@ -1,18 +1,22 @@
 <template>
     <v-container>
-        <h3>All Courses</h3>
+        <h3>All Jobs</h3>
         <v-container>
             <v-simple-table>
                 <thead>
                     <tr>
                         <th>Id</th>
+                        <th>Title</th>
                         <th>Description</th>
+                        <th>Date Posted</th>
                     </tr>
                 </thead>
                 <tbody>
-                    <tr v-for="course in courses" v-bind:key="course.id">
-                        <td>{{course.id}}</td>
-                        <td>{{course.description}}</td>
+                    <tr v-for="job in jobs" v-bind:key="job.jobid">
+                        <td>{{job.jobid}}</td>
+                        <td>{{job.jobTitle}}</td>
+                        <td>{{job.jobDescription}}</td>
+                        <td>{{job.datePosted}}</td>                       
                     </tr>
                 </tbody>
             </v-simple-table>
@@ -23,22 +27,21 @@
 <script>
 import axios from "axios";
 
-const API_URL = "http://localhost:8080/instructors";
+const API_URL = "http://localhost:8080";
 
 export default {
     name: "JobList",
     data: function() {
         return {
-            courses: [],
-            INSTRUCTOR: "in28minutes"
+            jobs: [],
         };
     },
     methods: {
-        retrieveCourses() {
+        retrieveAllJobs() {
             axios
-                .get(`${API_URL}/${this.INSTRUCTOR}/courses`)
+                .get(`${API_URL}/jobs`)
                 .then(response => {
-                    this.courses = response.data;
+                    this.jobs = response.data;
                 })
                 .catch(error => {
                     console.log(error);
@@ -46,7 +49,7 @@ export default {
         }
     },
     created() {
-        this.retrieveCourses();
+        this.retrieveAllJobs();
     }
 };
 </script>

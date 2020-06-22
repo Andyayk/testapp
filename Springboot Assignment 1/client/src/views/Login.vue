@@ -47,10 +47,10 @@ export default {
     },
     methods: {
         loginUser: function() {
-            if ((this.username == "user2" || this.username == "user4") && this.password == 1234) {
+            if ((this.username == "user1" || this.username == "user2") && this.password == "1234") {
                 eventBus.username = this.username;
                 this.message = "";
-            } else if ((this.username == "user1" || this.username == "user3") && this.password == 1234) {
+            } else if ((this.username == "admin1" || this.username == "admin2") && this.password == "1234") {
                 eventBus.username = this.username;
                 this.message = "";
             } else {

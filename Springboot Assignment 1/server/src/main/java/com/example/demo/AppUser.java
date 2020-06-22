@@ -1,19 +1,23 @@
 package com.example.demo;
 
 public class AppUser {
+    private String employeeid;
+    private String username;
+    private String password;
     private String name;
     private String email;
-    private String employeeid;
-    private boolean isadmin;
+    private boolean isAdmin;
 
     public AppUser() {
     }
 
-    public AppUser(String name, String email, String employeeid, boolean isadmin) {
+    public AppUser(String employeeid, String username, String password, String name, String email, boolean isAdmin) {
+        this.employeeid = employeeid;
+        this.username = username;
+        this.password = password;
         this.name = name;
         this.email = email;
-        this.employeeid = employeeid;
-        this.isadmin = isadmin;
+        this.isAdmin = isAdmin;
     }
 
     public String getName() {
@@ -40,11 +44,27 @@ public class AppUser {
         this.employeeid = employeeid;
     }
 
-    public boolean isIsadmin() {
-        return isadmin;
+    public boolean isAdmin() {
+        return isAdmin;
     }
 
-    public void setIsadmin(boolean isadmin) {
-        this.isadmin = isadmin;
+    public void setAdmin(boolean admin) {
+        isAdmin = admin;
+    }
+
+    public String getUsername() {
+        return username;
+    }
+
+    public void setUsername(String username) {
+        this.username = username;
+    }
+
+    public String getPassword() {
+        return password;
+    }
+
+    public void setPassword(String password) {
+        this.password = password;
     }
 }
