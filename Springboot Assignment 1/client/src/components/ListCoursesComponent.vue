@@ -22,10 +22,9 @@
 
 <script>
 import CourseDataService from "../service/CourseDataService";
-import axios from "axios";
 export default {
     name: "CoursesList",
-    data() {
+    data: function() {
         return {
             courses: [],
             message: null,
@@ -45,3 +44,6 @@ export default {
     }
 };
 </script>
+
+<style scoped>
+</style>
