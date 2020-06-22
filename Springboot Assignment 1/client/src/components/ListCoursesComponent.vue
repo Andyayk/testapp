@@ -22,6 +22,7 @@
 
 <script>
 import CourseDataService from "../service/CourseDataService";
+import axios from "axios";
 export default {
     name: "CoursesList",
     data() {
