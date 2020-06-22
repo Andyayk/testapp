@@ -21,26 +21,31 @@
 </template>
 
 <script>
-import CourseDataService from "../service/CourseDataService";
+import axios from "axios";
+
+const API_URL = "http://localhost:8080/instructors";
 export default {
-    name: "CoursesList",
+    name: "JobList",
     data: function() {
         return {
             courses: [],
-            message: null,
             INSTRUCTOR: "in28minutes"
         };
     },
     methods: {
-        refreshCourses() {
-            CourseDataService.retrieveAllCourses(this.INSTRUCTOR) //HARDCODED
+        retrieveCourses() {
+            axios
+                .get(`${API_URL}/${this.INSTRUCTOR}/courses`)
                 .then(response => {
                     this.courses = response.data;
+                })
+                .catch(error => {
+                    console.log(error);
                 });
         }
     },
     created() {
-        this.refreshCourses();
+        this.retrieveCourses();
     }
 };
 </script>

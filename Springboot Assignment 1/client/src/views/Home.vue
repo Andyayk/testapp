@@ -1,19 +1,18 @@
 <template>
-    <v-template>
-        <v-card>
-            <app-instructor-app />
-        </v-card>
-    </v-template>
+    <v-container>
+        <h3>Job Listings</h3>
+        <app-job-list />
+    </v-container>
 </template>
 
 <script>
 // @ is an alias to /src
-import InstructorApp from "@/components/InstructorApp.vue";
+import JobList from "@/components/JobList";
 
 export default {
     name: "Home",
     components: {
-        appInstructorApp: InstructorApp
+        appJobList: JobList
     }
 };
 </script>

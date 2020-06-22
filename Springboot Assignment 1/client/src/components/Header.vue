@@ -8,7 +8,7 @@
                 <v-icon>mdi-home</v-icon>Home
             </v-tab>
             <v-tab to="/profile">
-                <v-icon>mdi-briefcase</v-icon>Jobs
+                <v-icon>mdi-account-circle</v-icon>Profile
             </v-tab>
         </v-tabs>
     </v-card>
