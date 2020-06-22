@@ -1,8 +1,8 @@
 <template>
-    <div>
-        <h1>Instructor Application</h1>
-        <ListCoursesComponent></ListCoursesComponent>
-    </div>
+    <v-container>
+        <h3>Job Listings</h3>
+        <ListCoursesComponent />
+    </v-container>
 </template>
 
 <script>

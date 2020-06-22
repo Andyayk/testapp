@@ -1,8 +1,8 @@
 <template>
-    <div class="container">
+    <v-container>
         <h3>All Courses</h3>
-        <div class="container">
-            <table class="table">
+        <v-container>
+            <v-simple-table>
                 <thead>
                     <tr>
                         <th>Id</th>
@@ -15,9 +15,9 @@
                         <td>{{course.description}}</td>
                     </tr>
                 </tbody>
-            </table>
-        </div>
-    </div>
+            </v-simple-table>
+        </v-container>
+    </v-container>
 </template>
 
 <script>
