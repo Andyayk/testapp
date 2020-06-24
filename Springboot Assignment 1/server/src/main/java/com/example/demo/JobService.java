@@ -85,4 +85,8 @@ public class JobService {
         ApiFuture<WriteResult> result = docRef.set(data);
 
     }
+
+    //editJob
+
+    //deleteJob
 }
