@@ -5,15 +5,13 @@
             <v-simple-table>
                 <thead>
                     <tr>
-                        <th>Id</th>
                         <th>Title</th>
                         <th>Description</th>
                         <th>Date Posted</th>
                     </tr>
                 </thead>
                 <tbody>
-                    <tr v-for="job in jobs" v-bind:key="job.jobid">
-                        <td>{{job.jobid}}</td>
+                    <tr v-for="(job, index) in jobs" v-bind:key="index">
                         <td>{{job.jobTitle}}</td>
                         <td>{{job.jobDescription}}</td>
                         <td>{{job.datePosted}}</td>                       

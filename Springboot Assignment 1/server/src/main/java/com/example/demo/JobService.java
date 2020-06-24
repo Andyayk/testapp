@@ -24,8 +24,9 @@ public class JobService {
     private static Firestore db;
 
     public JobService() {
-        // Use a service account
+        //use a service account
         InputStream serviceAccount = null;
+
         try {
             serviceAccount = new FileInputStream(System.getProperty("user.dir") + "\\serviceAccount.json");
 
@@ -34,8 +35,8 @@ public class JobService {
                     .setCredentials(credentials)
                     .build();
             FirebaseApp.initializeApp(options);
-
             db = FirestoreClient.getFirestore();
+
         } catch (FileNotFoundException e) {
             e.printStackTrace();
         } catch (IOException e) {
@@ -44,8 +45,10 @@ public class JobService {
     }
 
     public List<Job> findAll() {
-        //asynchronously retrieve all users
-        ApiFuture<QuerySnapshot> query = db.collection("users").get();
+        List<Job> jobList = new ArrayList<>();
+
+        //asynchronously retrieve all jobs
+        ApiFuture<QuerySnapshot> query = db.collection("job").get();
 
         QuerySnapshot querySnapshot = null;
         try {
@@ -54,26 +57,30 @@ public class JobService {
             List<QueryDocumentSnapshot> documents = querySnapshot.getDocuments();
 
             for (QueryDocumentSnapshot document : documents) {
-                System.out.println("Job: " + document.getId());
-                System.out.println("Job Title: " + document.getString("jobTitle"));
-                System.out.println("Job Description: " + document.getString("jobDescription"));
-                System.out.println("Date Posted: " + document.getString("datePosted"));
+                String jobTitle = document.getString("jobTitle");
+                String jobDescription = document.getString("jobDescription");
+                String datePosted = document.getString("datePosted");
+                Job eachJob = new Job(jobTitle, jobDescription, datePosted);
+
+                jobList.add(eachJob);
             }
         } catch (InterruptedException e) {
             e.printStackTrace();
         } catch (ExecutionException e) {
             e.printStackTrace();
         }
-        return new ArrayList<>();
+        return jobList;
     }
 
     public void addJob() {
         DocumentReference docRef = db.collection("job").document();
+
         //add document data using a hashmap
         Map<String, Object> data = new HashMap<>();
         data.put("jobTitle", "Police");
         data.put("jobDescription", "Need to manage criminals");
         data.put("datePosted", "31-12-2020");
+
         //asynchronously write data
         ApiFuture<WriteResult> result = docRef.set(data);
 
