@@ -18,4 +18,9 @@ public class JobResource {
     public List<Job> getAllJobs() {
         return jobService.findAll();
     }
+
+    @GetMapping("/addjob")
+    public void addJob() {
+        jobService.addJob();
+    }
 }

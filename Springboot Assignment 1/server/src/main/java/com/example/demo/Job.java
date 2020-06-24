@@ -1,7 +1,6 @@
 package com.example.demo;
 
 public class Job {
-    private Long jobid;
     private String jobTitle;
     private String jobDescription;
     private String datePosted;
@@ -9,19 +8,10 @@ public class Job {
     public Job() {
     }
 
-    public Job(Long jobid, String jobTitle, String jobDescription, String datePosted) {
-        this.jobid = jobid;
+    public Job(String jobTitle, String jobDescription, String datePosted) {
         this.jobTitle = jobTitle;
         this.jobDescription = jobDescription;
         this.datePosted = datePosted;
-    }
-
-    public Long getJobid() {
-        return jobid;
-    }
-
-    public void setJobid(Long jobid) {
-        this.jobid = jobid;
     }
 
     public String getJobTitle() {
