@@ -46,6 +46,7 @@ public class AppUserService {
 
     public AppUser findUser(String username) {
         AppUser user = null;
+        /*
         List<Job> jobList = new ArrayList<>();
 
         //asynchronously retrieve all jobs
@@ -77,6 +78,7 @@ public class AppUserService {
                 user = eachUser;
             }
         }
+        */
         return user;
     }
 }
