@@ -60,11 +60,11 @@ public class AppUser {
         this.email = email;
     }
 
-    public boolean isAdmin() {
+    public boolean getisAdmin() {
         return isAdmin;
     }
 
-    public void setAdmin(boolean admin) {
+    public void setisAdmin(boolean admin) {
         isAdmin = admin;
     }
 }

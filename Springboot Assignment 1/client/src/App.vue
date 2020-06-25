@@ -1,12 +1,14 @@
 <template>
     <v-app>
         <v-container>
-            <h1>Employment Portal</h1>
+            <h1 v-if="authenticated">Employment Portal</h1>
             <br />
-            <app-header v-if="authenticated"/>
+            <app-header v-if="authenticated" @userlogout="setAuthenticated"/>
             <br />
             <v-main>
-                <router-view @authenticated="setAuthenticated" />
+                <keep-alive>
+                    <router-view @authenticated="setAuthenticated"/>
+                </keep-alive>
             </v-main>
         </v-container>
     </v-app>
@@ -20,23 +22,16 @@ export default {
     data: function() {
         return {
             authenticated: false,
-            mockAccount: {
-                username: "nraboy",
-                password: "password"
-            }
         }
     },
     mounted() {
-        if(!this.authenticated) {
+        if(!this.authenticated && this.$route.path !== "/login") {
             this.$router.replace({ name: "Login" });
         }
     },
     methods: {
         setAuthenticated(status) {
             this.authenticated = status;
-        },
-        logout() {
-            this.authenticated = false;
         }
     },
     components: {
