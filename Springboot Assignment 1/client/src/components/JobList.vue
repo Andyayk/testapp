@@ -1,24 +1,26 @@
 <template>
     <v-container>
         <h3>All Jobs</h3>
-        <v-container>
-            <v-simple-table>
-                <thead>
-                    <tr>
-                        <th>Title</th>
-                        <th>Description</th>
-                        <th>Date Posted</th>
-                    </tr>
-                </thead>
-                <tbody>
-                    <tr v-for="(job, index) in jobs" v-bind:key="index">
-                        <td>{{job.jobTitle}}</td>
-                        <td>{{job.jobDescription}}</td>
-                        <td>{{job.datePosted}}</td>                       
-                    </tr>
-                </tbody>
-            </v-simple-table>
-        </v-container>
+        <v-container>   
+            <template v-for="(job, index) in jobs">        
+            <v-list-item :key="index+'A'">
+                <v-list-item-content>
+                    <v-list-item-title v-text="index+1+')'"></v-list-item-title>
+                    <v-list-item v-for="(value, propertyName, itemIndex) in job" v-bind:key="itemIndex+'B'">
+                        <v-list-item-content>
+                            <v-list-item-title v-text="value"></v-list-item-title>
+                            <v-list-item-subtitle v-text="propertyName"></v-list-item-subtitle>
+                        </v-list-item-content>    
+                    </v-list-item>
+                    <v-card-actions>
+                        <v-btn>Edit</v-btn>
+                        <v-btn>Delete</v-btn>
+                    </v-card-actions>                    
+                </v-list-item-content>
+            </v-list-item>
+            <v-divider v-if="index + 1 < jobs.length" :key="index+'C'"></v-divider>
+            </template>
+        </v-container>        
     </v-container>
 </template>
 

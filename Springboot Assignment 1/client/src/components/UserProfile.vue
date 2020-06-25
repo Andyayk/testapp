@@ -2,7 +2,7 @@
     <v-container>
         <h3>Details</h3>
         <v-container>
-            <v-list-item v-for="(value, propertyName, itemIndex) in user" v-bind:key="itemIndex">
+            <v-list-item v-for="(value, propertyName, itemIndex) in user" :key="itemIndex">
                 <v-list-item-content>
                     <v-list-item-title v-text="value"></v-list-item-title>
                     <v-list-item-subtitle v-text="propertyName"></v-list-item-subtitle>
