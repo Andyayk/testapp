@@ -13,8 +13,8 @@ public class AppUserResource {
     @Autowired
     private AppUserService appUserService;
 
-    @GetMapping("/user/{name}")
-    public AppUser getUser(@PathVariable String name) {
-        return appUserService.findUser(name);
+    @GetMapping("/user/{username}")
+    public AppUser getUser(@PathVariable String username) {
+        return appUserService.findUser(username);
     }
 }

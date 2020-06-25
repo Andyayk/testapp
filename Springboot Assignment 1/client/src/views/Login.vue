@@ -49,10 +49,14 @@ export default {
         loginUser: function() {
             if (this.username == "user1" && this.password == "1234") {
                 eventBus.username = this.username;
-                this.message = "";
+                this.$emit("authenticated", true);
+                this.$router.replace({ name: "Home" });
+                this.message = ""; //reset message
             } else if (this.username == "admin1" && this.password == "1234") {
                 eventBus.username = this.username;
-                this.message = "";
+                this.$emit("authenticated", true);
+                this.$router.replace({ name: "Home" });
+                this.message = ""; //reset message
             } else {
                 this.message = "Wrong Username/Password";
             }

@@ -1,34 +1,27 @@
 package com.example.demo;
 import com.google.api.core.ApiFuture;
 import com.google.cloud.firestore.*;
-import com.google.firebase.cloud.FirestoreClient;
+import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
-import java.io.FileInputStream;
-import java.io.FileNotFoundException;
-import java.io.IOException;
-import java.io.InputStream;
 import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
 import java.util.concurrent.ExecutionException;
 
-import com.google.auth.oauth2.GoogleCredentials;
-import com.google.firebase.FirebaseApp;
-import com.google.firebase.FirebaseOptions;
-
 @Service
 public class JobService {
 
-    private static Firestore db = FirebaseConfig.getDb();
+    @Autowired
+    private FirebaseConfig firebaseConfig;
 
     public List<Job> findAll() {
+        Firestore db = firebaseConfig.getDb();
         List<Job> jobList = new ArrayList<>();
 
         //asynchronously retrieve all jobs
         ApiFuture<QuerySnapshot> query = db.collection("job").get();
-
         QuerySnapshot querySnapshot = null;
         try {
             querySnapshot = query.get();
@@ -52,6 +45,7 @@ public class JobService {
     }
 
     public void addJob() {
+        Firestore db = firebaseConfig.getDb();
         DocumentReference docRef = db.collection("job").document();
 
         //add document data using a hashmap
