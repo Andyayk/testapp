@@ -21,28 +21,7 @@ import java.util.concurrent.ExecutionException;
 @Service
 public class AppUserService {
 
-    private static Firestore db;
-
-    public AppUserService() {
-        //use a service account
-        InputStream serviceAccount = null;
-
-        try {
-            serviceAccount = new FileInputStream(System.getProperty("user.dir") + "\\serviceAccount.json");
-
-            GoogleCredentials credentials = GoogleCredentials.fromStream(serviceAccount);
-            FirebaseOptions options = new FirebaseOptions.Builder()
-                    .setCredentials(credentials)
-                    .build();
-            FirebaseApp.initializeApp(options);
-            db = FirestoreClient.getFirestore();
-
-        } catch (FileNotFoundException e) {
-            e.printStackTrace();
-        } catch (IOException e) {
-            e.printStackTrace();
-        }
-    }
+    private static Firestore db = FirebaseConfig.getDb();
 
     public AppUser findUser(String username) {
         AppUser user = null;
