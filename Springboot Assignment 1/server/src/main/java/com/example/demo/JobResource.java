@@ -29,7 +29,7 @@ public class JobResource {
     }
 
     @PostMapping("/editjob")
-    public void editJob() {
-        jobService.editJob();
+    public void editJob(@RequestBody HashMap<String, Object> payload) {
+        jobService.editJob(payload);
     }
 }

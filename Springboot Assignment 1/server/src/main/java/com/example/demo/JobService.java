@@ -60,17 +60,23 @@ public class JobService {
     }
 
     //editJob
-    public void editJob() {
+    public void editJob(HashMap<String, Object> payload) {
         Firestore db = firebaseConfig.getDb();
-        DocumentReference docRef = db.collection("job").document();
 
-        //add document data using a hashmap
-        Map<String, Object> data = new HashMap<>();
-        data.put("jobTitle", "Police");
-        data.put("jobDescription", "Need to manage criminals");
-        data.put("datePosted", "31-12-2020");
+        DocumentReference docRef = db.collection("job").document(payload.get("jobId").toString());
 
-        //asynchronously write data
-        ApiFuture<WriteResult> result = docRef.set(data);
+        String jobTitle = payload.get("jobTitle").toString();
+        String jobDescription = payload.get("jobTitle").toString();
+        String datePosted = payload.get("datePosted").toString();
+
+        if (!jobTitle.equals("")) {
+            ApiFuture<WriteResult> future = docRef.update("jobTitle", jobTitle);
+        }
+        if (!jobDescription.equals("")) {
+            ApiFuture<WriteResult> future = docRef.update("jobDescription", jobDescription);
+        }
+        if (!datePosted.equals("")) {
+            ApiFuture<WriteResult> future = docRef.update("datePosted", datePosted);
+        }
     }
 }
