@@ -57,7 +57,7 @@ export default {
                 })
                 .then(response => {
                     if(response.data != ""){
-                        eventBus.username = this.username;
+                        eventBus.appUser = response.data;
                         this.$emit("authenticated", true);
                         this.$router.replace({ name: "Home" });
                         this.message = ""; //reset message

@@ -28,7 +28,7 @@ export default {
     methods: {
         retrieveUserDetails() {
             axios
-                .get(`${API_URL}/${eventBus.username}`)
+                .get(`${API_URL}/${eventBus.appUser.username}`)
                 .then(response => {
                     this.user = response.data;
                 })
