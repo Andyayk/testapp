@@ -13,8 +13,8 @@
                         </v-list-item-content>    
                     </v-list-item>
                     <v-card-actions>
-                        <v-btn color="success">Edit</v-btn>
-                        <v-btn @click="deleteJob(job.jobId)" color="#E53935" dark>Delete</v-btn>
+                        <v-btn v-if="isAdmin" color="success">Edit</v-btn>
+                        <v-btn v-if="isAdmin" @click="deleteJob(job.jobId)" color="#E53935" dark>Delete</v-btn>
                     </v-card-actions>                    
                 </v-list-item-content>
             </v-list-item>
@@ -26,6 +26,7 @@
 
 <script>
 import axios from "axios";
+import { eventBus } from "../main";
 
 const API_URL = "http://localhost:8080";
 
@@ -34,6 +35,7 @@ export default {
     data: function() {
         return {
             jobs: [],
+            isAdmin: eventBus.appUser.isAdmin
         };
     },
     methods: {
@@ -53,7 +55,7 @@ export default {
                     jobId: jobId
                 })
                 .then(response => {
-                    this.retrieveAllJobs(response);
+                    this.retrieveAllJobs();
                 })
                 .catch(error => {
                     console.log(error);

@@ -4,7 +4,7 @@
             <v-tab to="/" exact>
                 <v-icon>mdi-home</v-icon>Home
             </v-tab>
-            <v-tab to="/createjob">
+            <v-tab v-if="isAdmin" to="/createjob">
                 <v-icon>mdi-briefcase</v-icon>Create Job
             </v-tab>                    
             <v-tab to="/profile">
@@ -18,7 +18,15 @@
 </template>
 
 <script>
+import { eventBus } from "../main";
+
 export default {
+    name: "Header",
+    data: function() {
+        return {
+            isAdmin: eventBus.appUser.isAdmin
+        };
+    },    
     methods: {
         logout: function() {
             this.$emit("userlogout", false);
