@@ -6,9 +6,7 @@
             <app-header v-if="authenticated" @userlogout="setAuthenticated"/>
             <br />
             <v-main>
-                <keep-alive>
-                    <router-view @authenticated="setAuthenticated"/>
-                </keep-alive>
+                <router-view @authenticated="setAuthenticated"/>
             </v-main>
         </v-container>
     </v-app>

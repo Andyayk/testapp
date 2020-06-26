@@ -23,6 +23,14 @@ const routes = [
         // which is lazy-loaded when the route is visited.
         component: () => import(/* webpackChunkName: "profile" */ '../views/Profile.vue')
     },   
+    {
+        path: '/createjob',
+        name: 'CreateJob',
+        // route level code-splitting
+        // this generates a separate chunk (profile.[hash].js) for this route
+        // which is lazy-loaded when the route is visited.
+        component: () => import(/* webpackChunkName: "profile" */ '../views/CreateJob.vue')
+    },     
     { path: '*', redirect: '/' } //redirect to home page
 ]
 

@@ -45,18 +45,12 @@ public class JobService {
         return jobList;
     }
 
-    public void addJob() {
+    public void addJob(HashMap<String, Object> payload) {
         Firestore db = firebaseConfig.getDb();
         DocumentReference docRef = db.collection("job").document();
 
-        //add document data using a hashmap
-        Map<String, Object> data = new HashMap<>();
-        data.put("jobTitle", "Police");
-        data.put("jobDescription", "Need to manage criminals");
-        data.put("datePosted", "31-12-2020");
-
         //asynchronously write data
-        ApiFuture<WriteResult> result = docRef.set(data);
+        ApiFuture<WriteResult> result = docRef.set(payload);
     }
 
     //deleteJob

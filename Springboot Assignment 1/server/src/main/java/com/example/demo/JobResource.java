@@ -19,8 +19,8 @@ public class JobResource {
     }
 
     @PostMapping("/addjob")
-    public void addJob() {
-        jobService.addJob();
+    public void addJob(@RequestBody HashMap<String, Object> payload) {
+        jobService.addJob(payload);
     }
 
     @PostMapping("/deletejob")

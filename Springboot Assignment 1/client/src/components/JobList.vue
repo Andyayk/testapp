@@ -53,7 +53,7 @@ export default {
                     jobId: jobId
                 })
                 .then(response => {
-                    console.log(response)
+                    this.retrieveAllJobs(response);
                 })
                 .catch(error => {
                     console.log(error);
