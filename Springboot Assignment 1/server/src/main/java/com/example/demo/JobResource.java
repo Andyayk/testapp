@@ -1,13 +1,12 @@
 package com.example.demo;
 
 import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.web.bind.annotation.CrossOrigin;
-import org.springframework.web.bind.annotation.GetMapping;
-import org.springframework.web.bind.annotation.RestController;
+import org.springframework.web.bind.annotation.*;
 
+import java.util.HashMap;
 import java.util.List;
 
-@CrossOrigin(origins = { "http://localhost:3000", "http://localhost:4200", "http://localhost:8081" })
+@CrossOrigin(origins = { "http://localhost:8081" })
 @RestController
 public class JobResource {
 
@@ -19,8 +18,18 @@ public class JobResource {
         return jobService.findAll();
     }
 
-    @GetMapping("/addjob")
+    @PostMapping("/addjob")
     public void addJob() {
         jobService.addJob();
+    }
+
+    @PostMapping("/deletejob")
+    public void deleteJob(@RequestBody HashMap<String, Object> payload) {
+        jobService.deleteJob(payload);
+    }
+
+    @PostMapping("/editjob")
+    public void editJob() {
+        jobService.editJob();
     }
 }

@@ -29,10 +29,11 @@ public class JobService {
             List<QueryDocumentSnapshot> documents = querySnapshot.getDocuments();
 
             for (QueryDocumentSnapshot document : documents) {
+                String jobId = document.getId();
                 String jobTitle = document.getString("jobTitle");
                 String jobDescription = document.getString("jobDescription");
                 String datePosted = document.getString("datePosted");
-                Job eachJob = new Job(jobTitle, jobDescription, datePosted);
+                Job eachJob = new Job(jobId, jobTitle, jobDescription, datePosted);
 
                 jobList.add(eachJob);
             }
@@ -56,10 +57,26 @@ public class JobService {
 
         //asynchronously write data
         ApiFuture<WriteResult> result = docRef.set(data);
+    }
 
+    //deleteJob
+    public void deleteJob(HashMap<String, Object> payload) {
+        Firestore db = firebaseConfig.getDb();
+        db.collection("job").document(payload.get("jobId").toString()).delete();
     }
 
     //editJob
+    public void editJob() {
+        Firestore db = firebaseConfig.getDb();
+        DocumentReference docRef = db.collection("job").document();
 
-    //deleteJob
+        //add document data using a hashmap
+        Map<String, Object> data = new HashMap<>();
+        data.put("jobTitle", "Police");
+        data.put("jobDescription", "Need to manage criminals");
+        data.put("datePosted", "31-12-2020");
+
+        //asynchronously write data
+        ApiFuture<WriteResult> result = docRef.set(data);
+    }
 }

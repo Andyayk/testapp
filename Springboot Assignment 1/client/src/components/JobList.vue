@@ -13,8 +13,8 @@
                         </v-list-item-content>    
                     </v-list-item>
                     <v-card-actions>
-                        <v-btn>Edit</v-btn>
-                        <v-btn>Delete</v-btn>
+                        <v-btn color="success">Edit</v-btn>
+                        <v-btn @click="deleteJob(job.jobId)" color="#E53935" dark>Delete</v-btn>
                     </v-card-actions>                    
                 </v-list-item-content>
             </v-list-item>
@@ -46,7 +46,19 @@ export default {
                 .catch(error => {
                     console.log(error);
                 });
-        }
+        },
+        deleteJob(jobId) {
+            axios
+                .post(`${API_URL}/deletejob`, {
+                    jobId: jobId
+                })
+                .then(response => {
+                    console.log(response)
+                })
+                .catch(error => {
+                    console.log(error);
+                });
+        }        
     },
     created() {
         this.retrieveAllJobs();
