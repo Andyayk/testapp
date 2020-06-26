@@ -29,7 +29,10 @@
 </template>
 
 <script>
+import axios from "axios";
 import { eventBus } from "../main";
+
+const API_URL = "http://localhost:8080";
 
 export default {
     name: "Login",
@@ -47,19 +50,24 @@ export default {
     },
     methods: {
         loginUser: function() {
-            if (this.username == "user1" && this.password == "1234") {
-                eventBus.username = this.username;
-                this.$emit("authenticated", true);
-                this.$router.replace({ name: "Home" });
-                this.message = ""; //reset message
-            } else if (this.username == "admin1" && this.password == "1234") {
-                eventBus.username = this.username;
-                this.$emit("authenticated", true);
-                this.$router.replace({ name: "Home" });
-                this.message = ""; //reset message
-            } else {
-                this.message = "Wrong Username/Password";
-            }
+            axios
+                .post(`${API_URL}/loginuser`, {
+                    username: this.username,
+                    password: this.password
+                })
+                .then(response => {
+                    if(response.data != ""){
+                        eventBus.username = this.username;
+                        this.$emit("authenticated", true);
+                        this.$router.replace({ name: "Home" });
+                        this.message = ""; //reset message
+                    } else {
+                        this.message = "Wrong Username/Password";
+                    }
+                })
+                .catch(error => {
+                    console.log(error);
+                });            
         }
     }
 };
