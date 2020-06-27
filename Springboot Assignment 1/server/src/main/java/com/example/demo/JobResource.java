@@ -24,8 +24,8 @@ public class JobResource {
     }
 
     @PostMapping("/deletejob")
-    public void deleteJob(@RequestBody HashMap<String, Object> payload) {
-        jobService.deleteJob(payload);
+    public List<Job> deleteJob(@RequestBody HashMap<String, Object> payload) {
+        return jobService.deleteJob(payload);
     }
 
     @PostMapping("/editjob")

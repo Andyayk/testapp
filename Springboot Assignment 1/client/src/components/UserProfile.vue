@@ -9,15 +9,15 @@
                 </v-list-item-content>
             </v-list-item>
             <v-list-item>
-                <v-list-item-content>            
+                <v-list-item-content>
                     <v-list-item-title>{{user.email}}</v-list-item-title>
                     <v-list-item-subtitle>Email</v-list-item-subtitle>
                 </v-list-item-content>
-            </v-list-item>                    
+            </v-list-item>
             <v-list-item>
                 <v-list-item-content>
                     <v-list-item-title>{{user.employeeid}}</v-list-item-title>
-                    <v-list-item-subtitle>Employee Id</v-list-item-subtitle>                                        
+                    <v-list-item-subtitle>Employee Id</v-list-item-subtitle>
                 </v-list-item-content>
             </v-list-item>
         </v-container>
@@ -34,11 +34,11 @@ export default {
     name: "UserProfile",
     data: function() {
         return {
-            user: "",
+            user: ""
         };
     },
     methods: {
-        retrieveUserDetails() {
+        retrieveUserDetails: function() {
             axios
                 .get(`${API_URL}/${eventBus.appUser.username}`)
                 .then(response => {

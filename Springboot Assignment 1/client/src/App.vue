@@ -22,14 +22,14 @@ export default {
             authenticated: false,
         }
     },
+    methods: {
+        setAuthenticated: function(status) {
+            this.authenticated = status;
+        }
+    },
     mounted() {
         if(!this.authenticated && this.$route.path !== "/login") {
             this.$router.replace({ name: "Login" });
-        }
-    },
-    methods: {
-        setAuthenticated(status) {
-            this.authenticated = status;
         }
     },
     components: {

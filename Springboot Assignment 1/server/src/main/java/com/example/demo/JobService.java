@@ -47,36 +47,35 @@ public class JobService {
 
     public void addJob(HashMap<String, Object> payload) {
         Firestore db = firebaseConfig.getDb();
-        DocumentReference docRef = db.collection("job").document();
-
-        //asynchronously write data
-        ApiFuture<WriteResult> result = docRef.set(payload);
+        db.collection("job").document().set(payload); //add
     }
 
-    //deleteJob
-    public void deleteJob(HashMap<String, Object> payload) {
+    public List<Job> deleteJob(HashMap<String, Object> payload) {
         Firestore db = firebaseConfig.getDb();
-        db.collection("job").document(payload.get("jobId").toString()).delete();
+        db.collection("job").document(payload.get("jobId").toString()).delete(); //delete
+
+        List<Job> jobList = findAll(); //get updated list after delete
+
+        return jobList;
     }
 
-    //editJob
     public void editJob(HashMap<String, Object> payload) {
         Firestore db = firebaseConfig.getDb();
-
         DocumentReference docRef = db.collection("job").document(payload.get("jobId").toString());
 
         String jobTitle = payload.get("jobTitle").toString();
         String jobDescription = payload.get("jobTitle").toString();
         String datePosted = payload.get("datePosted").toString();
 
+        //update
         if (!jobTitle.equals("")) {
-            ApiFuture<WriteResult> future = docRef.update("jobTitle", jobTitle);
+            docRef.update("jobTitle", jobTitle);
         }
         if (!jobDescription.equals("")) {
-            ApiFuture<WriteResult> future = docRef.update("jobDescription", jobDescription);
+            docRef.update("jobDescription", jobDescription);
         }
         if (!datePosted.equals("")) {
-            ApiFuture<WriteResult> future = docRef.update("datePosted", datePosted);
+            docRef.update("datePosted", datePosted);
         }
     }
 }

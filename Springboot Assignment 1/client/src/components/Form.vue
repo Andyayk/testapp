@@ -5,11 +5,11 @@
             <v-text-field v-model="jobTitle" label="Job Title"></v-text-field>
             <v-text-field v-model="jobDescription" label="Job Description"></v-text-field>
             <v-text-field v-model="datePosted" label="Date Posted" disabled></v-text-field>
-            <v-btn @click=addJob color="success">Add</v-btn>
+            <v-btn @click="addJob" color="success">Add</v-btn>
             <v-snackbar v-model="snackbar">
-            {{ text }}
-            <v-btn color="white" text @click="snackbar = false">Close</v-btn>
-        </v-snackbar>
+                {{ text }}
+                <v-btn color="white" text @click="snackbar = false">Close</v-btn>
+            </v-snackbar>
         </v-form>
     </v-container>
 </template>
@@ -27,7 +27,7 @@ export default {
             jobDescription: "",
             datePosted: new Date().toISOString().split("T")[0],
             snackbar: false,
-            text: "Job Added!"
+            text: ""
         };
     },
     methods: {
@@ -35,7 +35,7 @@ export default {
             if (this.jobTitle == "") {
                 this.jobTitle = "Default Job Title";
             }
-            
+
             if (this.jobDescription == "") {
                 this.jobDescription = "Default Job Description";
             }
@@ -47,6 +47,7 @@ export default {
                     datePosted: this.datePosted
                 })
                 .then(response => {
+                    this.text = "Job Added!";
                     this.snackbar = true;
                 })
                 .catch(error => {
