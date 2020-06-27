@@ -1,11 +1,11 @@
 <template>
     <v-container>
-        <h3>Add Job</h3>
+        <h3>Create Job</h3>
         <v-form @submit.prevent>
             <v-text-field v-model="jobTitle" label="Job Title"></v-text-field>
             <v-text-field v-model="jobDescription" label="Job Description"></v-text-field>
             <v-text-field v-model="datePosted" label="Date Posted" disabled></v-text-field>
-            <v-btn @click="addJob" color="success">Add</v-btn>
+            <v-btn @click="addJob" color="success">Create</v-btn>
             <v-snackbar v-model="snackbar">
                 {{ text }}
                 <v-btn color="white" text @click="snackbar = false">Close</v-btn>
