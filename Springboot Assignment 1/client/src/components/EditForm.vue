@@ -1,64 +1,84 @@
 <template>
-    <v-container>
-        <v-form @submit.prevent>
-            <font color="red">Only completed textboxes will be updated</font>
-            <v-text-field v-model="editLinkname" label="Link Name"></v-text-field>
-            <v-text-field v-model="editLinkpath" label="Link Path"></v-text-field>
-            <v-text-field v-model="editIconpath" label="Icon Path"></v-text-field>
-            <v-text-field v-model="editDatecreated" label="Date Created" disabled></v-text-field>
-            <edit-button @editButtonActivated="editItem"></edit-button>
-        </v-form>
-    </v-container>
+    <v-dialog v-model="dialog" persistent max-width="600px">
+        <template v-slot:activator="{ on, attrs }">
+            <v-btn color="success" dark v-bind="attrs" v-on="on">Edit</v-btn>
+        </template>
+        <v-card>
+            <v-card-title>
+                <span class="headline">
+                    <b>Job Title</b>
+                    - {{ job.jobTitle }}
+                </span>
+            </v-card-title>
+            <v-card-text>
+                <v-form @submit.prevent>
+                    <font color="red">Only completed textboxes will be updated</font>
+                    <v-text-field v-model="jobTitle" label="New Job Title"></v-text-field>
+                    <v-text-field v-model="jobDescription" label="New Job Description"></v-text-field>
+                    <v-text-field v-model="datePosted" label="Date Posted" disabled></v-text-field>
+                </v-form>
+            </v-card-text>
+            <v-card-actions>
+                <v-spacer></v-spacer>
+                <v-btn color="blue darken-1" text @click="dialog = false">Close</v-btn>
+                <v-btn color="blue darken-1" text @click="editJob">Save</v-btn>
+            </v-card-actions>
+        </v-card>
+    </v-dialog>
 </template>
 
 <script>
+import axios from "axios";
 import { eventBus } from "../main";
-import EditButton from "./EditButton.vue";
+
+const API_URL = "http://localhost:8080";
 
 export default {
-    props: ["items", "index", "toggleEditFunction"],
+    name: "EditForm",
+    props: ["job", "index"],
     data: function() {
         return {
-            editLinkname: "",
-            editLinkpath: "",
-            editIconpath: "",
-            editDatecreated: new Date().toISOString().split("T")[0]
+            dialog: false,
+            jobTitle: "",
+            jobDescription: "",
+            datePosted: new Date().toISOString().split("T")[0]
         };
     },
     methods: {
-        editItem: function() {
-            var processedLinkpath = eventBus.processURLpath(this.editLinkpath);
-            var processedIconpath = eventBus.processURLpath(this.editIconpath);
+        editJob: function() {
+            axios
+                .post(`${API_URL}/editjob`, {
+                    jobId: this.job.jobId,
+                    jobTitle: this.jobTitle,
+                    jobDescription: this.jobDescription,
+                    datePosted: this.datePosted
+                })
+                .then(response => {
+                    var updatedJob = this.job;
 
-            //only completed textboxes will be updated
-            if (this.editLinkname != "") {
-                this.items[this.index].linkname = this.editLinkname;
-            }
+                    if (this.jobTitle != "") {
+                        updatedJob.jobTitle = this.jobTitle;
+                    }
+                    if (this.jobDescription != "") {
+                        updatedJob.jobDescription = this.jobDescription;
+                    }
+                    if (this.datePosted != "") {
+                        updatedJob.datePosted = this.datePosted;
+                    }
 
-            if (this.editLinkpath != "") {
-                this.items[this.index].linkpath = processedLinkpath;
-            }
+                    var payload = {
+                        job: updatedJob,
+                        index: this.index,
+                        text: response.data
+                    };
 
-            if (this.editIconpath != "") {
-                this.items[this.index].iconpath = processedIconpath;
-            }
-
-            if (this.editDatecreated != "") {
-                this.items[this.index].datecreated = this.editDatecreated;
-            }
-
-            //reset form
-            this.editLinkname = "";
-            this.editLinkpath = "";
-            this.editIconpath = "";
-
-            eventBus.$emit("itemWasUpdated", this.items);
-
-            this.toggleEditFunction(); //close editing box
+                    eventBus.$emit("jobWasUpdated", payload);
+                    this.dialog = false;
+                })
+                .catch(error => {
+                    console.log(error);
+                });
         }
-    },
-    components: {
-        editButton: EditButton
     }
 };
 </script>

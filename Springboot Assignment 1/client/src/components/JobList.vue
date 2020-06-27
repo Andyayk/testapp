@@ -6,20 +6,30 @@
                 <v-list-item :key="job.jobId">
                     <v-list-item-content>
                         <v-list-item-title v-text="index+1+')'"></v-list-item-title>
-                        <v-list-item
-                            v-for="(value, propertyName, itemIndex) in job"
-                            v-bind:key="itemIndex+'B'"
-                        >
+                        <v-list-item>
                             <v-list-item-content>
-                                <v-list-item-title v-text="value"></v-list-item-title>
-                                <v-list-item-subtitle v-text="propertyName"></v-list-item-subtitle>
+                                <v-list-item-title>{{job.jobTitle}}</v-list-item-title>
+                                <v-list-item-subtitle>Job Title</v-list-item-subtitle>
                             </v-list-item-content>
                         </v-list-item>
+                        <v-list-item>
+                            <v-list-item-content>
+                                <v-list-item-title>{{job.jobDescription}}</v-list-item-title>
+                                <v-list-item-subtitle>Job Description</v-list-item-subtitle>
+                            </v-list-item-content>
+                        </v-list-item>
+                        <v-list-item>
+                            <v-list-item-content>
+                                <v-list-item-title>{{job.datePosted}}</v-list-item-title>
+                                <v-list-item-subtitle>Date Posted</v-list-item-subtitle>
+                            </v-list-item-content>
+                        </v-list-item>
+
                         <v-card-actions>
-                            <v-btn v-if="isAdmin" color="success">Edit</v-btn>
+                            <app-edit-form v-if="isAdmin" :job="job" :index="index" />
                             <v-btn
                                 v-if="isAdmin"
-                                @click="deleteJob(job.jobId)"
+                                @click="deleteJob(job.jobId, index)"
                                 color="#E53935"
                                 dark
                             >Delete</v-btn>
@@ -30,7 +40,7 @@
                         </v-card-actions>
                     </v-list-item-content>
                 </v-list-item>
-                <v-divider v-if="index + 1 < jobs.length" :key="index+'C'"></v-divider>
+                <v-divider v-if="index + 1 < jobs.length" :key="index+'B'"></v-divider>
             </template>
         </v-container>
     </v-container>
@@ -39,6 +49,7 @@
 <script>
 import axios from "axios";
 import { eventBus } from "../main";
+import EditForm from "./EditForm";
 
 const API_URL = "http://localhost:8080";
 
@@ -63,14 +74,14 @@ export default {
                     console.log(error);
                 });
         },
-        deleteJob: function(jobId) {
+        deleteJob: function(jobId, index) {
             axios
                 .post(`${API_URL}/deletejob`, {
                     jobId: jobId
                 })
                 .then(response => {
-                    this.jobs = response.data;
-                    this.text = "Job Deleted!";
+                    this.jobs.splice(index, 1);
+                    this.text = response.data;
                     this.snackbar = true;
                 })
                 .catch(error => {
@@ -78,8 +89,17 @@ export default {
                 });
         }
     },
+    components: {
+        appEditForm: EditForm
+    },
     created() {
         this.retrieveAllJobs();
+
+        eventBus.$on("jobWasUpdated", payload => {
+            this.jobs.splice(payload.index, 1, payload.job);
+            this.text = payload.text;
+            this.snackbar = true;
+        });
     }
 };
 </script>

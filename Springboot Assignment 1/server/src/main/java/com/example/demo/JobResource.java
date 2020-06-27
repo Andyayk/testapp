@@ -19,17 +19,17 @@ public class JobResource {
     }
 
     @PostMapping("/addjob")
-    public void addJob(@RequestBody HashMap<String, Object> payload) {
-        jobService.addJob(payload);
+    public String addJob(@RequestBody HashMap<String, Object> payload) {
+        return jobService.addJob(payload);
     }
 
     @PostMapping("/deletejob")
-    public List<Job> deleteJob(@RequestBody HashMap<String, Object> payload) {
+    public String deleteJob(@RequestBody HashMap<String, Object> payload) {
         return jobService.deleteJob(payload);
     }
 
     @PostMapping("/editjob")
-    public void editJob(@RequestBody HashMap<String, Object> payload) {
-        jobService.editJob(payload);
+    public String editJob(@RequestBody HashMap<String, Object> payload) {
+        return jobService.editJob(payload);
     }
 }

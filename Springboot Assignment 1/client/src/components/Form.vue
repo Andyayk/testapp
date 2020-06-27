@@ -21,6 +21,7 @@ import axios from "axios";
 const API_URL = "http://localhost:8080";
 
 export default {
+    name: "Form",
     data: function() {
         return {
             jobTitle: "",
@@ -47,7 +48,7 @@ export default {
                     datePosted: this.datePosted
                 })
                 .then(response => {
-                    this.text = "Job Added!";
+                    this.text = response.data;
                     this.snackbar = true;
                 })
                 .catch(error => {

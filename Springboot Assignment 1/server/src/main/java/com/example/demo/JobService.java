@@ -45,26 +45,26 @@ public class JobService {
         return jobList;
     }
 
-    public void addJob(HashMap<String, Object> payload) {
+    public String addJob(HashMap<String, Object> payload) {
         Firestore db = firebaseConfig.getDb();
         db.collection("job").document().set(payload); //add
+
+        return "Job Added!";
     }
 
-    public List<Job> deleteJob(HashMap<String, Object> payload) {
+    public String deleteJob(HashMap<String, Object> payload) {
         Firestore db = firebaseConfig.getDb();
         db.collection("job").document(payload.get("jobId").toString()).delete(); //delete
 
-        List<Job> jobList = findAll(); //get updated list after delete
-
-        return jobList;
+        return "Job Deleted!";
     }
 
-    public void editJob(HashMap<String, Object> payload) {
+    public String editJob(HashMap<String, Object> payload) {
         Firestore db = firebaseConfig.getDb();
         DocumentReference docRef = db.collection("job").document(payload.get("jobId").toString());
 
         String jobTitle = payload.get("jobTitle").toString();
-        String jobDescription = payload.get("jobTitle").toString();
+        String jobDescription = payload.get("jobDescription").toString();
         String datePosted = payload.get("datePosted").toString();
 
         //update
@@ -77,5 +77,7 @@ public class JobService {
         if (!datePosted.equals("")) {
             docRef.update("datePosted", datePosted);
         }
+
+        return "Job Saved!";
     }
 }

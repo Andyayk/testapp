@@ -34,23 +34,8 @@ export default {
     name: "UserProfile",
     data: function() {
         return {
-            user: ""
+            user: eventBus.appUser
         };
-    },
-    methods: {
-        retrieveUserDetails: function() {
-            axios
-                .get(`${API_URL}/${eventBus.appUser.username}`)
-                .then(response => {
-                    this.user = response.data;
-                })
-                .catch(error => {
-                    console.log(error);
-                });
-        }
-    },
-    created() {
-        this.retrieveUserDetails();
     }
 };
 </script>
