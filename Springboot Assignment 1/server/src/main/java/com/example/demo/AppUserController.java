@@ -8,6 +8,7 @@ import java.util.HashMap;
 @CrossOrigin(origins = { "http://localhost:8081" })
 @RestController
 public class AppUserController {
+
     @Autowired
     private AppUserService appUserService;
 

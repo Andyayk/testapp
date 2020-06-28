@@ -14,14 +14,13 @@ import java.util.concurrent.ExecutionException;
 public class JobService {
 
     @Autowired
-    private FirebaseConfig firebaseConfig;
+    private Firestore firestoreDB;
 
     public List<Job> findAll() {
-        Firestore db = firebaseConfig.getDb();
         List<Job> jobList = new ArrayList<>();
 
         //asynchronously retrieve all jobs
-        ApiFuture<QuerySnapshot> query = db.collection("job").get();
+        ApiFuture<QuerySnapshot> query = firestoreDB.collection("job").get();
         QuerySnapshot querySnapshot = null;
         try {
             querySnapshot = query.get();
@@ -46,22 +45,19 @@ public class JobService {
     }
 
     public String addJob(HashMap<String, Object> payload) {
-        Firestore db = firebaseConfig.getDb();
-        db.collection("job").document().set(payload); //add
+        firestoreDB.collection("job").document().set(payload); //add
 
         return "Job Added!";
     }
 
     public String deleteJob(HashMap<String, Object> payload) {
-        Firestore db = firebaseConfig.getDb();
-        db.collection("job").document(payload.get("jobId").toString()).delete(); //delete
+        firestoreDB.collection("job").document(payload.get("jobId").toString()).delete(); //delete
 
         return "Job Deleted!";
     }
 
     public String editJob(HashMap<String, Object> payload) {
-        Firestore db = firebaseConfig.getDb();
-        DocumentReference docRef = db.collection("job").document(payload.get("jobId").toString());
+        DocumentReference docRef = firestoreDB.collection("job").document(payload.get("jobId").toString());
 
         String jobTitle = payload.get("jobTitle").toString();
         String jobDescription = payload.get("jobDescription").toString();

@@ -1,6 +1,7 @@
 package com.example.demo;
 
 public class Job {
+
     private String jobId;
     private String jobTitle;
     private String jobDescription;

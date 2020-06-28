@@ -14,16 +14,15 @@ import java.util.concurrent.ExecutionException;
 public class AppUserService {
 
     @Autowired
-    private FirebaseConfig firebaseConfig;
+    private Firestore firestoreDB;
 
     public AppUser findUser(String username) {
-        Firestore db = firebaseConfig.getDb();
 
         AppUser user = null;
         try {
             //asynchronously retrieve documents
             ApiFuture<QuerySnapshot> future =
-                    db.collection("appuser").whereEqualTo("username", username).get();
+                    firestoreDB.collection("appuser").whereEqualTo("username", username).get();
             //future.get() blocks on response
             List<QueryDocumentSnapshot> documents = future.get().getDocuments();
             for (DocumentSnapshot document : documents) {
@@ -39,12 +38,10 @@ public class AppUserService {
     }
 
     public AppUser loginUser(HashMap<String, Object> payload) {
-        Firestore db = firebaseConfig.getDb();
-
         AppUser user = null;
 
         //asynchronously retrieve documents
-        ApiFuture<QuerySnapshot> query = db.collection("appuser").get();
+        ApiFuture<QuerySnapshot> query = firestoreDB.collection("appuser").get();
         QuerySnapshot querySnapshot = null;
         try {
             querySnapshot = query.get();

@@ -1,6 +1,7 @@
 package com.example.demo;
 
 public class AppUser {
+
     private String employeeid;
     private String username;
     private String password;
