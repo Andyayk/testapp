@@ -8,7 +8,7 @@ import java.util.List;
 
 @CrossOrigin(origins = { "http://localhost:8081" })
 @RestController
-public class JobResource {
+public class JobController {
 
     @Autowired
     private JobService jobService;
