@@ -65,11 +65,12 @@ public class AppUser {
         this.email = email;
     }
 
-    public boolean getisadmin() {
+    public boolean isIsadmin() {
         return isadmin;
     }
 
-    public void setisadmin(boolean admin) {
+    public void setIsadmin(boolean admin) {
         isadmin = admin;
     }
+
 }

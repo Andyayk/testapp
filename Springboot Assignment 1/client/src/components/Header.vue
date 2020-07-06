@@ -4,7 +4,7 @@
             <v-tab to="/" exact>
                 <v-icon>mdi-home</v-icon>Home
             </v-tab>
-            <v-tab v-if="getAppUser.isAdmin" to="/createjob">
+            <v-tab v-if="getAppUser.isadmin" to="/createjob">
                 <v-icon>mdi-briefcase</v-icon>Create Job
             </v-tab>                    
             <v-tab to="/profile">

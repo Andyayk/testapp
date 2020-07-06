@@ -19,6 +19,8 @@ public class AppUserService implements UserDetailsService {
 
     @Autowired
     private AppUserRepo appUserRepo;
+
+    @Autowired
     private Firestore firestoreDB;
 
     public AppUser findUser(String username) {

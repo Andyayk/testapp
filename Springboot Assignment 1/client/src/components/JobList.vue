@@ -26,9 +26,9 @@
                         </v-list-item>
 
                         <v-card-actions>
-                            <app-edit-form v-if="getAppUser.isAdmin" :job="job" :index="index" />
+                            <app-edit-form v-if="getAppUser.isadmin" :job="job" :index="index" />
                             <v-btn
-                                v-if="getAppUser.isAdmin"
+                                v-if="getAppUser.isadmin"
                                 @click="deleteJob(job.jobId, index)"
                                 color="#E53935"
                                 dark
