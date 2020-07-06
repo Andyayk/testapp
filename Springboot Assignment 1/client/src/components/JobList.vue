@@ -26,9 +26,9 @@
                         </v-list-item>
 
                         <v-card-actions>
-                            <app-edit-form v-if="isAdmin" :job="job" :index="index" />
+                            <app-edit-form v-if="getAppUser.isAdmin" :job="job" :index="index" />
                             <v-btn
-                                v-if="isAdmin"
+                                v-if="getAppUser.isAdmin"
                                 @click="deleteJob(job.jobId, index)"
                                 color="#E53935"
                                 dark
@@ -48,6 +48,7 @@
 
 <script>
 import axios from "axios";
+import { mapGetters } from 'vuex';
 import { eventBus } from "../main";
 import EditForm from "./EditForm";
 
@@ -58,7 +59,6 @@ export default {
     data: function() {
         return {
             jobs: [],
-            isAdmin: eventBus.appUser.isAdmin,
             snackbar: false,
             text: ""
         };
@@ -89,6 +89,11 @@ export default {
                 });
         }
     },
+    computed: {
+        ...mapGetters('user', {
+            getAppUser: 'getAppUser'
+        })  
+    },    
     components: {
         appEditForm: EditForm
     },

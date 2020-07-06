@@ -1,6 +1,7 @@
 import Vue from 'vue';
 import Vuex from 'vuex';
-import counter from './modules/counter';
+
+import user from './modules/user';
 
 import actions from './actions';
 import getters from './getters';
@@ -16,6 +17,6 @@ export const store = new Vuex.Store({
     mutations,
     actions,
     modules: {
-        counter
+        user
     }
 });

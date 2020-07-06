@@ -4,13 +4,13 @@
             <v-tab to="/" exact>
                 <v-icon>mdi-home</v-icon>Home
             </v-tab>
-            <v-tab v-if="isAdmin" to="/createjob">
+            <v-tab v-if="getAppUser.isAdmin" to="/createjob">
                 <v-icon>mdi-briefcase</v-icon>Create Job
             </v-tab>                    
             <v-tab to="/profile">
                 <v-icon>mdi-account-circle</v-icon>Profile
             </v-tab>    
-            <v-tab to="/login" @click="logout">
+            <v-tab to="/login" @click="setUserLogout">
                 <v-icon>mdi-logout</v-icon>Logout
             </v-tab>            
         </v-tabs>
@@ -18,19 +18,20 @@
 </template>
 
 <script>
-import { eventBus } from "../main";
+import { mapGetters } from 'vuex';
+import { mapActions } from 'vuex';
 
 export default {
-    name: "Header",
-    data: function() {
-        return {
-            isAdmin: eventBus.appUser.isAdmin
-        };
-    },    
+    name: "Header",  
     methods: {
-        logout: function() {
-            this.$emit("userlogout", false);
-        }
+        ...mapActions('user', {
+            setUserLogout: 'setUserLogout',
+        })        
+    },
+    computed: {
+        ...mapGetters('user', {
+            getAppUser: 'getAppUser'
+        })  
     }
 };
 </script>

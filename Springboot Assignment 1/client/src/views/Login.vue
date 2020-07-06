@@ -9,7 +9,7 @@
                 <h1 class="display-2 font-weight-bold mb-3">Employment Portal</h1>
             </v-col>
         </v-row>
-        <font color="red">{{ this.message }}</font>
+        <font color="red">{{ getLoginMessage }}</font>
         <v-container>
             <v-form @submit.prevent>
                 <v-text-field v-model="username" label="Username"></v-text-field>
@@ -22,17 +22,16 @@
                     hint="At least 4 characters"
                     @click:append="showpassword = !showpassword"
                 ></v-text-field>
-                <v-btn @click="loginUser">Login</v-btn>
+                <v-btn @click="setUserLogin({username: username, password: password})">Login</v-btn>
             </v-form>
         </v-container>
     </v-container>
 </template>
 
 <script>
-import axios from "axios";
 import { eventBus } from "../main";
-
-const API_URL = "http://localhost:8080";
+import { mapGetters } from 'vuex';
+import { mapActions } from 'vuex';
 
 export default {
     name: "Login",
@@ -40,7 +39,6 @@ export default {
         return {
             username: "",
             password: "",
-            message: "",
             showpassword: false,
             rules: {
                 required: value => !!value || "Required.",
@@ -49,26 +47,19 @@ export default {
         };
     },
     methods: {
-        loginUser: function() {
-            axios
-                .post(`${API_URL}/loginuser`, {
-                    username: this.username,
-                    password: this.password
-                })
-                .then(response => {
-                    if(response.data != ""){
-                        eventBus.appUser = response.data;
-                        this.$emit("authenticated", true);
-                        this.$router.replace({ name: "Home" });
-                        this.message = ""; //reset message
-                    } else {
-                        this.message = "Wrong Username/Password";
-                    }
-                })
-                .catch(error => {
-                    console.log(error);
-                });            
-        }
+        ...mapActions('user', {
+            setUserLogin: 'setUserLogin'
+        })        
+    },
+    computed: {
+        ...mapGetters('user', {
+            getLoginMessage: 'getLoginMessage'
+        })  
+    },
+    created() {
+        eventBus.$on('redirectToHome', payload => {
+            this.$router.replace({ name: "Home" });
+        })
     }
 };
 </script>

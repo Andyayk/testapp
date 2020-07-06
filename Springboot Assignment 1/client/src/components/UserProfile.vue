@@ -4,19 +4,19 @@
         <v-container>
             <v-list-item>
                 <v-list-item-content>
-                    <v-list-item-title>{{user.name}}</v-list-item-title>
+                    <v-list-item-title>{{getAppUser.name}}</v-list-item-title>
                     <v-list-item-subtitle>Name</v-list-item-subtitle>
                 </v-list-item-content>
             </v-list-item>
             <v-list-item>
                 <v-list-item-content>
-                    <v-list-item-title>{{user.email}}</v-list-item-title>
+                    <v-list-item-title>{{getAppUser.email}}</v-list-item-title>
                     <v-list-item-subtitle>Email</v-list-item-subtitle>
                 </v-list-item-content>
             </v-list-item>
             <v-list-item>
                 <v-list-item-content>
-                    <v-list-item-title>{{user.employeeid}}</v-list-item-title>
+                    <v-list-item-title>{{getAppUser.employeeid}}</v-list-item-title>
                     <v-list-item-subtitle>Employee Id</v-list-item-subtitle>
                 </v-list-item-content>
             </v-list-item>
@@ -25,17 +25,14 @@
 </template>
 
 <script>
-import axios from "axios";
-import { eventBus } from "../main";
-
-const API_URL = "http://localhost:8080/user";
+import { mapGetters } from 'vuex';
 
 export default {
     name: "UserProfile",
-    data: function() {
-        return {
-            user: eventBus.appUser
-        };
+    computed: {
+        ...mapGetters('user', {
+            getAppUser: 'getAppUser'
+        })  
     }
 };
 </script>

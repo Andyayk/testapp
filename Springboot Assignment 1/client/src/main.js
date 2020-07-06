@@ -9,7 +9,7 @@ Vue.use(Vuetify); // use components inside vuetify
 
 export const eventBus = new Vue({
     data: {
-        appUser: ''
+
     }
 });
 
