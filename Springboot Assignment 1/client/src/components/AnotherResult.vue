@@ -10,10 +10,10 @@ import {mapGetters} from 'vuex';
 
 export default {
     computed: {
-        ...mapGetters([
-            'doubleCounter',
-            'stringCounter'
-        ])
+        ...mapGetters('counter', {
+            doubleCounter: 'doubleCounter',
+            stringCounter: 'stringCounter'
+        })
     }
 }
 </script>

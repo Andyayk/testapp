@@ -43,5 +43,6 @@ export default {
     state,
     mutations,
     actions,
-    getters
+    getters,
+    namespaced: true
 }
