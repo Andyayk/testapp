@@ -1,24 +1,28 @@
 package com.example.demo;
 
-public class AppUser {
+import javax.persistence.Entity;
+import javax.persistence.Id;
 
+@Entity
+public class AppUser {
+    @Id
     private String employeeid;
     private String username;
     private String password;
     private String name;
     private String email;
-    private boolean isAdmin;
+    private boolean isadmin;
 
     public AppUser() {
     }
 
-    public AppUser(String employeeid, String username, String password, String name, String email, boolean isAdmin) {
+    public AppUser(String employeeid, String username, String password, String name, String email, boolean isadmin) {
         this.employeeid = employeeid;
         this.username = username;
         this.password = password;
         this.name = name;
         this.email = email;
-        this.isAdmin = isAdmin;
+        this.isadmin = isadmin;
     }
 
     public String getEmployeeid() {
@@ -61,11 +65,11 @@ public class AppUser {
         this.email = email;
     }
 
-    public boolean getisAdmin() {
-        return isAdmin;
+    public boolean getisadmin() {
+        return isadmin;
     }
 
-    public void setisAdmin(boolean admin) {
-        isAdmin = admin;
+    public void setisadmin(boolean admin) {
+        isadmin = admin;
     }
 }

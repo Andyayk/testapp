@@ -6,7 +6,6 @@ import org.springframework.web.bind.annotation.*;
 import java.util.HashMap;
 import java.util.List;
 
-//@CrossOrigin(origins = { "http://localhost:8081" })
 @RestController
 public class JobController {
 
