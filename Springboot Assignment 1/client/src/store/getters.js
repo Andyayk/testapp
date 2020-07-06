@@ -1,5 +1,8 @@
 export default {
-    value: state => {
-        return state.value;
-    }
+    jobTitle: state => {
+        return state.jobTitle;
+    },
+    jobDescription: state => {
+        return state.jobDescription;
+    }    
 };

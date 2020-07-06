@@ -11,7 +11,8 @@ Vue.use(Vuex);
 
 export const store = new Vuex.Store({
     state: {
-        value: 0
+        jobTitle: "",
+        jobDescription: "",
     },
     getters,
     mutations,

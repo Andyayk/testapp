@@ -1,5 +1,8 @@
 export default {
-    updateValue({commit}, payload) {
-        commit('updateValue', payload);
-    }
+    updateJobTitle({commit}, payload) {
+        commit('updateJobTitle', payload);
+    },
+    updateJobDescription({commit}, payload) {
+        commit('updateJobDescription', payload);
+    }    
 };

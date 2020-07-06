@@ -1,5 +1,8 @@
 export default {
-    updateValue(state, payload) {
-        state.value = payload;
-    }
+    updateJobTitle(state, payload) {
+        state.jobTitle = payload;
+    },
+    updateJobDescription(state, payload) {
+        state.jobDescription = payload;
+    }    
 };

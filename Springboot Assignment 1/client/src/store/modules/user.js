@@ -26,7 +26,10 @@ const mutations = {
         state.appUser = payload.appUser;
         state.userAuthentication = payload.userAuthentication;
         state.message = payload.message;
-        eventBus.$emit("redirectToHome", "");
+
+        if (state.userAuthentication) {
+            eventBus.$emit("redirectToHome", "");
+        }
     },
     setUserLogout: (state, payload) => {
         state.appUser = payload.appUser;

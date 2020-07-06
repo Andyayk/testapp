@@ -24,8 +24,6 @@ export default {
     name: "Form",
     data: function() {
         return {
-            jobTitle: "",
-            jobDescription: "",
             datePosted: new Date().toISOString().split("T")[0],
             snackbar: false,
             text: ""
@@ -60,6 +58,24 @@ export default {
             this.jobDescription = "";
             this.datecreated = "";
         }
+    },
+    computed: {
+        jobTitle: {
+            get() {
+                return this.$store.getters.jobTitle
+            },
+            set(value) {
+                this.$store.dispatch('updateJobTitle', value);
+            }
+        },
+        jobDescription: {
+            get() {
+                return this.$store.getters.jobDescription
+            },
+            set(value) {
+                this.$store.dispatch('updateJobDescription', value);
+            }
+        }        
     }
 };
 </script>
