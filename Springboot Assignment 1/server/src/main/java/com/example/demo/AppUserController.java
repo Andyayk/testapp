@@ -11,13 +11,8 @@ public class AppUserController {
     @Autowired
     private AppUserService appUserService;
 
-    @GetMapping("/user/{username}")
-    public AppUser getUser(@PathVariable String username) {
-        return appUserService.findUser(username);
-    }
-
     @PostMapping("/loginuser")
     public AppUser loginUser(@RequestBody HashMap<String, Object> payload) {
-        return appUserService.loginUser(payload);
+        return appUserService.loginUser(payload.get("username").toString(), payload.get("password").toString());
     }
 }

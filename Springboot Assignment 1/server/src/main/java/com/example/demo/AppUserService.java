@@ -3,23 +3,18 @@ package com.example.demo;
 import com.google.api.core.ApiFuture;
 import com.google.cloud.firestore.*;
 import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.data.jpa.repository.JpaRepository;
-import org.springframework.security.core.userdetails.UserDetails;
-import org.springframework.security.core.userdetails.UserDetailsService;
-import org.springframework.security.core.userdetails.UsernameNotFoundException;
 import org.springframework.stereotype.Service;
-import org.springframework.web.bind.annotation.RequestBody;
 
 import java.util.HashMap;
 import java.util.List;
 import java.util.concurrent.ExecutionException;
 
 @Service
-public class AppUserService implements UserDetailsService {
+public class AppUserService {
 
     @Autowired
     private AppUserRepo appUserRepo;
-
+    /*
     @Autowired
     private Firestore firestoreDB;
 
@@ -71,14 +66,13 @@ public class AppUserService implements UserDetailsService {
 
         return user;
     }
+    */
 
-    @Override
-    public UserDetails loadUserByUsername(String username) throws UsernameNotFoundException {
+    public AppUser loginUser(String username, String password) {
         AppUser appUser = appUserRepo.findByUsername(username);
-
-        if(appUser == null){
-            throw new UsernameNotFoundException("User 404");
+        if (appUser != null && appUser.getPassword().equals(password) ) {
+            return appUser;
         }
-        return new AppUserPrincipal(appUser);
+        return null;
     }
 }
