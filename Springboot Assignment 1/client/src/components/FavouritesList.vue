@@ -27,17 +27,10 @@
 
                         <v-card-actions>
                             <v-btn
-                                @click="favouriteJob(job.jobId)"
+                                @click="unfavouriteJob(job.jobId, index)"
                                 color="#64B5F6"
                                 dark
-                            >Favourite</v-btn>
-                            <app-edit-form v-if="getAppUser.isadmin" :job="job" :index="index" />
-                            <v-btn
-                                v-if="getAppUser.isadmin"
-                                @click="deleteJob(job.jobId, index)"
-                                color="#E53935"
-                                dark
-                            >Delete</v-btn>
+                            >Unfavourite</v-btn>
                             <v-snackbar v-model="snackbar">
                                 {{ text }}
                                 <v-btn color="white" text @click="snackbar = false">Close</v-btn>
@@ -55,12 +48,11 @@
 import axios from "axios";
 import { mapGetters } from 'vuex';
 import { eventBus } from "../main";
-import EditForm from "./EditForm";
 
 const API_URL = "http://localhost:8080";
 
 export default {
-    name: "JobList",
+    name: "FavouritesList",
     data: function() {
         return {
             jobs: [],
@@ -79,9 +71,9 @@ export default {
                     console.log(error);
                 });
         },
-        deleteJob: function(jobId, index) {
+        unfavouriteJob: function(jobId, index) {
             axios
-                .post(`${API_URL}/deletejob`, {
+                .post(`${API_URL}/unfavouriteJob`, {
                     jobId: jobId
                 })
                 .then(response => {
@@ -92,37 +84,15 @@ export default {
                 .catch(error => {
                     console.log(error);
                 });
-        },
-        favouriteJob: function(jobId) {
-            axios
-                .post(`${API_URL}/favouritejob`, {
-                    jobId: jobId
-                })
-                .then(response => {
-                    this.text = response.data;
-                    this.snackbar = true;
-                })
-                .catch(error => {
-                    console.log(error);
-                });
-        }        
+        }     
     },
     computed: {
         ...mapGetters('user', {
             getAppUser: 'getAppUser'
         })  
-    },    
-    components: {
-        appEditForm: EditForm
     },
     created() {
         this.retrieveAllJobs();
-
-        eventBus.$on("jobWasUpdated", payload => {
-            this.jobs.splice(payload.index, 1, payload.job);
-            this.text = payload.text;
-            this.snackbar = true;
-        });
     }
 };
 </script>
