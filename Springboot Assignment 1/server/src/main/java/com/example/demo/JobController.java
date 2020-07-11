@@ -36,4 +36,14 @@ public class JobController {
     public List<Job> retrieveAllFavouritesJobs(@RequestBody HashMap<String, Object> payload) {
         return jobService.findUserFavourites(payload);
     }
+
+    @PostMapping("/favouritejob")
+    public String favouriteJob(@RequestBody HashMap<String, Object> payload) {
+        return jobService.favouriteJob(payload);
+    }
+
+    @PostMapping("/unfavouritejob")
+    public String unfavouriteJob(@RequestBody HashMap<String, Object> payload) {
+        return jobService.unfavouriteJob(payload);
+    }
 }

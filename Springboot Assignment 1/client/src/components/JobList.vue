@@ -96,6 +96,7 @@ export default {
         favouriteJob: function(jobId) {
             axios
                 .post(`${API_URL}/favouritejob`, {
+                    employeeId: this.getAppUser.employeeid,
                     jobId: jobId
                 })
                 .then(response => {

@@ -80,7 +80,7 @@ public class JobService {
     public List<Job> findUserFavourites(HashMap<String, Object> payload) {
         List<Job> jobList = new ArrayList<>();
 
-        DocumentReference docRef = firestoreDB.collection("appuser").document(payload.get("employeeid").toString());
+        DocumentReference docRef = firestoreDB.collection("appuser").document(payload.get("employeeId").toString());
 
         ApiFuture<DocumentSnapshot> future = docRef.get();
 
@@ -111,6 +111,20 @@ public class JobService {
         }
 
         return jobList;
+    }
+
+    public String favouriteJob(HashMap<String, Object> payload) {
+        DocumentReference docRef = firestoreDB.collection("appuser").document(payload.get("employeeId").toString());
+
+        docRef.update("favourites", FieldValue.arrayUnion(payload.get("jobId").toString())); //favourite
+        return "Job Favourited!";
+    }
+
+    public String unfavouriteJob(HashMap<String, Object> payload) {
+        DocumentReference docRef = firestoreDB.collection("appuser").document(payload.get("employeeId").toString());
+
+        docRef.update("favourites", FieldValue.arrayRemove(payload.get("jobId").toString())); //unfavourite
+        return "Job Unfavourite!";
     }
 
     /*

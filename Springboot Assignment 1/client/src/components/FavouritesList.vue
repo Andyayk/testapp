@@ -28,7 +28,7 @@
                         <v-card-actions>
                             <v-btn
                                 @click="unfavouriteJob(job.jobId, index)"
-                                color="#64B5F6"
+                                color="#E53935"
                                 dark
                             >Unfavourite</v-btn>
                             <v-snackbar v-model="snackbar">
@@ -64,7 +64,7 @@ export default {
         retrieveAllFavouritesJobs: function() {
             axios
                 .post(`${API_URL}/retrieveallfavouritesjobs`, {
-                    employeeid: this.getAppUser.employeeid
+                    employeeId: this.getAppUser.employeeid
                 })
                 .then(response => {
                     this.jobs = response.data;
@@ -75,7 +75,8 @@ export default {
         },
         unfavouriteJob: function(jobId, index) {
             axios
-                .post(`${API_URL}/unfavouriteJob`, {
+                .post(`${API_URL}/unfavouritejob`, {
+                    employeeId: this.getAppUser.employeeid,
                     jobId: jobId
                 })
                 .then(response => {
