@@ -61,9 +61,11 @@ export default {
         };
     },
     methods: {
-        retrieveAllJobs: function() {
+        retrieveAllFavouritesJobs: function() {
             axios
-                .get(`${API_URL}/jobs`)
+                .post(`${API_URL}/retrieveallfavouritesjobs`, {
+                    employeeid: this.getAppUser.employeeid
+                })
                 .then(response => {
                     this.jobs = response.data;
                 })
@@ -92,7 +94,7 @@ export default {
         })  
     },
     created() {
-        this.retrieveAllJobs();
+        this.retrieveAllFavouritesJobs();
     }
 };
 </script>

@@ -76,4 +76,94 @@ public class JobService {
 
         return "Job Saved!";
     }
+
+    public List<Job> findUserFavourites(HashMap<String, Object> payload) {
+        List<Job> jobList = new ArrayList<>();
+
+        DocumentReference docRef = firestoreDB.collection("appuser").document(payload.get("employeeid").toString());
+
+        ApiFuture<DocumentSnapshot> future = docRef.get();
+
+        try {
+            DocumentSnapshot document = future.get();
+
+            List<String> favouritesList = (ArrayList) document.get("favourites");
+
+            for (String favourite : favouritesList) {
+                docRef = firestoreDB.collection("job").document(favourite);
+
+                future = docRef.get();
+                document = future.get();
+
+                String jobId = document.getId();
+                String jobTitle = document.getString("jobTitle");
+                String jobDescription = document.getString("jobDescription");
+                String datePosted = document.getString("datePosted");
+                Job eachJob = new Job(jobId, jobTitle, jobDescription, datePosted);
+
+                jobList.add(eachJob);
+            }
+
+        } catch (InterruptedException e) {
+            e.printStackTrace();
+        } catch (ExecutionException e) {
+            e.printStackTrace();
+        }
+
+        return jobList;
+    }
+
+    /*
+    @Autowired
+    private Firestore firestoreDB;
+
+    public AppUser findUser(String username) {
+
+        AppUser user = null;
+        try {
+            //asynchronously retrieve documents
+            ApiFuture<QuerySnapshot> future =
+                    firestoreDB.collection("appuser").whereEqualTo("username", username).get();
+            //future.get() blocks on response
+            List<QueryDocumentSnapshot> documents = future.get().getDocuments();
+            for (DocumentSnapshot document : documents) {
+                user = document.toObject(AppUser.class);
+            }
+        } catch (InterruptedException e) {
+            e.printStackTrace();
+        } catch (ExecutionException e) {
+            e.printStackTrace();
+        }
+
+        return user;
+    }
+
+    public AppUser loginUser(HashMap<String, Object> payload) {
+        AppUser user = null;
+        //asynchronously retrieve documents
+        ApiFuture<QuerySnapshot> query = firestoreDB.collection("appuser").get();
+        QuerySnapshot querySnapshot = null;
+        try {
+            querySnapshot = query.get();
+
+            List<QueryDocumentSnapshot> documents = querySnapshot.getDocuments();
+
+            for (DocumentSnapshot document : documents) {
+                String username = document.getString("username");
+                String password = document.getString("password");
+
+                if(username.equals(payload.get("username").toString()) && password.equals(payload.get("password").toString())) {
+                    user = document.toObject(AppUser.class);
+                    return user;
+                }
+            }
+        } catch (InterruptedException e) {
+            e.printStackTrace();
+        } catch (ExecutionException e) {
+            e.printStackTrace();
+        }
+
+        return user;
+    }
+    */
 }

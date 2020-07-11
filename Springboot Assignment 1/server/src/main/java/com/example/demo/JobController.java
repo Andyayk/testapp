@@ -31,4 +31,9 @@ public class JobController {
     public String editJob(@RequestBody HashMap<String, Object> payload) {
         return jobService.editJob(payload);
     }
+
+    @PostMapping("/retrieveallfavouritesjobs")
+    public List<Job> retrieveAllFavouritesJobs(@RequestBody HashMap<String, Object> payload) {
+        return jobService.findUserFavourites(payload);
+    }
 }
