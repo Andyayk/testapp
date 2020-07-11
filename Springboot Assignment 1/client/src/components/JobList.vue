@@ -27,6 +27,13 @@
 
                         <v-card-actions>
                             <v-btn
+                                v-if="favourites.includes(job.jobId)"
+                                @click="unfavouriteJob(job.jobId)"
+                                color="#E53935"
+                                dark
+                            >Unfavourite</v-btn>
+                            <v-btn
+                                v-else
                                 @click="favouriteJob(job.jobId)"
                                 color="#64B5F6"
                                 dark
@@ -53,7 +60,7 @@
 
 <script>
 import axios from "axios";
-import { mapGetters } from 'vuex';
+import { mapGetters } from "vuex";
 import { eventBus } from "../main";
 import EditForm from "./EditForm";
 
@@ -65,7 +72,8 @@ export default {
         return {
             jobs: [],
             snackbar: false,
-            text: ""
+            text: "",
+            favourites: ["1NV0boUvTkuPe9JunEbu", "1OoIfMJN4ocdvANzhATj"]
         };
     },
     methods: {
@@ -93,6 +101,18 @@ export default {
                     console.log(error);
                 });
         },
+        retrieveFavouritesList: function(jobId) {
+            axios
+                .post(`${API_URL}/retrievefavouriteslist`, {
+                    employeeId: this.getAppUser.employeeid
+                })
+                .then(response => {
+                    this.favourites = response.data;
+                })
+                .catch(error => {
+                    console.log(error);
+                });
+        },
         favouriteJob: function(jobId) {
             axios
                 .post(`${API_URL}/favouritejob`, {
@@ -100,24 +120,44 @@ export default {
                     jobId: jobId
                 })
                 .then(response => {
+                    this.favourites.push(jobId); //toggling button from favourite to unfavourite
+
                     this.text = response.data;
                     this.snackbar = true;
                 })
                 .catch(error => {
                     console.log(error);
                 });
-        }        
+        },
+        unfavouriteJob: function(jobId) {
+            axios
+                .post(`${API_URL}/unfavouritejob`, {
+                    employeeId: this.getAppUser.employeeid,
+                    jobId: jobId
+                })
+                .then(response => {
+                    var index = this.favourites.indexOf(jobId);
+                    this.favourites.splice(index, 1); //toggling button from unfavourite to favourite
+
+                    this.text = response.data;
+                    this.snackbar = true;
+                })
+                .catch(error => {
+                    console.log(error);
+                });
+        }
     },
     computed: {
-        ...mapGetters('user', {
-            getAppUser: 'getAppUser'
-        })  
-    },    
+        ...mapGetters("user", {
+            getAppUser: "getAppUser"
+        })
+    },
     components: {
         appEditForm: EditForm
     },
     created() {
         this.retrieveAllJobs();
+        this.retrieveFavouritesList();
 
         eventBus.$on("jobWasUpdated", payload => {
             this.jobs.splice(payload.index, 1, payload.job);

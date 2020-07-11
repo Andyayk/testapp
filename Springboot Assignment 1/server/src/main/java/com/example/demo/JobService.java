@@ -21,9 +21,9 @@ public class JobService {
 
         //asynchronously retrieve all jobs
         ApiFuture<QuerySnapshot> query = firestoreDB.collection("job").get();
-        QuerySnapshot querySnapshot = null;
+
         try {
-            querySnapshot = query.get();
+            QuerySnapshot querySnapshot = query.get();
 
             List<QueryDocumentSnapshot> documents = querySnapshot.getDocuments();
 
@@ -77,23 +77,38 @@ public class JobService {
         return "Job Saved!";
     }
 
-    public List<Job> findUserFavourites(HashMap<String, Object> payload) {
-        List<Job> jobList = new ArrayList<>();
+    public List<String> findFavouritesList(HashMap<String, Object> payload) {
+        List<String> favouritesList = new ArrayList<>();
 
         DocumentReference docRef = firestoreDB.collection("appuser").document(payload.get("employeeId").toString());
 
-        ApiFuture<DocumentSnapshot> future = docRef.get();
-
         try {
+            ApiFuture<DocumentSnapshot> future = docRef.get();
             DocumentSnapshot document = future.get();
 
-            List<String> favouritesList = (ArrayList) document.get("favourites");
+            favouritesList = (ArrayList) document.get("favourites");
 
-            for (String favourite : favouritesList) {
-                docRef = firestoreDB.collection("job").document(favourite);
+        } catch (InterruptedException e) {
+            e.printStackTrace();
+        } catch (ExecutionException e) {
+            e.printStackTrace();
+        }
 
-                future = docRef.get();
-                document = future.get();
+        return favouritesList;
+    }
+
+    public List<Job> findAllFavouritesJobs(HashMap<String, Object> payload) {
+        List<Job> jobList = new ArrayList<>();
+
+        List<String> favouritesList = findFavouritesList(payload);
+
+        for (String favourite : favouritesList) {
+
+            DocumentReference docRef = firestoreDB.collection("job").document(favourite);
+
+            try {
+                ApiFuture<DocumentSnapshot> future = docRef.get();
+                DocumentSnapshot document = future.get();
 
                 String jobId = document.getId();
                 String jobTitle = document.getString("jobTitle");
@@ -102,12 +117,11 @@ public class JobService {
                 Job eachJob = new Job(jobId, jobTitle, jobDescription, datePosted);
 
                 jobList.add(eachJob);
+            } catch (InterruptedException e) {
+                e.printStackTrace();
+            } catch (ExecutionException e) {
+                e.printStackTrace();
             }
-
-        } catch (InterruptedException e) {
-            e.printStackTrace();
-        } catch (ExecutionException e) {
-            e.printStackTrace();
         }
 
         return jobList;
@@ -128,16 +142,13 @@ public class JobService {
     }
 
     /*
-    @Autowired
-    private Firestore firestoreDB;
-
     public AppUser findUser(String username) {
-
         AppUser user = null;
+
+        //asynchronously retrieve documents
+        ApiFuture<QuerySnapshot> future = firestoreDB.collection("appuser").whereEqualTo("username", username).get();
+
         try {
-            //asynchronously retrieve documents
-            ApiFuture<QuerySnapshot> future =
-                    firestoreDB.collection("appuser").whereEqualTo("username", username).get();
             //future.get() blocks on response
             List<QueryDocumentSnapshot> documents = future.get().getDocuments();
             for (DocumentSnapshot document : documents) {
@@ -154,11 +165,12 @@ public class JobService {
 
     public AppUser loginUser(HashMap<String, Object> payload) {
         AppUser user = null;
+
         //asynchronously retrieve documents
         ApiFuture<QuerySnapshot> query = firestoreDB.collection("appuser").get();
-        QuerySnapshot querySnapshot = null;
+
         try {
-            querySnapshot = query.get();
+            QuerySnapshot querySnapshot = query.get();
 
             List<QueryDocumentSnapshot> documents = querySnapshot.getDocuments();
 
