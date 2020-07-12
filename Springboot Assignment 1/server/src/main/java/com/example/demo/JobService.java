@@ -16,7 +16,7 @@ public class JobService {
     @Autowired
     private Firestore firestoreDB;
 
-    public List<Job> findAll() {
+    public List<Job> findAllJobs() {
         List<Job> jobList = new ArrayList<>();
 
         //asynchronously retrieve all jobs
@@ -24,7 +24,6 @@ public class JobService {
 
         try {
             QuerySnapshot querySnapshot = query.get();
-
             List<QueryDocumentSnapshot> documents = querySnapshot.getDocuments();
 
             for (QueryDocumentSnapshot document : documents) {
@@ -77,6 +76,31 @@ public class JobService {
         return "Job Saved!";
     }
 
+    public HashMap<String, ArrayList<String>> findAllUsersFavourites() {
+        HashMap<String, ArrayList<String>> allUsersFavouritesMap = new HashMap<>();
+
+        //asynchronously retrieve all favourites
+        ApiFuture<QuerySnapshot> query = firestoreDB.collection("appuser").get();
+
+        try {
+            QuerySnapshot querySnapshot = query.get();
+
+            List<QueryDocumentSnapshot> documents = querySnapshot.getDocuments();
+
+            for (QueryDocumentSnapshot document : documents) {
+                String employeeId = document.getId();
+                ArrayList<String> favouritesList = (ArrayList) document.get("favourites");
+
+                allUsersFavouritesMap.put(employeeId, favouritesList);
+            }
+        } catch (InterruptedException e) {
+            e.printStackTrace();
+        } catch (ExecutionException e) {
+            e.printStackTrace();
+        }
+        return allUsersFavouritesMap;
+    }
+
     public List<String> findFavouritesList(HashMap<String, Object> payload) {
         List<String> favouritesList = new ArrayList<>();
 
@@ -99,11 +123,9 @@ public class JobService {
 
     public List<Job> findAllFavouritesJobs(HashMap<String, Object> payload) {
         List<Job> jobList = new ArrayList<>();
-
         List<String> favouritesList = findFavouritesList(payload);
 
         for (String favourite : favouritesList) {
-
             DocumentReference docRef = firestoreDB.collection("job").document(favourite);
 
             try {
@@ -129,16 +151,16 @@ public class JobService {
 
     public String favouriteJob(HashMap<String, Object> payload) {
         DocumentReference docRef = firestoreDB.collection("appuser").document(payload.get("employeeId").toString());
-
         docRef.update("favourites", FieldValue.arrayUnion(payload.get("jobId").toString())); //favourite
-        return "Job Favourited!";
+
+        return "Job Added to Favourites!";
     }
 
     public String unfavouriteJob(HashMap<String, Object> payload) {
         DocumentReference docRef = firestoreDB.collection("appuser").document(payload.get("employeeId").toString());
-
         docRef.update("favourites", FieldValue.arrayRemove(payload.get("jobId").toString())); //unfavourite
-        return "Job Unfavourite!";
+
+        return "Job Removed from Favourites!";
     }
 
     /*
