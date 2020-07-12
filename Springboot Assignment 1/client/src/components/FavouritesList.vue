@@ -4,39 +4,47 @@
         <v-container>
             <template v-for="(job, index) in jobs">
                 <v-list-item :key="job.jobId">
-                    <v-list-item-content>
-                        <v-list-item-title v-text="index+1+')'"></v-list-item-title>
-                        <v-list-item>
+                    <v-row>
+                        <v-col>
                             <v-list-item-content>
-                                <v-list-item-title>{{job.jobTitle}}</v-list-item-title>
-                                <v-list-item-subtitle>Job Title</v-list-item-subtitle>
+                                <v-list-item-title v-text="index+1+')'"></v-list-item-title>
+                                <v-list-item>
+                                    <v-list-item-content>
+                                        <v-list-item-title>{{job.jobTitle}}</v-list-item-title>
+                                        <v-list-item-subtitle>Job Title</v-list-item-subtitle>
+                                    </v-list-item-content>
+                                </v-list-item>
+                                <v-list-item>
+                                    <v-list-item-content>
+                                        <v-list-item-title>{{job.jobDescription}}</v-list-item-title>
+                                        <v-list-item-subtitle>Job Description</v-list-item-subtitle>
+                                    </v-list-item-content>
+                                </v-list-item>
+                                <v-list-item>
+                                    <v-list-item-content>
+                                        <v-list-item-title>{{job.datePosted}}</v-list-item-title>
+                                        <v-list-item-subtitle>Date Posted</v-list-item-subtitle>
+                                    </v-list-item-content>
+                                </v-list-item>
                             </v-list-item-content>
-                        </v-list-item>
-                        <v-list-item>
-                            <v-list-item-content>
-                                <v-list-item-title>{{job.jobDescription}}</v-list-item-title>
-                                <v-list-item-subtitle>Job Description</v-list-item-subtitle>
-                            </v-list-item-content>
-                        </v-list-item>
-                        <v-list-item>
-                            <v-list-item-content>
-                                <v-list-item-title>{{job.datePosted}}</v-list-item-title>
-                                <v-list-item-subtitle>Date Posted</v-list-item-subtitle>
-                            </v-list-item-content>
-                        </v-list-item>
-
-                        <v-card-actions>
-                            <v-btn
-                                @click="unfavouriteJob(job.jobId, index)"
-                                color="#E53935"
-                                dark
-                            >Unfavourite</v-btn>
-                            <v-snackbar v-model="snackbar">
-                                {{ text }}
-                                <v-btn color="white" text @click="snackbar = false">Close</v-btn>
-                            </v-snackbar>
-                        </v-card-actions>
-                    </v-list-item-content>
+                        </v-col>
+                        <v-col>
+                            <v-card-actions>
+                                <v-spacer></v-spacer>
+                                <v-btn
+                                    @click="unfavouriteJob(job.jobId, index)"
+                                    color="#FF9800"
+                                    dark
+                                >
+                                    <v-icon>mdi-star</v-icon>
+                                </v-btn>
+                                <v-snackbar v-model="snackbar">
+                                    {{ text }}
+                                    <v-btn color="white" text @click="snackbar = false">Close</v-btn>
+                                </v-snackbar>
+                            </v-card-actions>
+                        </v-col>
+                    </v-row>
                 </v-list-item>
                 <v-divider v-if="index + 1 < jobs.length" :key="index+'B'"></v-divider>
             </template>
@@ -46,7 +54,7 @@
 
 <script>
 import axios from "axios";
-import { mapGetters } from 'vuex';
+import { mapGetters } from "vuex";
 import { eventBus } from "../main";
 
 const API_URL = "http://localhost:8080";
@@ -87,12 +95,12 @@ export default {
                 .catch(error => {
                     console.log(error);
                 });
-        }     
+        }
     },
     computed: {
-        ...mapGetters('user', {
-            getAppUser: 'getAppUser'
-        })  
+        ...mapGetters("user", {
+            getAppUser: "getAppUser"
+        })
     },
     created() {
         this.retrieveAllFavouritesJobs();

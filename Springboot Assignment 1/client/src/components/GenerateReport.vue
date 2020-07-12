@@ -16,8 +16,8 @@
         </v-card>
         <br />
         <v-card-actions>
-            <v-btn @click="csvExport()" color="success">Download to CSV</v-btn>
-            <v-btn @click="excelExport()" color="success">Download to Excel</v-btn>
+            <v-btn @click="csvExport()"><v-icon>mdi-download</v-icon>Download to CSV</v-btn>
+            <v-btn @click="excelExport()"><v-icon>mdi-download</v-icon>Download to Excel</v-btn>
             <v-snackbar v-model="snackbar">
                 {{ text }}
                 <v-btn color="white" text @click="snackbar = false">Close</v-btn>
@@ -28,8 +28,7 @@
 
 <script>
 import axios from "axios";
-import json2xls from "json2xls";
-import fs from "file-system";
+import XLSX from 'xlsx';
 import { eventBus } from "../main";
 
 const API_URL = "http://localhost:8080";
@@ -100,9 +99,10 @@ export default {
             this.snackbar = true;
         },
         excelExport: function() {
-            var xls = json2xls(this.jobs);
-
-            fs.writeFile("data.xlsx", xls, "binary");
+            const data = XLSX.utils.json_to_sheet(this.jobs)
+            const wb = XLSX.utils.book_new()
+            XLSX.utils.book_append_sheet(wb, data, 'data')
+            XLSX.writeFile(wb,'popular_jobs.xlsx')
 
             this.text = "Excel File Downloaded!";
             this.snackbar = true;

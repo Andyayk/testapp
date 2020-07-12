@@ -5,7 +5,7 @@
             <v-text-field v-model="jobTitle" label="Job Title"></v-text-field>
             <v-text-field v-model="jobDescription" label="Job Description"></v-text-field>
             <v-text-field v-model="datePosted" label="Date Posted" disabled></v-text-field>
-            <v-btn @click="addJob" color="success">Create</v-btn>
+            <v-btn @click="addJob" color="success"><v-icon>mdi-plus</v-icon>Create</v-btn>
             <v-snackbar v-model="snackbar">
                 {{ text }}
                 <v-btn color="white" text @click="snackbar = false">Close</v-btn>

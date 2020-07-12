@@ -4,53 +4,65 @@
         <v-container>
             <template v-for="(job, index) in jobs">
                 <v-list-item :key="job.jobId">
-                    <v-list-item-content>
-                        <v-list-item-title v-text="index+1+')'"></v-list-item-title>
-                        <v-list-item>
+                    <v-row>
+                        <v-col>
                             <v-list-item-content>
-                                <v-list-item-title>{{job.jobTitle}}</v-list-item-title>
-                                <v-list-item-subtitle>Job Title</v-list-item-subtitle>
-                            </v-list-item-content>
-                        </v-list-item>
-                        <v-list-item>
-                            <v-list-item-content>
-                                <v-list-item-title>{{job.jobDescription}}</v-list-item-title>
-                                <v-list-item-subtitle>Job Description</v-list-item-subtitle>
-                            </v-list-item-content>
-                        </v-list-item>
-                        <v-list-item>
-                            <v-list-item-content>
-                                <v-list-item-title>{{job.datePosted}}</v-list-item-title>
-                                <v-list-item-subtitle>Date Posted</v-list-item-subtitle>
-                            </v-list-item-content>
-                        </v-list-item>
+                                <v-list-item-title v-text="index+1+')'"></v-list-item-title>
+                                <v-list-item>
+                                    <v-list-item-content>
+                                        <v-list-item-title>{{job.jobTitle}}</v-list-item-title>
+                                        <v-list-item-subtitle>Job Title</v-list-item-subtitle>
+                                    </v-list-item-content>
+                                </v-list-item>
+                                <v-list-item>
+                                    <v-list-item-content>
+                                        <v-list-item-title>{{job.jobDescription}}</v-list-item-title>
+                                        <v-list-item-subtitle>Job Description</v-list-item-subtitle>
+                                    </v-list-item-content>
+                                </v-list-item>
+                                <v-list-item>
+                                    <v-list-item-content>
+                                        <v-list-item-title>{{job.datePosted}}</v-list-item-title>
+                                        <v-list-item-subtitle>Date Posted</v-list-item-subtitle>
+                                    </v-list-item-content>
+                                </v-list-item>
 
-                        <v-card-actions>
-                            <v-btn
-                                v-if="favourites.includes(job.jobId)"
-                                @click="unfavouriteJob(job.jobId)"
-                                color="#E53935"
-                                dark
-                            >Unfavourite</v-btn>
-                            <v-btn
-                                v-else
-                                @click="favouriteJob(job.jobId)"
-                                color="#64B5F6"
-                                dark
-                            >Favourite</v-btn>
-                            <app-edit-form v-if="getAppUser.isadmin" :job="job" :index="index" />
-                            <v-btn
-                                v-if="getAppUser.isadmin"
-                                @click="deleteJob(job.jobId, index)"
-                                color="#E53935"
-                                dark
-                            >Delete</v-btn>
-                            <v-snackbar v-model="snackbar">
-                                {{ text }}
-                                <v-btn color="white" text @click="snackbar = false">Close</v-btn>
-                            </v-snackbar>
-                        </v-card-actions>
-                    </v-list-item-content>
+                                <v-card-actions>
+                                    <app-edit-form
+                                        v-if="getAppUser.isadmin"
+                                        :job="job"
+                                        :index="index"
+                                    />
+                                    <v-btn
+                                        v-if="getAppUser.isadmin"
+                                        @click="deleteJob(job.jobId, index)"
+                                        color="#E53935"
+                                        dark
+                                    ><v-icon>mdi-delete</v-icon>Delete</v-btn>
+                                    <v-snackbar v-model="snackbar">
+                                        {{ text }}
+                                        <v-btn color="white" text @click="snackbar = false">Close</v-btn>
+                                    </v-snackbar>
+                                </v-card-actions>
+                            </v-list-item-content>
+                        </v-col>
+                        <v-col>
+                            <v-card-actions>
+                                <v-spacer></v-spacer>
+                                <v-btn
+                                    v-if="favourites.includes(job.jobId)"
+                                    @click="unfavouriteJob(job.jobId)"
+                                    color="#FF9800"
+                                    dark
+                                >
+                                <v-icon>mdi-star</v-icon>
+                                </v-btn>
+                                <v-btn v-else @click="favouriteJob(job.jobId)" color="#64B5F6" dark>
+                                    <v-icon>mdi-star-outline</v-icon>
+                                </v-btn>
+                            </v-card-actions>
+                        </v-col>
+                    </v-row>
                 </v-list-item>
                 <v-divider v-if="index + 1 < jobs.length" :key="index+'B'"></v-divider>
             </template>

@@ -1,7 +1,7 @@
 <template>
     <v-dialog v-model="dialog" persistent max-width="600px">
         <template v-slot:activator="{ on, attrs }">
-            <v-btn color="success" dark v-bind="attrs" v-on="on">Edit</v-btn>
+            <v-btn color="#9E9D24" dark v-bind="attrs" v-on="on"><v-icon>mdi-pencil-outline</v-icon>Edit</v-btn>
         </template>
         <v-card>
             <v-card-title>
