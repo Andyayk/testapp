@@ -73,7 +73,7 @@ export default {
             jobs: [],
             snackbar: false,
             text: "",
-            favourites: ["1NV0boUvTkuPe9JunEbu", "1OoIfMJN4ocdvANzhATj"]
+            favourites: []
         };
     },
     methods: {

@@ -21,8 +21,8 @@ public class ScheduledTasks {
 
     private static final SimpleDateFormat dateFormat = new SimpleDateFormat("yyyy-MM-dd");
 
-    @Scheduled(cron = "0 38 12 12 * ?") //second, minute, hour, day, month, weekday
-    public void generateStatistics() {
+    @Scheduled(cron = "0 0 2 15 * ?") //second, minute, hour, day, month, weekday, 2am of every 15th of month
+    public void generatePopularJobStatistics() {
         //generate most popular job
         HashMap<String, Integer> counterMap = new HashMap<>();
 

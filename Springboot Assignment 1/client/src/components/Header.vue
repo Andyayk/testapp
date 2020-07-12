@@ -9,7 +9,10 @@
             </v-tab>     
             <v-tab to="/favourites">
                 <v-icon>mdi-heart</v-icon>My Favourites
-            </v-tab>                            
+            </v-tab>       
+            <v-tab v-if="getAppUser.isadmin" to="/report">
+                <v-icon>mdi-file-document</v-icon>Monthly Report
+            </v-tab>                                 
             <v-tab to="/profile">
                 <v-icon>mdi-account-circle</v-icon>Profile
             </v-tab>    
