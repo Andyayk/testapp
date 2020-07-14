@@ -30,10 +30,6 @@ INSERT appuser (employeeid, username, password, name, email, isadmin)
 	('2', 'user1', '1234', 'user 1', 'user1@gmail.com', 0)
 GO
 
-INSERT popularjob (jobId, jobTitle, jobDescription, datePosted, favouriteCount, dateRetrieved)  
-    VALUES ('1', 'a', 'b', '2020-12-31', 6, '2020-12-31')
-GO  
-
 SELECT *
 	FROM appuser
 GO
@@ -42,6 +38,7 @@ SELECT *
 	from popularjob
 GO
 
+/*
 DROP TABLE dbo.appuser
 GO
 
@@ -50,3 +47,4 @@ GO
 
 DROP DATABASE TestData
 GO
+*/
