@@ -1,8 +1,12 @@
 <!DOCTYPE html>
 <html>
 <head>
+	<title>Header</title>
+	<meta charset="utf-8">
 </head>
 <body>
+<h2>Content</h2>
+
 <p><strong>Employment Policy</strong></p>
 
 Following people are eligible:
