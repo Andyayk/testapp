@@ -1,0 +1,17 @@
+<!DOCTYPE html>
+<html>
+<head>
+</head>
+<body>
+<p><strong>Employment Policy</strong></p>
+
+Following people are eligible:
+<ul>
+	<ul>
+		<li>Contract Staff</li>
+		<li>Temporary Staff</li>
+	</ul>
+</ul>
+
+</body>
+</html>

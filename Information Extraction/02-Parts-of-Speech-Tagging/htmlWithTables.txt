@@ -1,0 +1,47 @@
+<!DOCTYPE html>
+<html>
+<head>
+</head>
+<body>
+<p><strong>Employment Policy</strong></p>
+
+Following people are eligible:
+<ul>
+	<ul>
+		<li>Contract Staff</li>
+		<li>Temporary Staff</li>
+	</ul>
+</ul>
+
+<p>Staff Benefits Table</p>
+
+<table>
+  <tr>
+    <th>Tier</th>
+    <th>Length</th>
+    <th>Credits</th>
+  </tr>
+  <tr>
+    <td>1</td>
+    <td>0 to 1 years of service</td>
+    <td>1 credits</td>
+  </tr>
+  <tr>
+    <td>2</td>
+    <td>2 to 3 years of service</td>
+    <td>10 credits</td>
+  </tr>
+  <tr>
+    <td>3</td>
+    <td>4 to 5 years of service</td>
+    <td>100 credits</td>
+  </tr>
+  <tr>
+    <td>4</td>
+    <td>6 to 7 years of service</td>
+    <td>1000 credits</td>
+  </tr>
+</table>
+
+</body>
+</html>
