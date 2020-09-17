@@ -89,7 +89,6 @@ dependencies:
   - pickleshare=0.7.5=py37_1001
   - pip=18.1=py37_0
   - plac=0.9.6=py37_1
-  - preshed=2.0.1=py37h33f27b4_0
   - prometheus_client=0.8.0=py_0
   - prompt-toolkit=3.0.7=py_0
   - prompt_toolkit=3.0.7=0
@@ -121,7 +120,6 @@ dependencies:
   - setuptools=49.6.0=py37_0
   - sip=4.19.8=py37h6538335_0
   - six=1.15.0=py_0
-  - spacy=2.0.16=py37hcce6980_0
   - sqlite=3.33.0=h2a8f88b_0
   - tbb=2020.2=h74a9793_0
   - tbb4py=2020.2=py37h74a9793_0
@@ -132,7 +130,6 @@ dependencies:
   - termcolor=1.1.0=py37_1
   - terminado=0.8.3=py37_0
   - testpath=0.4.4=py_0
-  - thinc=6.12.1=py37hb854c30_0
   - toolz=0.10.0=py_0
   - tornado=6.0.4=py37he774522_1
   - tqdm=4.48.2=py_0
@@ -156,9 +153,18 @@ dependencies:
   - zlib=1.2.11=h62dcd97_4
   - pip:
     - beautifulsoup4==4.9.1
+    - blis==0.4.1
     - bs4==0.0.1
-    - en-core-web-sm==2.0.0
+    - catalogue==1.0.0
+    - docx2python==1.25
+    - en-core-web-sm==2.3.1
     - lxml==4.5.2
+    - preshed==3.0.2
+    - pypdf2==1.26.0
     - soupsieve==2.0.1
+    - spacy==2.3.2
+    - srsly==1.0.2
+    - thinc==7.4.1
+    - wasabi==0.8.0
 prefix: C:\Users\Andy\anaconda3\envs\nlp_course
 
