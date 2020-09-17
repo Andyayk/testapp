@@ -167,4 +167,3 @@ dependencies:
     - thinc==7.4.1
     - wasabi==0.8.0
 prefix: C:\Users\Andy\anaconda3\envs\nlp_course
-
