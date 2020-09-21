@@ -162,7 +162,10 @@ dependencies:
     - bs4==0.0.1
     - docx2python==1.25
     - en-core-web-sm==2.2.5
+    - et-xmlfile==1.0.1
+    - jdcal==1.4.1
     - lxml==4.5.2
+    - openpyxl==3.0.5
     - pypdf2==1.26.0
     - soupsieve==2.0.1
 prefix: C:\Users\Andy\anaconda3\envs\nlp_course
