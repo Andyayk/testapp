@@ -41,6 +41,19 @@ class App extends Component {
   }
 
   render() {
+    const style = {
+      backgroundColor: 'green',
+      color: 'white',
+      font: 'inherit',
+      border: '1px solid blue',
+      padding: '8px',
+      cursor: 'pointer',
+      ':hover': {
+        backgroundColor: 'lightgreen',
+        color: 'black'
+      }
+    };
+
     let persons = null;
 
     if (this.state.showPersons) {
@@ -56,12 +69,30 @@ class App extends Component {
           })}
         </div>        
       )
+
+      style.backgroundColor = 'red';
+      style[':hover'] = {
+        backgroundColor: 'salmon',
+        color: 'black'
+      }
     }
+
+    const classes = [];
+
+    if (this.state.persons.length <= 2) {
+      classes.push('red'); //classes = ['red']
+    }
+    if (this.state.persons.length <= 1) {
+      classes.push('bold'); //classes = ['red', 'bold']
+    }    
 
     return (
       <div className="App">
         <h1>HI</h1>
-        <button onClick={this.togglePersonsHandler}>Toggle Persons</button>
+        <p className={classes.join(' ')}>This is really working</p>
+        <button 
+          style={style}
+          onClick={this.togglePersonsHandler}>Toggle Persons</button>
         { persons }
       </div>
     );
