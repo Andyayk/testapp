@@ -46,7 +46,8 @@ class Posts extends Component {
         });
 
         return (
-            <div>
+            <div style={{display: "flex",
+            justifyContent: "space-between"}}>
                 <section className="Posts">
                     {posts}
                 </section>
