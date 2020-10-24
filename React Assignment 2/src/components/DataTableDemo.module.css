@@ -1,0 +1,86 @@
+
+.DatatableFilterDemo .p-paginator .p-paginator-current {
+    margin-left: auto;
+}
+
+.DatatableFilterDemo .p-progressbar {
+    height: .5rem;
+    background-color: #D8DADC;
+}
+
+.DatatableFilterDemo .p-progressbar .p-progressbar-value {
+    background-color: #607D8B;
+}
+
+.DatatableFilterDemo .table-header {
+    display: flex;
+    justify-content: space-between;
+}
+
+.DatatableFilterDemo .p-datepicker {
+    min-width: 25rem;
+}
+
+.DatatableFilterDemo .p-datepicker td {
+    font-weight: 400;
+}
+
+.DatatableFilterDemo .p-datatable.p-datatable-customers .p-datatable-header {
+    padding: 1rem;
+    text-align: left;
+    font-size: 1.5rem;
+}
+
+.DatatableFilterDemo .p-datatable.p-datatable-customers .p-paginator {
+    padding: 1rem;
+}
+
+.DatatableFilterDemo .p-datatable.p-datatable-customers .p-datatable-thead > tr > th {
+    text-align: left;
+}
+
+.DatatableFilterDemo .p-datatable.p-datatable-customers .p-datatable-tbody > tr > td {
+    cursor: auto;
+}
+
+.DatatableFilterDemo .p-datatable.p-datatable-customers .p-dropdown-label:not(.p-placeholder) {
+    text-transform: uppercase;
+}
+
+.pColumnTitle {
+    display: none;
+}
+
+@media screen and (max-width: 960px) {
+    .DatatableFilterDemo .p-datatable.p-datatable-customers .p-datatable-thead > tr > th,
+    .DatatableFilterDemo .p-datatable.p-datatable-customers .p-datatable-tfoot > tr > td {
+        display: none !important;
+    }
+
+    .DatatableFilterDemo .p-datatable.p-datatable-customers .p-datatable-tbody > tr {
+        border-bottom: 1px solid var(--layer-2);
+    }
+
+    .DatatableFilterDemo .p-datatable.p-datatable-customers .p-datatable-tbody > tr > td {
+        text-align: left;
+        display: block;
+        border: 0 none !important;
+        width: 100% !important;
+        float: left;
+        clear: left;
+        border: 0 none;
+    }
+
+    .pColumnTitle {
+        padding: .4rem;
+        min-width: 30%;
+        display: inline-block;
+        margin: -.4rem 1rem -.4rem -.4rem;
+        font-weight: bold;
+    }
+
+    .DatatableFilterDemo .p-datatable.p-datatable-customers .p-datatable-tbody > tr > td .p-progressbar {
+        margin-top: .5rem;
+    }
+}
+                

@@ -7,12 +7,16 @@ import NewPost from './NewPost/NewPost';
 
 import classes from './Blog.module.css';
 import { Button } from 'primereact/button';
-
+import { InputText } from 'primereact/inputtext';
+import DataTableFilterDemo from '../../components/DataTableFilterDemo';
+import DataTableCrudDemo from '../../components/DataTableCrudDemo';
+import Logo from '../../assets/logo512.png';
 
 class Blog extends Component {
     render () {
         return (
             <div className={classes.Blog}>
+                <img src={Logo} alt="Logo" />
                 <header>
                     <nav>
                         <ul>
@@ -32,6 +36,9 @@ class Blog extends Component {
                     <Redirect from="/" to="/posts" />
                 </Switch>
                 <Button label="Save" />
+                <InputText />
+                <DataTableFilterDemo />
+                <DataTableCrudDemo />
             </div>
         );
     }
