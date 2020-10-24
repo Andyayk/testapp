@@ -5,7 +5,7 @@ import { Link, Route } from 'react-router-dom';
 import Post from '../../../components/Post/Post';
 import FullPost from '../FullPost/FullPost';
 
-import './Posts.css';
+import classes from './Posts.module.css';
 
 class Posts extends Component {
     state = {
@@ -48,7 +48,7 @@ class Posts extends Component {
         return (
             <div style={{display: "flex",
             justifyContent: "space-between"}}>
-                <section className="Posts">
+                <section className={classes.Posts}>
                     {posts}
                 </section>
                 <Route path={this.props.match.url + "/:id"} exact component={FullPost} />

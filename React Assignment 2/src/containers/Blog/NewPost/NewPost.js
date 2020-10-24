@@ -2,7 +2,7 @@ import React, { Component } from 'react';
 import axios from 'axios';
 import { Route, Link, NavLink, Switch, Redirect } from 'react-router-dom';
 
-import './NewPost.css';
+import classes from './NewPost.module.css';
 
 class NewPost extends Component {
     state = {
@@ -33,7 +33,7 @@ class NewPost extends Component {
         }
 
         return (
-            <div className="NewPost">
+            <div className={classes.NewPost}>
                 {redirect}
                 <h1>Add a Post</h1>
                 <label>Title</label>

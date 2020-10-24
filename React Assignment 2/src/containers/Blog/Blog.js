@@ -5,12 +5,14 @@ import Posts from './Posts/Posts';
 import FullPost from './FullPost/FullPost';
 import NewPost from './NewPost/NewPost';
 
-import './Blog.css';
+import classes from './Blog.module.css';
+import { Button } from 'primereact/button';
+
 
 class Blog extends Component {
     render () {
         return (
-            <div className="Blog">
+            <div className={classes.Blog}>
                 <header>
                     <nav>
                         <ul>
@@ -29,6 +31,7 @@ class Blog extends Component {
                     <Route render={() => <h1>Not Found</h1>} />
                     <Redirect from="/" to="/posts" />
                 </Switch>
+                <Button label="Save" />
             </div>
         );
     }
