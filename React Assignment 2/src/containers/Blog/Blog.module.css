@@ -21,3 +21,14 @@
 .Blog a.active {
     color: orange;
 }
+
+.Box {
+    text-align: center;
+    border-radius: 4px;
+    height: 100%;
+    padding: 10px;
+}
+
+.Blog p {
+    word-wrap: break-word;
+}

@@ -37,8 +37,24 @@ class Blog extends Component {
                 </Switch>
                 <Button label="Save" />
                 <InputText />
-                <DataTableFilterDemo />
-                <DataTableCrudDemo />
+                <h5>Vertical Alignment - Stretch</h5>
+                <div className="p-grid p-align-stretch vertical-container">
+                    <div className="p-col-3">
+                        <div className={classes.Box} style={{backgroundColor: 'red'}}>4</div>
+                    </div>
+                    <div className="p-col-6">
+                        <div className={classes.Box} style={{backgroundColor: 'blue'}}>
+                            <p>sDataTableCrudDeDataTableCrudDemogDataTableCrudDemogDataTableCrudDemogDataTableCrudDemogDataTableCrudDemogDataTableCrudDemogDataTableCrudDemogDataTableCrudDemogDataTableCrudDemogDataTableCrudDemogDataTableCrudDemogDataTableCrudDemogDataTableCrudDemogDataTableCrudDemogmogs</p>
+                            <p>asd</p>
+                            <p>fffd</p>
+                            <p>dss</p>
+                            <p>aaataTableCrudDeDataTableCrudDemogtaTableCrudDeDataTableCrudDemogtaTableCrudDeDataTableCrudDemogtaTableCrudDeDataTableCrudDemogtaTableCrudDeDataTableCrudDemogtaTableCrudDeDataTableCrudDemogtaTableCrudDeDataTableCrudDemogtaTableCrudDeDataTableCrudDemogtaTableCrudDeDataTableCrudDemogtaTableCrudDeDataTableCrudDemogtaTableCrudDeDataTableCrudDemogtaTableCrudDeDataTableCrudDemogtaTableCrudDeDataTableCrudDemogtaTableCrudDeDataTableCrudDemogtaTableCrudDeDataTableCrudDemogtaTableCrudDeDataTableCrudDemogtaTableCrudDeDataTableCrudDemogtaTableCrudDeDataTableCrudDemogtaTableCrudDeDataTableCrudDemogtaTableCrudDeDataTableCrudDemogtaTableCrudDeDataTableCrudDemogtaTableCrudDeDataTableCrudDemogtaTableCrudDeDataTableCrudDemogtaTableCrudDeDataTableCrudDemogtaTableCrudDeDataTableCrudDemogtaTableCrudDeDataTableCrudDemogtaTableCrudDeDataTableCrudDemog</p>
+                        </div>
+                    </div>
+                    <div className="p-col-3">
+                        <div className={classes.Box} style={{backgroundColor: 'green'}}>4</div>
+                    </div>
+                </div>
             </div>
         );
     }
