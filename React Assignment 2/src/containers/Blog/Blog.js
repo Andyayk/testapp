@@ -55,6 +55,7 @@ class Blog extends Component {
                         <div className={classes.Box} style={{backgroundColor: 'green'}}>4</div>
                     </div>
                 </div>
+                <i className="pi pi-check p-mr-2"></i>
             </div>
         );
     }
