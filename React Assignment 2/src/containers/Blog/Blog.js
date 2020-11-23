@@ -16,7 +16,72 @@ class Blog extends Component {
     render () {
         return (
             <div className={classes.Blog}>
-                <img src={Logo} alt="Logo" />
+                <div class="ui-grid">
+                    <div class="ui-grid-col-4">Col1</div>
+                    <div class="ui-grid-col-4">Col2</div>
+                    <div class="ui-grid-col-4">Col2</div>
+                </div>
+
+                <div className="p-d-flex">Flex Container</div>
+                <div className="p-d-inline-flex">Inline Flex Container</div>
+
+                <div className="p-d-flex p-flex-column">
+                    <div className="p-mt-2">Item 1</div>
+                    <div className="p-mb-2">Item 2</div>
+                    <div>Item 3</div>
+                </div>
+
+                <div className="p-d-flex p-flex-column p-flex-md-row">
+                    <div className="p-mb-2 p-mr-2">Item 1</div>
+                    <div className="p-mb-2 p-mr-2">Item 2</div>
+                    <div className="p-mb-2 p-mr-2">Item 3</div>
+                </div>
+
+                <div className="p-d-flex">
+                    <div className="p-mr-2 p-order-3">Item 1</div>
+                    <div className="p-mr-2 p-order-1">Item 2</div>
+                    <div className="p-mr-2 p-order-2">Item 3</div>
+                </div>
+
+                <div className="p-d-flex">
+                    <div className="p-mr-2 p-order-3 p-order-md-2">Item 1</div>
+                    <div className="p-mr-2 p-order-1 p-order-md-3">Item 2</div>
+                    <div className="p-mr-2 p-order-2 p-order-md-1">Item 3</div>
+                </div>
+
+                <div className="p-grid p-jc-center">
+                    <div className="p-d-flex p-jc-around p-col-3 p-m-2" style={{border: "1px solid red"}}>
+                        <div>Item 1</div>
+                        <div>Item 2</div>
+                    </div>
+
+                    <div className="p-d-flex p-col-3 p-m-2" style={{border: "1px solid red"}}>
+                        <div>Item 1</div>
+                        <div>Item 2</div>
+                    </div>
+
+                    <div className="p-d-flex p-col-3 p-m-2" style={{border: "1px solid red"}}>
+                        <div>Item 1</div>
+                        <div>Item 2</div>
+                    </div>
+                </div>
+
+                <div className="p-d-flex p-ai-center">
+                    <div className="p-mr-2" style={{height: '100px', border: "1px solid red"}}>Item 1</div>
+                    <div style={{height: '50px', border: "1px solid red"}}>Item 2</div>
+                </div>
+ 
+                <div className="p-d-flex p-p-5 card">
+                    <Button type="Button" icon="pi pi-check" className="p-mr-2" />
+                    <div>hello</div>
+                    <Button type="Button" icon="pi pi-search" className="p-ml-auto p-button-help"/>
+                </div>
+
+                <div style={{width: '10rem'}}>Long text wraps and does not overlow.</div>
+                <div className="p-text-nowrap" style={{width: '10rem'}}>Long text does not wrap and overflows the parent.</div>
+                <div className="p-text-nowrap p-text-truncate" style={{width: '10rem'}}>Long text does not wrap and overflows the parent.</div>
+
+                <img src={Logo} alt="Logo" style={{height: "30px", width: "30px"}}/>
                 <header>
                     <nav>
                         <ul>
@@ -35,7 +100,7 @@ class Blog extends Component {
                     <Route render={() => <h1>Not Found</h1>} />
                     <Redirect from="/" to="/posts" />
                 </Switch>
-                <Button label="Save" />
+                <Button label="Save" onClick="" />
                 <InputText />
                 <h5>Vertical Alignment - Stretch</h5>
                 <div className="p-grid p-align-stretch vertical-container">
