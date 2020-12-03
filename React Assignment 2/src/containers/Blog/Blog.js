@@ -11,14 +11,49 @@ import { InputText } from 'primereact/inputtext';
 import DataTableFilterDemo from '../../components/DataTableFilterDemo';
 import DataTableCrudDemo from '../../components/DataTableCrudDemo';
 import Logo from '../../assets/logo512.png';
+import { Calendar } from 'primereact/calendar';
+
+import './Calendar.css';
 
 class Blog extends Component {
+    state = {
+        date: ''
+    }
+
     render () {
         return (
             <div className={classes.Blog}>
+                <table>
+                <thead>
+                    <tr>
+                    <th>Name</th>
+                    <th>ID</th>
+                    <th>Favorite Color</th>
+                    </tr>
+                </thead>
+                <tbody>
+                    <tr>
+                    <td>Jim</td>
+                    <td>00001</td>
+                    <td>Blue</td>
+                    </tr>
+                    <tr>
+                    <td>Sue</td>
+                    <td>00002</td>
+                    <td>Red</td>
+                    </tr>
+                    <tr>
+                    <td>Barb</td>
+                    <td>00003</td>
+                    <td>Green</td>
+                    </tr>
+                </tbody>
+                </table>
+
                 <div class="ui-grid">
                     <div class="ui-grid-col-4">Col1</div>
-                    <div class="ui-grid-col-4">Col2</div>
+                    <div class="ui-grid-col-4">Col2
+                    </div>
                     <div class="ui-grid-col-4">Col2</div>
                 </div>
 
@@ -33,7 +68,13 @@ class Blog extends Component {
 
                 <div className="p-d-flex p-flex-column p-flex-md-row">
                     <div className="p-mb-2 p-mr-2">Item 1</div>
-                    <div className="p-mb-2 p-mr-2">Item 2</div>
+                    <div className="p-mb-2 p-mr-2">Item 2
+                    <Calendar 
+                        value={this.state.date} 
+                        appendTo={document.body}
+                        onChange={(e) => this.setState({date: e.value})}>
+                    </Calendar>
+                    </div>
                     <div className="p-mb-2 p-mr-2">Item 3</div>
                 </div>
 
