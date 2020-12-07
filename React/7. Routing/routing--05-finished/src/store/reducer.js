@@ -2,7 +2,7 @@ import * as actionTypes from './actions';
 
 const initialState = {
     persons: [],
-    role: "researcher",
+    role: "",
 };
 
 const reducer = ( state = initialState, action ) => {
