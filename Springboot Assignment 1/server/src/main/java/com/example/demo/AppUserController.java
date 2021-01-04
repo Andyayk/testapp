@@ -26,8 +26,7 @@ public class AppUserController {
     //retrieve user
     @PostMapping("/user")
     public AppUser getUser(@RequestBody HashMap<String, Object> payload) {
-        System.out.println(payload);
-        return appUserService.findUser(payload.get("employeeid").toString());
+        return appUserService.findUser(payload.get("jobId").toString());
     }
 
     //add user

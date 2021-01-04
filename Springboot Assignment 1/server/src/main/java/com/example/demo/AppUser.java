@@ -5,7 +5,8 @@ import javax.persistence.*;
 @Entity
 public class AppUser {
     @Id
-    private String employeeid;
+    @Column(name = "jobId", insertable = false, updatable = false)
+    private String jobId;
     private String username;
     private String password;
     private String name;
@@ -25,12 +26,12 @@ public class AppUser {
         this.job = job;
     }
 
-    public String getEmployeeid() {
-        return employeeid;
+    public String getJobId() {
+        return jobId;
     }
 
-    public void setEmployeeid(String employeeid) {
-        this.employeeid = employeeid;
+    public void setJobId(String jobId) {
+        this.jobId = jobId;
     }
 
     public String getUsername() {

@@ -24,8 +24,8 @@ public class AppUserService {
         return appUserRepo.findAll();
     }
 
-    public AppUser findUser(String employeeid) {
-        return appUserRepo.findByEmployeeid(employeeid);
+    public AppUser findUser(String jobId) {
+        return appUserRepo.retrieveByJobid(jobId);
     }
 
     public String addUser(HashMap<String, Object> payload) {
