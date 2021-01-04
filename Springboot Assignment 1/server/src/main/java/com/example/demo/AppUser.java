@@ -11,12 +11,26 @@ public class AppUser {
     private String password;
     private String name;
     private String email;
-    private boolean isadmin;
 
-    @OneToOne
+    private String isadmin;
+
+    @OneToOne(cascade = CascadeType.ALL)
     @JoinColumn(name = "jobId")
     @MapsId
     private Job job;
+
+    public AppUser() {
+    }
+
+    public AppUser(String jobId, String username, String password, String name, String email, String isadmin, Job job) {
+        this.jobId = jobId;
+        this.username = username;
+        this.password = password;
+        this.name = name;
+        this.email = email;
+        this.isadmin = isadmin;
+        this.job = job;
+    }
 
     public Job getJob() {
         return job;
@@ -66,12 +80,11 @@ public class AppUser {
         this.email = email;
     }
 
-    public boolean isIsadmin() {
+    public String getIsadmin() {
         return isadmin;
     }
 
-    public void setIsadmin(boolean admin) {
-        isadmin = admin;
+    public void setIsadmin(String isadmin) {
+        this.isadmin = isadmin;
     }
-
 }

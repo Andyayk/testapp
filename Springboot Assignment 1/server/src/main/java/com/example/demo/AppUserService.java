@@ -12,6 +12,9 @@ public class AppUserService {
     @Autowired
     private AppUserRepo appUserRepo;
 
+    @Autowired
+    private JobRepo jobRepo;
+
     public AppUser loginUser(String username, String password) {
         AppUser appUser = appUserRepo.findByUsername(username);
         if (appUser != null && appUser.getPassword().equals(password) ) {
@@ -29,7 +32,15 @@ public class AppUserService {
     }
 
     public String addUser(HashMap<String, Object> payload) {
-        return null;
+        Job job = jobRepo.findByJobId(payload.get("jobId").toString());
+
+        if (job != null) {
+            AppUser appUser = new AppUser(payload.get("jobId").toString(), payload.get("username").toString(), payload.get("password").toString(), payload.get("name").toString(), payload.get("email").toString(), "0", job);
+            appUserRepo.save(appUser);
+            return "Added";
+        } else {
+            return "Error";
+        }
     }
 
     public String deleteUser(HashMap<String, Object> payload) {
