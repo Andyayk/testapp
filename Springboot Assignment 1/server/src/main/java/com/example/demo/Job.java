@@ -1,21 +1,15 @@
 package com.example.demo;
 
+import javax.persistence.*;
+
+@Entity
 public class Job {
 
+    @Id
     private String jobId;
     private String jobTitle;
     private String jobDescription;
     private String datePosted;
-
-    public Job() {
-    }
-
-    public Job(String jobId, String jobTitle, String jobDescription, String datePosted) {
-        this.jobId = jobId;
-        this.jobTitle = jobTitle;
-        this.jobDescription = jobDescription;
-        this.datePosted = datePosted;
-    }
 
     public String getJobId() {
         return jobId;

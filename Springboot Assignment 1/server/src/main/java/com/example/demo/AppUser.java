@@ -1,7 +1,6 @@
 package com.example.demo;
 
-import javax.persistence.Entity;
-import javax.persistence.Id;
+import javax.persistence.*;
 
 @Entity
 public class AppUser {
@@ -13,16 +12,17 @@ public class AppUser {
     private String email;
     private boolean isadmin;
 
-    public AppUser() {
+    @OneToOne
+    @JoinColumn(name = "jobId")
+    @MapsId
+    private Job job;
+
+    public Job getJob() {
+        return job;
     }
 
-    public AppUser(String employeeid, String username, String password, String name, String email, boolean isadmin) {
-        this.employeeid = employeeid;
-        this.username = username;
-        this.password = password;
-        this.name = name;
-        this.email = email;
-        this.isadmin = isadmin;
+    public void setJob(Job job) {
+        this.job = job;
     }
 
     public String getEmployeeid() {
