@@ -1,5 +1,6 @@
 package com.example.demo;
 
+import org.modelmapper.ModelMapper;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.web.bind.annotation.*;
 
@@ -11,6 +12,9 @@ public class AppUserController {
 
     @Autowired
     private AppUserService appUserService;
+
+    @Autowired
+    private ModelMapper modelMapper;
 
     @PostMapping("/loginuser")
     public AppUser loginUser(@RequestBody HashMap<String, Object> payload) {
@@ -25,8 +29,10 @@ public class AppUserController {
 
     //retrieve user
     @PostMapping("/user")
-    public AppUser getUser(@RequestBody HashMap<String, Object> payload) {
-        return appUserService.findUser(payload.get("jobId").toString());
+    public AppUserDTO getUser(@RequestBody HashMap<String, Object> payload) {
+        AppUser appUser = appUserService.findUser(payload.get("jobId").toString());
+        AppUserDTO userDTO = modelMapper.map(appUser, AppUserDTO.class);
+        return userDTO;
     }
 
     //add user
