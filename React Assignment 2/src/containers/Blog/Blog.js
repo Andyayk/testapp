@@ -12,42 +12,79 @@ import DataTableFilterDemo from '../../components/DataTableFilterDemo';
 import DataTableCrudDemo from '../../components/DataTableCrudDemo';
 import Logo from '../../assets/logo512.png';
 import { Calendar } from 'primereact/calendar';
+import { FileUpload } from 'primereact/fileupload';
 
 import './Calendar.css';
 
 class Blog extends Component {
     state = {
-        date: ''
+        date: '',
+        file: '',
+        msg: ''
     }
 
-    render () {
+    onFileChange = (event) => {
+        this.setState({
+            file: event.target.files[0]
+        });
+    }
+
+    uploadFileData = (event) => {
+        event.preventDefault();
+        this.setState({ msg: '' });
+
+        let data = new FormData();
+        data.append('file', this.state.file);
+        console.log(this.state.file);
+        
+        fetch('http://localhost:8080/upload', {
+            method: 'POST',
+            body: data
+        }).then(response => {
+            this.setState({ msg: "File successfully uploaded" });
+        }).catch(err => {
+            this.setState({ error: err });
+        });
+    }
+
+    myUploader = (event) => {
+        //event.files == files to upload
+    }
+
+    render() {
         return (
             <div className={classes.Blog}>
+                <h1>File Upload Example using React</h1>
+                <h3>Upload a File</h3>
+                <h4>{this.state.msg}</h4>
+                <input onChange={this.onFileChange} type="file"></input>
+                <button disabled={!this.state.file} onClick={this.uploadFileData}>Upload</button>
+                <FileUpload name="file" customUpload uploadHandler={this.uploadFileData} mode="basic" />
                 <table>
-                <thead>
-                    <tr>
-                    <th>Name</th>
-                    <th>ID</th>
-                    <th>Favorite Color</th>
-                    </tr>
-                </thead>
-                <tbody>
-                    <tr>
-                    <td>Jim</td>
-                    <td>00001</td>
-                    <td>Blue</td>
-                    </tr>
-                    <tr>
-                    <td>Sue</td>
-                    <td>00002</td>
-                    <td>Red</td>
-                    </tr>
-                    <tr>
-                    <td>Barb</td>
-                    <td>00003</td>
-                    <td>Green</td>
-                    </tr>
-                </tbody>
+                    <thead>
+                        <tr>
+                            <th>Name</th>
+                            <th>ID</th>
+                            <th>Favorite Color</th>
+                        </tr>
+                    </thead>
+                    <tbody>
+                        <tr>
+                            <td>Jim</td>
+                            <td>00001</td>
+                            <td>Blue</td>
+                        </tr>
+                        <tr>
+                            <td>Sue</td>
+                            <td>00002</td>
+                            <td>Red</td>
+                        </tr>
+                        <tr>
+                            <td>Barb</td>
+                            <td>00003</td>
+                            <td>Green</td>
+                        </tr>
+                    </tbody>
                 </table>
 
                 <div class="ui-grid">
@@ -69,11 +106,11 @@ class Blog extends Component {
                 <div className="p-d-flex p-flex-column p-flex-md-row">
                     <div className="p-mb-2 p-mr-2">Item 1</div>
                     <div className="p-mb-2 p-mr-2">Item 2
-                    <Calendar 
-                        value={this.state.date} 
-                        appendTo={document.body}
-                        onChange={(e) => this.setState({date: e.value})}>
-                    </Calendar>
+                    <Calendar
+                            value={this.state.date}
+                            appendTo={document.body}
+                            onChange={(e) => this.setState({ date: e.value })}>
+                        </Calendar>
                     </div>
                     <div className="p-mb-2 p-mr-2">Item 3</div>
                 </div>
@@ -91,38 +128,38 @@ class Blog extends Component {
                 </div>
 
                 <div className="p-grid p-jc-center">
-                    <div className="p-d-flex p-jc-around p-col-3 p-m-2" style={{border: "1px solid red"}}>
+                    <div className="p-d-flex p-jc-around p-col-3 p-m-2" style={{ border: "1px solid red" }}>
                         <div>Item 1</div>
                         <div>Item 2</div>
                     </div>
 
-                    <div className="p-d-flex p-col-3 p-m-2" style={{border: "1px solid red"}}>
+                    <div className="p-d-flex p-col-3 p-m-2" style={{ border: "1px solid red" }}>
                         <div>Item 1</div>
                         <div>Item 2</div>
                     </div>
 
-                    <div className="p-d-flex p-col-3 p-m-2" style={{border: "1px solid red"}}>
+                    <div className="p-d-flex p-col-3 p-m-2" style={{ border: "1px solid red" }}>
                         <div>Item 1</div>
                         <div>Item 2</div>
                     </div>
                 </div>
 
                 <div className="p-d-flex p-ai-center">
-                    <div className="p-mr-2" style={{height: '100px', border: "1px solid red"}}>Item 1</div>
-                    <div style={{height: '50px', border: "1px solid red"}}>Item 2</div>
+                    <div className="p-mr-2" style={{ height: '100px', border: "1px solid red" }}>Item 1</div>
+                    <div style={{ height: '50px', border: "1px solid red" }}>Item 2</div>
                 </div>
- 
+
                 <div className="p-d-flex p-p-5 card">
                     <Button type="Button" icon="pi pi-check" className="p-mr-2" />
                     <div>hello</div>
-                    <Button type="Button" icon="pi pi-search" className="p-ml-auto p-button-help"/>
+                    <Button type="Button" icon="pi pi-search" className="p-ml-auto p-button-help" />
                 </div>
 
-                <div style={{width: '10rem'}}>Long text wraps and does not overlow.</div>
-                <div className="p-text-nowrap" style={{width: '10rem'}}>Long text does not wrap and overflows the parent.</div>
-                <div className="p-text-nowrap p-text-truncate" style={{width: '10rem'}}>Long text does not wrap and overflows the parent.</div>
+                <div style={{ width: '10rem' }}>Long text wraps and does not overlow.</div>
+                <div className="p-text-nowrap" style={{ width: '10rem' }}>Long text does not wrap and overflows the parent.</div>
+                <div className="p-text-nowrap p-text-truncate" style={{ width: '10rem' }}>Long text does not wrap and overflows the parent.</div>
 
-                <img src={Logo} alt="Logo" style={{height: "30px", width: "30px"}}/>
+                <img src={Logo} alt="Logo" style={{ height: "30px", width: "30px" }} />
                 <header>
                     <nav>
                         <ul>
@@ -146,10 +183,10 @@ class Blog extends Component {
                 <h5>Vertical Alignment - Stretch</h5>
                 <div className="p-grid p-align-stretch vertical-container">
                     <div className="p-col-3">
-                        <div className={classes.Box} style={{backgroundColor: 'red'}}>4</div>
+                        <div className={classes.Box} style={{ backgroundColor: 'red' }}>4</div>
                     </div>
                     <div className="p-col-6">
-                        <div className={classes.Box} style={{backgroundColor: 'blue'}}>
+                        <div className={classes.Box} style={{ backgroundColor: 'blue' }}>
                             <p>sDataTableCrudDeDataTableCrudDemogDataTableCrudDemogDataTableCrudDemogDataTableCrudDemogDataTableCrudDemogDataTableCrudDemogDataTableCrudDemogDataTableCrudDemogDataTableCrudDemogDataTableCrudDemogDataTableCrudDemogDataTableCrudDemogDataTableCrudDemogDataTableCrudDemogmogs</p>
                             <p>asd</p>
                             <p>fffd</p>
@@ -158,7 +195,7 @@ class Blog extends Component {
                         </div>
                     </div>
                     <div className="p-col-3">
-                        <div className={classes.Box} style={{backgroundColor: 'green'}}>4</div>
+                        <div className={classes.Box} style={{ backgroundColor: 'green' }}>4</div>
                     </div>
                 </div>
                 <i className="pi pi-check p-mr-2"></i>
