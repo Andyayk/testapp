@@ -4,7 +4,7 @@ import { Route, Link, NavLink, Switch, Redirect } from 'react-router-dom';
 import Posts from './Posts/Posts';
 import FullPost from './FullPost/FullPost';
 import NewPost from './NewPost/NewPost';
-
+import axios from 'axios';
 import classes from './Blog.module.css';
 import { Button } from 'primereact/button';
 import { InputText } from 'primereact/inputtext';
@@ -15,6 +15,7 @@ import { Calendar } from 'primereact/calendar';
 import { FileUpload } from 'primereact/fileupload';
 
 import './Calendar.css';
+import './Upload.css';
 
 class Blog extends Component {
     state = {
@@ -30,13 +31,13 @@ class Blog extends Component {
     }
 
     uploadFileData = (event) => {
-        event.preventDefault();
+        //event.preventDefault();
         this.setState({ msg: '' });
 
         let data = new FormData();
         data.append('file', this.state.file);
         console.log(this.state.file);
-        
+        /*
         fetch('http://localhost:8080/upload', {
             method: 'POST',
             body: data
@@ -45,6 +46,30 @@ class Blog extends Component {
         }).catch(err => {
             this.setState({ error: err });
         });
+        */
+        axios.post('http://localhost:8080/upload', data)
+            .then(response => {
+                //handle success
+                this.setState({ msg: "File successfully uploaded" });
+            })
+            .catch(err => {
+                //handle error
+                this.setState({ error: err });
+            });
+        /*
+        axios({
+            method: 'post',
+            url: 'http://localhost:8080/upload',
+            data: data,
+            headers: { 'Content-Type': 'multipart/form-data' }
+        }).then(response => {
+            //handle success
+            this.setState({ msg: "File successfully uploaded" });
+        }).catch(err => {
+            //handle error
+            this.setState({ error: err });
+        });
+        */
     }
 
     myUploader = (event) => {
@@ -59,7 +84,7 @@ class Blog extends Component {
                 <h4>{this.state.msg}</h4>
                 <input onChange={this.onFileChange} type="file"></input>
                 <button disabled={!this.state.file} onClick={this.uploadFileData}>Upload</button>
-                <FileUpload name="file" customUpload uploadHandler={this.uploadFileData} mode="basic" />
+                <FileUpload name="file" url="http://localhost:8080/upload" customUpload uploadHandler={this.uploadFileData} mode="basic" />
                 <table>
                     <thead>
                         <tr>
