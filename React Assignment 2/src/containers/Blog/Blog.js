@@ -13,6 +13,9 @@ import DataTableCrudDemo from '../../components/DataTableCrudDemo';
 import Logo from '../../assets/logo512.png';
 import { Calendar } from 'primereact/calendar';
 import { FileUpload } from 'primereact/fileupload';
+import { Editor } from 'primereact/editor';
+import { Dropdown } from 'primereact/dropdown';
+
 
 import './Calendar.css';
 import './Upload.css';
@@ -111,7 +114,8 @@ class Blog extends Component {
                         </tr>
                     </tbody>
                 </table>
-
+                <Editor />
+                <Dropdown />
                 <div class="ui-grid">
                     <div class="ui-grid-col-4">Col1</div>
                     <div class="ui-grid-col-4">Col2
@@ -153,7 +157,7 @@ class Blog extends Component {
                 </div>
 
                 <div className="p-grid p-jc-center">
-                    <div className="p-d-flex p-jc-around p-col-3 p-m-2" style={{ border: "1px solid red" }}>
+                    <div className="p-d-flex p-jc-around p-col-3 p-m-2" style={{ backgroundColor: "#DAA520" }}>
                         <div>Item 1</div>
                         <div>Item 2</div>
                     </div>

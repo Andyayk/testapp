@@ -2,7 +2,7 @@ import React, { Component } from 'react';
 import { BrowserRouter } from 'react-router-dom';
 
 import Blog from './containers/Blog/Blog';
-import 'primereact/resources/themes/saga-blue/theme.css';
+import 'primereact/resources/themes/saga-orange/theme.css';
 import 'primereact/resources/primereact.min.css';
 import 'primeicons/primeicons.css';
 import 'primeflex/primeflex.css';
