@@ -82,8 +82,11 @@ class Blog extends Component {
     render() {
         return (
             <div className={classes.Blog}>
-                <h1>File Upload Example using React</h1>
-                <h3>Upload a File</h3>
+                <h1 style={{position: 'sticky', top: '0'}}>File Upload Example using React</h1>
+                <a href="/">
+                    <img src={Logo} style={{position: 'sticky', top: '2em', width: '100%', height: "150px"}}/>
+                </a>
+                <h3 style={{position: 'sticky', top: '52px'}}>Upload a File</h3>
                 <h4>{this.state.msg}</h4>
                 <input onChange={this.onFileChange} type="file"></input>
                 <button disabled={!this.state.file} onClick={this.uploadFileData}>Upload</button>
