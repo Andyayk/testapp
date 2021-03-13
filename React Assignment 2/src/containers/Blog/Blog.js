@@ -17,7 +17,7 @@ import { Editor } from 'primereact/editor';
 import { Dropdown } from 'primereact/dropdown';
 
 
-import './Calendar.css';
+import classes2 from './Calendar.module.css';
 import './Upload.css';
 
 class Blog extends Component {
@@ -82,11 +82,16 @@ class Blog extends Component {
     render() {
         return (
             <div className={classes.Blog}>
-                <h1 style={{position: 'sticky', top: '0'}}>File Upload Example using React</h1>
+                <h1 style={{ position: 'sticky', top: '0' }}>File Upload Example using React</h1>
                 <a href="/">
-                    <img src={Logo} style={{position: 'sticky', top: '2em', width: '100%', height: "150px"}}/>
+                    <img src={Logo} style={{ position: 'sticky', top: '2em', width: '100%', height: "150px" }} />
                 </a>
-                <h3 style={{position: 'sticky', top: '52px'}}>Upload a File</h3>
+                <Calendar
+                    value={this.state.date}
+                    appendTo={document.body}
+                    onChange={(e) => this.setState({ date: e.value })}>
+                </Calendar>
+                <h3>Upload a File</h3>
                 <h4>{this.state.msg}</h4>
                 <input onChange={this.onFileChange} type="file"></input>
                 <button disabled={!this.state.file} onClick={this.uploadFileData}>Upload</button>
@@ -122,7 +127,7 @@ class Blog extends Component {
                 <div class="ui-grid">
                     <div class="ui-grid-col-4">Col1</div>
                     <div class="ui-grid-col-4">Col2
-                    </div>
+                        </div>
                     <div class="ui-grid-col-4">Col2</div>
                 </div>
 
@@ -138,7 +143,7 @@ class Blog extends Component {
                 <div className="p-d-flex p-flex-column p-flex-md-row">
                     <div className="p-mb-2 p-mr-2">Item 1</div>
                     <div className="p-mb-2 p-mr-2">Item 2
-                    <Calendar
+                        <Calendar
                             value={this.state.date}
                             appendTo={document.body}
                             onChange={(e) => this.setState({ date: e.value })}>

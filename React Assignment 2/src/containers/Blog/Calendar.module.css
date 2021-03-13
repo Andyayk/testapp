@@ -1,0 +1,12 @@
+.Calendar > .p-datepicker table td > span {
+  width: 1.5rem !important;
+  height: 1.5rem !important; 
+}
+
+.Calendar > .p-datepicker {
+  padding: 0rem !important;
+}
+
+.Calendar > .p-datepicker table td {
+  font-size: 10px;
+}

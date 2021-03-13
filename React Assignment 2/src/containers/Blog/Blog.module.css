@@ -32,3 +32,16 @@
 .Blog p {
     word-wrap: break-word;
 }
+
+.Blog .p-datepicker table td > span {
+    width: 1.5rem !important;
+    height: 1.5rem !important; 
+}
+
+.Blog .p-datepicker {
+    padding: 0rem !important;
+}
+
+.Blog .p-datepicker table td {
+    font-size: 10px !important;
+}
