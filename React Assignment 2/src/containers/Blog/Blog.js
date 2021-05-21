@@ -15,7 +15,7 @@ import { Calendar } from 'primereact/calendar';
 import { FileUpload } from 'primereact/fileupload';
 import { Editor } from 'primereact/editor';
 import { Dropdown } from 'primereact/dropdown';
-
+import { AutoComplete } from 'primereact/autocomplete';
 
 import classes2 from './Calendar.module.css';
 import './Upload.css';
@@ -24,7 +24,9 @@ class Blog extends Component {
     state = {
         date: '',
         file: '',
-        msg: ''
+        msg: '',
+        selectedCountry: '',
+        filteredCountries: []
     }
 
     onFileChange = (event) => {
@@ -77,6 +79,29 @@ class Blog extends Component {
 
     myUploader = (event) => {
         //event.files == files to upload
+    }
+
+    searchCountry = () => {
+        if (this.state.selectedCountry.trim()) { //theres something in form
+            var split = this.state.selectedCountry.split(","); //split
+            var selectLast = split[split.length - 1]; //get last
+            var trimLast = selectLast.trim(); //trim
+
+            if (trimLast && trimLast.length >= 2) { //theres something in form
+                this.setState({ filteredCountries: ["aaa", "bbb", "ccc"] });
+            }
+        }
+    }
+
+    addOnToSearch = (value) => {
+        if (this.state.selectedCountry.split(",").length >= 2) { //more than 2 then add on
+            var split = this.state.selectedCountry.split(',');
+            split.pop(); //remove last
+            split.push(value); //add new value
+            this.setState({ selectedCountry: split.join(",") + "," });
+        } else {
+            this.setState({ selectedCountry: value + "," })
+        }
     }
 
     render() {
@@ -216,6 +241,14 @@ class Blog extends Component {
                     <Redirect from="/" to="/posts" />
                 </Switch>
                 <Button label="Save" onClick="" />
+                <AutoComplete
+                    value={this.state.selectedCountry}
+                    suggestions={this.state.filteredCountries}
+                    completeMethod={this.searchCountry}
+                    onSelect={(e) => this.addOnToSearch(e.value)}
+                    onChange={(e) => this.setState({ selectedCountry: e.value })}
+                    delay={1000}
+                />
                 <InputText />
                 <h5>Vertical Alignment - Stretch</h5>
                 <div className="p-grid p-align-stretch vertical-container">
