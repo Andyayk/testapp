@@ -1,14 +1,11 @@
-package com.example.demo;
-import com.google.api.core.ApiFuture;
-import com.google.cloud.firestore.*;
+package com.example.demo.service;
+import com.example.demo.model.Job;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
 import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.List;
-
-import java.util.concurrent.ExecutionException;
 
 @Service
 public class JobService {

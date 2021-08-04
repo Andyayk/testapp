@@ -6,6 +6,10 @@ import java.util.Date;
 import java.util.HashMap;
 import java.util.List;
 
+import com.example.demo.model.Job;
+import com.example.demo.model.PopularJob;
+import com.example.demo.repository.PopularJobRepo;
+import com.example.demo.service.JobService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.scheduling.annotation.Scheduled;
 import org.springframework.stereotype.Component;
