@@ -1,5 +1,6 @@
 package com.example.demo.service;
 import com.example.demo.model.Job;
+import com.example.demo.repository.JobRepo;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
@@ -10,8 +11,11 @@ import java.util.List;
 @Service
 public class JobService {
 
-    @Autowired
+    //@Autowired
     //private Firestore firestoreDB;
+
+    @Autowired
+    private JobRepo jobRepo;
 
     public List<Job> findAllJobs() {
 /*        List<Job> jobList = new ArrayList<>();
@@ -37,7 +41,7 @@ public class JobService {
         } catch (ExecutionException e) {
             e.printStackTrace();
         }*/
-        return null;
+        return jobRepo.findAll();
     }
 
     public String addJob(HashMap<String, Object> payload) {

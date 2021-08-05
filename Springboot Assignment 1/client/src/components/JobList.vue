@@ -67,6 +67,20 @@
                 <v-divider v-if="index + 1 < jobs.length" :key="index+'B'"></v-divider>
             </template>
         </v-container>
+        <h3>All Users</h3>
+        <v-container>
+            <template v-for="(user, index) in users">
+                <v-list-item :key="user.name + index">
+                    <v-row>
+                        <v-col>
+                            <v-list-item-content>
+                                <v-list-item-title>{{user.name}}</v-list-item-title>
+                            </v-list-item-content>
+                        </v-col>
+                    </v-row>
+                </v-list-item>
+            </template>
+        </v-container>
     </v-container>
 </template>
 
@@ -83,12 +97,23 @@ export default {
     data: function() {
         return {
             jobs: [],
+            users: [],
             snackbar: false,
             text: "",
             favourites: []
         };
     },
     methods: {
+        retrieveAllUsers: function() {
+            axios
+                .get(`${API_URL}/users`)
+                .then(response => {
+                    this.users = response.data;
+                })
+                .catch(error => {
+                    console.log(error);
+                });
+        },        
         retrieveAllJobs: function() {
             axios
                 .get(`${API_URL}/jobs`)
@@ -168,6 +193,7 @@ export default {
         appEditForm: EditForm
     },
     created() {
+        this.retrieveAllUsers();
         this.retrieveAllJobs();
         this.retrieveFavouritesList();
 

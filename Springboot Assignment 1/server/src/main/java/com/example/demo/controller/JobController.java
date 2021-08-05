@@ -5,6 +5,7 @@ import com.example.demo.model.Job;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.web.bind.annotation.*;
 
+import javax.servlet.http.HttpSession;
 import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.List;
@@ -67,5 +68,11 @@ public class JobController {
     @PostMapping("/unfavouritejob")
     public String unfavouriteJob(@RequestBody HashMap<String, Object> payload) {
         return jobService.unfavouriteJob(payload);
+    }
+
+    //home
+    @RequestMapping("home")
+    public String home(@RequestParam("name") String myName, HttpSession session) {
+        return "hi";
     }
 }
