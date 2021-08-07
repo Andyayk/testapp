@@ -1,5 +1,7 @@
 package com.example.demo.controller;
 
+import com.example.demo.dto.FavouriteJobDTO;
+import com.example.demo.dto.JobDTO;
 import com.example.demo.service.JobService;
 import com.example.demo.model.Job;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -15,25 +17,25 @@ public class JobController {
     @Autowired
     private JobService jobService;
 
-    //retrieve all jobs
+    //retrieve all jobs from database
     @GetMapping("/jobs")
-    public List<Job> getAllJobs() {
+    public List<JobDTO> getAllJobs() {
         return jobService.findAllJobs();
     }
 
-    //add job
+    //add job into database
     @PostMapping("/addjob")
     public String addJob(@RequestBody Job job) {
         return jobService.addJob(job);
     }
 
-    //delete job
+    //delete job from database
     @PostMapping("/deletejob")
     public String deleteJob(@RequestBody Job job) {
         return jobService.deleteJob(job);
     }
 
-    //edit job
+    //edit job in database
     @PostMapping("/editjob")
     public String editJob(@RequestBody Job job) {
         return jobService.editJob(job);
@@ -47,23 +49,23 @@ public class JobController {
 
     //retrieve a list containing favourites job ID of a particular user
     @PostMapping("/retrievefavouriteslist")
-    public List<String> retrieveFavouritesList(@RequestBody HashMap<String, Object> payload) {
+    public List<Long> retrieveFavouritesList(@RequestBody HashMap<String, Object> payload) {
         return jobService.findFavouritesList(payload);
     }
 
     //retrieve a list of favourites jobs of a particular user
     @PostMapping("/retrieveallfavouritesjobs")
-    public List<Job> retrieveAllFavouritesJobs(@RequestBody HashMap<String, Object> payload) {
+    public List<FavouriteJobDTO> retrieveAllFavouritesJobs(@RequestBody HashMap<String, Object> payload) {
         return jobService.findAllFavouritesJobs(payload);
     }
 
-    //add favourite
+    //add a favourite by user in database
     @PostMapping("/favouritejob")
     public String favouriteJob(@RequestBody HashMap<String, Object> payload) {
         return jobService.favouriteJob(payload);
     }
 
-    //remove favourite
+    //remove a favourite by user in database
     @PostMapping("/unfavouritejob")
     public String unfavouriteJob(@RequestBody HashMap<String, Object> payload) {
         return jobService.unfavouriteJob(payload);

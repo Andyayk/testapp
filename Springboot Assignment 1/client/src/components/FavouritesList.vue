@@ -2,27 +2,27 @@
     <v-container>
         <h3>All Jobs</h3>
         <v-container>
-            <template v-for="(job, index) in jobs">
-                <v-list-item :key="job.jobId">
+            <template v-for="(favJob, index) in jobs">
+                <v-list-item :key="favJob.job.jobId">
                     <v-row>
                         <v-col>
                             <v-list-item-content>
                                 <v-list-item-title v-text="index+1+')'"></v-list-item-title>
                                 <v-list-item>
                                     <v-list-item-content>
-                                        <v-list-item-title>{{job.jobTitle}}</v-list-item-title>
+                                        <v-list-item-title>{{favJob.job.jobTitle}}</v-list-item-title>
                                         <v-list-item-subtitle>Job Title</v-list-item-subtitle>
                                     </v-list-item-content>
                                 </v-list-item>
                                 <v-list-item>
                                     <v-list-item-content>
-                                        <v-list-item-title>{{job.jobDescription}}</v-list-item-title>
+                                        <v-list-item-title>{{favJob.job.jobDescription}}</v-list-item-title>
                                         <v-list-item-subtitle>Job Description</v-list-item-subtitle>
                                     </v-list-item-content>
                                 </v-list-item>
                                 <v-list-item>
                                     <v-list-item-content>
-                                        <v-list-item-title>{{job.datePosted}}</v-list-item-title>
+                                        <v-list-item-title>{{favJob.job.datePosted}}</v-list-item-title>
                                         <v-list-item-subtitle>Date Posted</v-list-item-subtitle>
                                     </v-list-item-content>
                                 </v-list-item>
@@ -32,7 +32,7 @@
                             <v-card-actions>
                                 <v-spacer></v-spacer>
                                 <v-btn
-                                    @click="unfavouriteJob(job.jobId, index)"
+                                    @click="unfavouriteJob(favJob.job.jobId, index)"
                                     color="#FF9800"
                                     dark
                                 >
@@ -46,7 +46,7 @@
                         </v-col>
                     </v-row>
                 </v-list-item>
-                <v-divider v-if="index + 1 < jobs.length" :key="index+'B'"></v-divider>
+                <v-divider v-if="index + 1 < favJob.length" :key="index+'B'"></v-divider>
             </template>
         </v-container>
     </v-container>

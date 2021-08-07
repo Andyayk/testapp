@@ -1,4 +1,6 @@
 package com.example.demo.service;
+import com.example.demo.dto.FavouriteJobDTO;
+import com.example.demo.dto.JobDTO;
 import com.example.demo.model.AppUser;
 import com.example.demo.model.FavouriteJob;
 import com.example.demo.model.FavouriteJobKey;
@@ -7,9 +9,12 @@ import com.example.demo.repository.AppUserRepo;
 import com.example.demo.repository.FavouriteJobRepo;
 import com.example.demo.repository.JobRepo;
 import org.modelmapper.ModelMapper;
+import org.modelmapper.TypeToken;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.data.domain.Example;
 import org.springframework.stereotype.Service;
 
+import java.lang.reflect.Type;
 import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.List;
@@ -33,8 +38,12 @@ public class JobService {
     private FavouriteJobRepo favouriteJobRepo;
 
     //return all jobs from server
-    public List<Job> findAllJobs() {
-        return jobRepo.findAll();
+    public List<JobDTO> findAllJobs() {
+        List<Job> jobList = jobRepo.findAll();
+        Type listType = new TypeToken<List<JobDTO>>(){}.getType();
+        List<JobDTO> jobDTOList = modelMapper.map(jobList, listType);
+
+        return jobDTOList;
     }
 
     //create job
@@ -98,54 +107,30 @@ public class JobService {
         return null;
     }
 
-    public List<String> findFavouritesList(HashMap<String, Object> payload) {
-/*        List<String> favouritesList = new ArrayList<>();
+    //return list of job id
+    public List<Long> findFavouritesList(HashMap<String, Object> payload) {
+        List<Long> favouritesList = new ArrayList<>();
 
-        DocumentReference docRef = firestoreDB.collection("appuser").document(payload.get("employeeId").toString());
+        List<FavouriteJob> favouriteJobList = favouriteJobRepo.findAllByIdEmployeeId(parseLong(payload.get("employeeId").toString()));
 
-        try {
-            ApiFuture<DocumentSnapshot> future = docRef.get();
-            DocumentSnapshot document = future.get();
-
-            favouritesList = (ArrayList) document.get("favourites");
-
-        } catch (InterruptedException e) {
-            e.printStackTrace();
-        } catch (ExecutionException e) {
-            e.printStackTrace();
-        }*/
-
-        return null;
+        for (FavouriteJob favJob : favouriteJobList
+             ) {
+            favouritesList.add(favJob.getJob().getJobId());
+        }
+        return favouritesList;
     }
 
-    public List<Job> findAllFavouritesJobs(HashMap<String, Object> payload) {
-/*        List<Job> jobList = new ArrayList<>();
-        List<String> favouritesList = findFavouritesList(payload);
+    //return list of jobs
+    public List<FavouriteJobDTO> findAllFavouritesJobs(HashMap<String, Object> payload) {
+        List<FavouriteJob> favouriteJobList = favouriteJobRepo.findAllByIdEmployeeId(parseLong(payload.get("employeeId").toString()));
 
-        for (String favourite : favouritesList) {
-            DocumentReference docRef = firestoreDB.collection("job").document(favourite);
+        Type listType = new TypeToken<List<FavouriteJobDTO>>(){}.getType();
+        List<FavouriteJobDTO> favouritesJobDTOList = modelMapper.map(favouriteJobList, listType);
 
-            try {
-                ApiFuture<DocumentSnapshot> future = docRef.get();
-                DocumentSnapshot document = future.get();
-
-                String jobId = document.getId();
-                String jobTitle = document.getString("jobTitle");
-                String jobDescription = document.getString("jobDescription");
-                String datePosted = document.getString("datePosted");
-                Job eachJob = new Job(jobId, jobTitle, jobDescription, datePosted);
-
-                jobList.add(eachJob);
-            } catch (InterruptedException e) {
-                e.printStackTrace();
-            } catch (ExecutionException e) {
-                e.printStackTrace();
-            }
-        }*/
-
-        return null;
+        return favouritesJobDTOList;
     }
 
+    //user favourite a job
     public String favouriteJob(HashMap<String, Object> payload) {
         Long employeeId = parseLong(payload.get("employeeId").toString()); //convert to long
         Long jobId = parseLong(payload.get("jobId").toString()); //convert to long
@@ -159,13 +144,15 @@ public class JobService {
         return "Job Added to Favourites!";
     }
 
+    //user unfavourite a job
     public String unfavouriteJob(HashMap<String, Object> payload) {
         Long employeeId = parseLong(payload.get("employeeId").toString()); //convert to long
         Long jobId = parseLong(payload.get("jobId").toString()); //convert to long
 
+        FavouriteJob favouriteJob = new FavouriteJob();
         FavouriteJobKey favouriteJobKey = new FavouriteJobKey(employeeId, jobId); //create composite key
+        favouriteJob.setId(favouriteJobKey);
 
-        Optional<FavouriteJob> favouriteJob = favouriteJobRepo.findById(new FavouriteJobKey(employeeId, jobId));
         favouriteJobRepo.delete(favouriteJob);
         return "Job Removed from Favourites!";
     }
