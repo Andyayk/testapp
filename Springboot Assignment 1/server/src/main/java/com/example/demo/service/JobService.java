@@ -11,14 +11,13 @@ import com.example.demo.repository.JobRepo;
 import org.modelmapper.ModelMapper;
 import org.modelmapper.TypeToken;
 import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.data.domain.Example;
 import org.springframework.stereotype.Service;
 
 import java.lang.reflect.Type;
 import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.List;
-import java.util.Optional;
+import java.util.stream.Collectors;
 
 import static java.lang.Long.parseLong;
 
@@ -39,7 +38,8 @@ public class JobService {
 
     //return all jobs from server
     public List<JobDTO> findAllJobs() {
-        List<Job> jobList = jobRepo.findAll();
+        List<Job> jobList = jobRepo.retrieveAllByNotDeleted(0); //retrieve those that are not soft deleted
+
         Type listType = new TypeToken<List<JobDTO>>(){}.getType();
         List<JobDTO> jobDTOList = modelMapper.map(jobList, listType);
 
@@ -54,7 +54,10 @@ public class JobService {
 
     //delete job
     public String deleteJob(Job job) {
-        jobRepo.delete(job);
+        Job existingJob = jobRepo.findByJobId(job.getJobId());
+        existingJob.setDeleted(1); //soft delete the job
+
+        jobRepo.save(existingJob);
         return "Job Deleted!";
     }
 
@@ -127,7 +130,10 @@ public class JobService {
         Type listType = new TypeToken<List<FavouriteJobDTO>>(){}.getType();
         List<FavouriteJobDTO> favouritesJobDTOList = modelMapper.map(favouriteJobList, listType);
 
-        return favouritesJobDTOList;
+        List<FavouriteJobDTO> filteredFavouritesJobDTOList = favouritesJobDTOList.stream()
+                .filter(favJobDTO -> favJobDTO.getJob().getDeleted() == 0).collect(Collectors.toList()); //filter away jobs that are soft deleted
+
+        return filteredFavouritesJobDTOList;
     }
 
     //user favourite a job

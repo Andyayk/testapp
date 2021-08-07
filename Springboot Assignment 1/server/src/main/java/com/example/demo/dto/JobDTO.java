@@ -8,4 +8,5 @@ public class JobDTO {
     private String jobTitle;
     private String jobDescription;
     private String datePosted;
+    private Integer deleted;
 }
