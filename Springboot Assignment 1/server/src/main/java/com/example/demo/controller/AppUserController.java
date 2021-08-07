@@ -35,8 +35,8 @@ public class AppUserController {
     @PostMapping("/user")
     public AppUserDTO getUser(@RequestBody HashMap<String, Object> payload) {
         AppUser appUser = appUserService.findUser((Long) (payload.get("employeeId"))); //convert to long and retrieve user
-        AppUserDTO userDTO = modelMapper.map(appUser, AppUserDTO.class);
-        return userDTO;
+        AppUserDTO appUserDTO = modelMapper.map(appUser, AppUserDTO.class);
+        return appUserDTO;
     }
 
     //add user

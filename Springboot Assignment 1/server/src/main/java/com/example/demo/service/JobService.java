@@ -1,6 +1,13 @@
 package com.example.demo.service;
+import com.example.demo.dto.AppUserDTO;
+import com.example.demo.dto.FavouriteJobDTO;
+import com.example.demo.model.AppUser;
+import com.example.demo.model.FavouriteJob;
 import com.example.demo.model.Job;
+import com.example.demo.repository.FavouriteJobRepo;
 import com.example.demo.repository.JobRepo;
+import org.modelmapper.ModelMapper;
+import org.springframework.beans.BeanUtils;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
@@ -11,11 +18,14 @@ import java.util.List;
 @Service
 public class JobService {
 
-    //@Autowired
-    //private Firestore firestoreDB;
+    @Autowired
+    private ModelMapper modelMapper;
 
     @Autowired
     private JobRepo jobRepo;
+
+    @Autowired
+    private FavouriteJobRepo favouriteJobRepo;
 
     //return all jobs from server
     public List<Job> findAllJobs() {
@@ -131,12 +141,17 @@ public class JobService {
         return null;
     }
 
-    public String favouriteJob(HashMap<String, Object> payload) {
+    public String favouriteJob(FavouriteJobDTO favouriteJobDTO) {
 /*
         DocumentReference docRef = firestoreDB.collection("appuser").document(payload.get("employeeId").toString());
         docRef.update("favourites", FieldValue.arrayUnion(payload.get("jobId").toString())); //favourite
 */
+        System.out.println(favouriteJobDTO.toString());
 
+        FavouriteJob favouriteJob = new FavouriteJob();
+        BeanUtils.copyProperties(favouriteJobDTO, favouriteJob);
+
+        favouriteJobRepo.save(favouriteJob);
         return "Job Added to Favourites!";
     }
 

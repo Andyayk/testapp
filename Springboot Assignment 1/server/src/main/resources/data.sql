@@ -1,0 +1,2 @@
+INSERT INTO appUser (email, isadmin, name, password, username) VALUES ('andy@gmail.com', 1, 'Andy', '1234', 'test');
+INSERT INTO job (jobTitle, jobDescription, datePosted) VALUES ('Software Engineer', 'Coding and Project Management', DATE_FORMAT(GETDATE(), "%Y-%m-%d"));

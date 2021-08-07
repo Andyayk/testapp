@@ -1,6 +1,7 @@
 package com.example.demo.model;
 
 import javax.persistence.*;
+import java.util.Set;
 
 @Entity
 public class Job {
@@ -12,6 +13,9 @@ public class Job {
     private String jobTitle;
     private String jobDescription;
     private String datePosted;
+
+    @OneToMany(mappedBy = "job")
+    Set<FavouriteJob> favouriteJob;
 
     public Long getJobId() {
         return jobId;
@@ -43,5 +47,13 @@ public class Job {
 
     public void setDatePosted(String datePosted) {
         this.datePosted = datePosted;
+    }
+
+    public Set<FavouriteJob> getFavouriteJob() {
+        return favouriteJob;
+    }
+
+    public void setFavouriteJob(Set<FavouriteJob> favouriteJob) {
+        this.favouriteJob = favouriteJob;
     }
 }
