@@ -1,13 +1,10 @@
 package com.example.demo.controller;
 
-import com.example.demo.dto.FavouriteJobDTO;
-import com.example.demo.model.FavouriteJob;
 import com.example.demo.service.JobService;
 import com.example.demo.model.Job;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.web.bind.annotation.*;
 
-import javax.servlet.http.HttpSession;
 import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.List;
@@ -63,7 +60,7 @@ public class JobController {
     //add favourite
     @PostMapping("/favouritejob")
     public String favouriteJob(@RequestBody HashMap<String, Object> payload) {
-        return jobService.favouriteJob(favouriteJobDTO);
+        return jobService.favouriteJob(payload);
     }
 
     //remove favourite

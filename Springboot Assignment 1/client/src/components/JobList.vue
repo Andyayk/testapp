@@ -116,7 +116,7 @@ export default {
         retrieveFavouritesList: function(jobId) {
             axios
                 .post(`${API_URL}/retrievefavouriteslist`, {
-                    employeeId: this.getAppUser.employeeid
+                    employeeId: this.getAppUser.employeeId
                 })
                 .then(response => {
                     this.favourites = response.data;
@@ -128,7 +128,7 @@ export default {
         favouriteJob: function(jobId) {
             axios
                 .post(`${API_URL}/favouritejob`, {
-                    employeeId: this.getAppUser.employeeid,
+                    employeeId: this.getAppUser.employeeId,
                     jobId: jobId
                 })
                 .then(response => {
@@ -144,7 +144,7 @@ export default {
         unfavouriteJob: function(jobId) {
             axios
                 .post(`${API_URL}/unfavouritejob`, {
-                    employeeId: this.getAppUser.employeeid,
+                    employeeId: this.getAppUser.employeeId,
                     jobId: jobId
                 })
                 .then(response => {

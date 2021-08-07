@@ -1,19 +1,21 @@
 package com.example.demo.service;
-import com.example.demo.dto.AppUserDTO;
-import com.example.demo.dto.FavouriteJobDTO;
 import com.example.demo.model.AppUser;
 import com.example.demo.model.FavouriteJob;
+import com.example.demo.model.FavouriteJobKey;
 import com.example.demo.model.Job;
+import com.example.demo.repository.AppUserRepo;
 import com.example.demo.repository.FavouriteJobRepo;
 import com.example.demo.repository.JobRepo;
 import org.modelmapper.ModelMapper;
-import org.springframework.beans.BeanUtils;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
 import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.List;
+import java.util.Optional;
+
+import static java.lang.Long.parseLong;
 
 @Service
 public class JobService {
@@ -23,6 +25,9 @@ public class JobService {
 
     @Autowired
     private JobRepo jobRepo;
+
+    @Autowired
+    private AppUserRepo appUserRepo;
 
     @Autowired
     private FavouriteJobRepo favouriteJobRepo;
@@ -141,24 +146,27 @@ public class JobService {
         return null;
     }
 
-    public String favouriteJob(FavouriteJobDTO favouriteJobDTO) {
-/*
-        DocumentReference docRef = firestoreDB.collection("appuser").document(payload.get("employeeId").toString());
-        docRef.update("favourites", FieldValue.arrayUnion(payload.get("jobId").toString())); //favourite
-*/
-        System.out.println(favouriteJobDTO.toString());
+    public String favouriteJob(HashMap<String, Object> payload) {
+        Long employeeId = parseLong(payload.get("employeeId").toString()); //convert to long
+        Long jobId = parseLong(payload.get("jobId").toString()); //convert to long
 
-        FavouriteJob favouriteJob = new FavouriteJob();
-        BeanUtils.copyProperties(favouriteJobDTO, favouriteJob);
+        FavouriteJobKey favouriteJobKey = new FavouriteJobKey(employeeId, jobId); //create composite key
 
-        favouriteJobRepo.save(favouriteJob);
+        AppUser appUser = appUserRepo.findByEmployeeId(employeeId); //get user
+        Job job = jobRepo.findByJobId(jobId); //get job
+
+        favouriteJobRepo.save(new FavouriteJob(favouriteJobKey, appUser, job));
         return "Job Added to Favourites!";
     }
 
     public String unfavouriteJob(HashMap<String, Object> payload) {
-/*        DocumentReference docRef = firestoreDB.collection("appuser").document(payload.get("employeeId").toString());
-        docRef.update("favourites", FieldValue.arrayRemove(payload.get("jobId").toString())); //unfavourite*/
+        Long employeeId = parseLong(payload.get("employeeId").toString()); //convert to long
+        Long jobId = parseLong(payload.get("jobId").toString()); //convert to long
 
+        FavouriteJobKey favouriteJobKey = new FavouriteJobKey(employeeId, jobId); //create composite key
+
+        Optional<FavouriteJob> favouriteJob = favouriteJobRepo.findById(new FavouriteJobKey(employeeId, jobId));
+        favouriteJobRepo.delete(favouriteJob);
         return "Job Removed from Favourites!";
     }
 

@@ -17,6 +17,16 @@ public class FavouriteJob {
     @JoinColumn(name = "jobId")
     Job job;
 
+    public FavouriteJob () {
+
+    }
+
+    public FavouriteJob(FavouriteJobKey id, AppUser appUser, Job job) {
+        this.id = id;
+        this.appUser = appUser;
+        this.job = job;
+    }
+
     public FavouriteJobKey getId() {
         return id;
     }

@@ -72,7 +72,7 @@ export default {
         retrieveAllFavouritesJobs: function() {
             axios
                 .post(`${API_URL}/retrieveallfavouritesjobs`, {
-                    employeeId: this.getAppUser.employeeid
+                    employeeId: this.getAppUser.employeeId
                 })
                 .then(response => {
                     this.jobs = response.data;
@@ -84,7 +84,7 @@ export default {
         unfavouriteJob: function(jobId, index) {
             axios
                 .post(`${API_URL}/unfavouritejob`, {
-                    employeeId: this.getAppUser.employeeid,
+                    employeeId: this.getAppUser.employeeId,
                     jobId: jobId
                 })
                 .then(response => {

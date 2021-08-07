@@ -16,7 +16,7 @@
             </v-list-item>
             <v-list-item>
                 <v-list-item-content>
-                    <v-list-item-title>{{getAppUser.employeeid}}</v-list-item-title>
+                    <v-list-item-title>{{getAppUser.employeeId}}</v-list-item-title>
                     <v-list-item-subtitle>Employee Id</v-list-item-subtitle>
                 </v-list-item-content>
             </v-list-item>

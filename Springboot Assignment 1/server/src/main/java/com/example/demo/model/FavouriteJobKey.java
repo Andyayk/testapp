@@ -5,6 +5,7 @@ import javax.persistence.Embeddable;
 import java.io.Serializable;
 
 @Embeddable
+public
 class FavouriteJobKey implements Serializable {
 
     @Column(name = "employeeId")
@@ -12,6 +13,15 @@ class FavouriteJobKey implements Serializable {
 
     @Column(name = "jobId")
     Long jobId;
+
+    public FavouriteJobKey () {
+
+    }
+
+    public FavouriteJobKey(Long employeeId, Long jobId) {
+        this.employeeId = employeeId;
+        this.jobId = jobId;
+    }
 
     public Long getEmployeeId() {
         return employeeId;
