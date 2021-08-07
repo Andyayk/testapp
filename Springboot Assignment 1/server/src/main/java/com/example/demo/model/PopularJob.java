@@ -1,11 +1,14 @@
 package com.example.demo.model;
 
+import lombok.Data;
+
 import javax.persistence.Entity;
 import javax.persistence.GeneratedValue;
 import javax.persistence.GenerationType;
 import javax.persistence.Id;
 
 @Entity
+@Data
 public class PopularJob {
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
@@ -26,62 +29,6 @@ public class PopularJob {
         this.jobDescription = jobDescription;
         this.datePosted = datePosted;
         this.favouriteCount = favouriteCount;
-        this.dateRetrieved = dateRetrieved;
-    }
-
-    public int getId() {
-        return id;
-    }
-
-    public void setId(int id) {
-        this.id = id;
-    }
-
-    public Long getJobId() {
-        return jobId;
-    }
-
-    public void setJobId(Long jobId) {
-        this.jobId = jobId;
-    }
-
-    public String getJobTitle() {
-        return jobTitle;
-    }
-
-    public void setJobTitle(String jobTitle) {
-        this.jobTitle = jobTitle;
-    }
-
-    public String getJobDescription() {
-        return jobDescription;
-    }
-
-    public void setJobDescription(String jobDescription) {
-        this.jobDescription = jobDescription;
-    }
-
-    public String getDatePosted() {
-        return datePosted;
-    }
-
-    public void setDatePosted(String datePosted) {
-        this.datePosted = datePosted;
-    }
-
-    public int getFavouriteCount() {
-        return favouriteCount;
-    }
-
-    public void setFavouriteCount(int favouriteCount) {
-        this.favouriteCount = favouriteCount;
-    }
-
-    public String getDateRetrieved() {
-        return dateRetrieved;
-    }
-
-    public void setDateRetrieved(String dateRetrieved) {
         this.dateRetrieved = dateRetrieved;
     }
 }

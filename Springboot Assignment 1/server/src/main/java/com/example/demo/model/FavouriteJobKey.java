@@ -1,13 +1,14 @@
 package com.example.demo.model;
 
+import lombok.Data;
+
 import javax.persistence.Column;
 import javax.persistence.Embeddable;
 import java.io.Serializable;
 
 @Embeddable
-public
-class FavouriteJobKey implements Serializable {
-
+@Data
+public class FavouriteJobKey implements Serializable {
     @Column(name = "employeeId")
     Long employeeId;
 
@@ -20,22 +21,6 @@ class FavouriteJobKey implements Serializable {
 
     public FavouriteJobKey(Long employeeId, Long jobId) {
         this.employeeId = employeeId;
-        this.jobId = jobId;
-    }
-
-    public Long getEmployeeId() {
-        return employeeId;
-    }
-
-    public void setEmployeeId(Long employeeId) {
-        this.employeeId = employeeId;
-    }
-
-    public Long getJobId() {
-        return jobId;
-    }
-
-    public void setJobId(Long jobId) {
         this.jobId = jobId;
     }
 }
