@@ -19,32 +19,37 @@ public class AppUserService {
     @Autowired
     private JobRepo jobRepo;
 
+    //authenticate user
     public AppUser loginUser(String username, String password) {
         AppUser appUser = appUserRepo.findByUsername(username);
-        if (appUser != null && appUser.getPassword().equals(password) ) {
+        if (appUser != null && appUser.getPassword().equals(password) ) { //if user exists and password is correct
             return appUser;
         }
         return null;
     }
 
+    //return all users
     public List<AppUser> findAllUsers() {
         return appUserRepo.findAll();
     }
 
-    public AppUser findUser(String jobId) {
-        return appUserRepo.retrieveByJobid(jobId);
+    //return specific user
+    public AppUser findUser(Long employeeId) {
+        return appUserRepo.findByEmployeeId(employeeId);
     }
 
-    public String addUser(HashMap<String, Object> payload) {
-        Job job = jobRepo.findByJobId(payload.get("jobId").toString());
 
-        if (job != null) {
-            AppUser appUser = new AppUser(payload.get("jobId").toString(), payload.get("username").toString(), payload.get("password").toString(), payload.get("name").toString(), payload.get("email").toString(), "0", job);
-            appUserRepo.save(appUser);
-            return "Added";
-        } else {
-            return "Error";
-        }
+    public String addUser(HashMap<String, Object> payload) {
+//        Job job = jobRepo.findByJobId(payload.get("jobId").toString());
+//
+//        if (job != null) {
+//            AppUser appUser = new AppUser(payload.get("jobId").toString(), payload.get("username").toString(), payload.get("password").toString(), payload.get("name").toString(), payload.get("email").toString(), "0", job);
+//            appUserRepo.save(appUser);
+//            return "Added";
+//        } else {
+//            return "Error";
+//        }
+        return "";
     }
 
     public String deleteUser(HashMap<String, Object> payload) {

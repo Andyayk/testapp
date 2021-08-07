@@ -24,8 +24,8 @@ public class JobController {
 
     //add job
     @PostMapping("/addjob")
-    public String addJob(@RequestBody HashMap<String, Object> payload) {
-        return jobService.addJob(payload);
+    public String addJob(@RequestBody Job job) {
+        return jobService.addJob(job);
     }
 
     //delete job
@@ -68,11 +68,5 @@ public class JobController {
     @PostMapping("/unfavouritejob")
     public String unfavouriteJob(@RequestBody HashMap<String, Object> payload) {
         return jobService.unfavouriteJob(payload);
-    }
-
-    //home
-    @RequestMapping("home")
-    public String home(@RequestParam("name") String myName, HttpSession session) {
-        return "hi";
     }
 }

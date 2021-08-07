@@ -12,11 +12,13 @@ public interface AppUserRepo extends JpaRepository<AppUser, String> {
 
     AppUser findByUsername(String username);
 
-    @Query("SELECT u FROM AppUser u WHERE u.jobId = :jobId")
-    AppUser retrieveByJobid(@Param("jobId") String jobId);
+    AppUser findByEmployeeId(Long employeeId);
 
-    @Query(
-        value = "SELECT * FROM AppUser u WHERE u.jobId = ?1",
-        nativeQuery = true)
-    AppUser retrieveByJobidNative(String jobId);
+//    @Query("SELECT u FROM AppUser u WHERE u.jobId = :jobId")
+//    AppUser retrieveByJobid(@Param("jobId") String jobId);
+
+//    @Query(
+//        value = "SELECT * FROM AppUser u WHERE u.jobId = ?1",
+//        nativeQuery = true)
+//    AppUser retrieveByJobidNative(String jobId);
 }

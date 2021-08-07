@@ -44,9 +44,9 @@ public class JobService {
         return jobRepo.findAll();
     }
 
-    public String addJob(HashMap<String, Object> payload) {
+    public String addJob(Job job) {
 /*        firestoreDB.collection("job").document().set(payload); //add*/
-
+        jobRepo.save(job);
         return "Job Added!";
     }
 

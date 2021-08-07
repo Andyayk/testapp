@@ -6,16 +6,18 @@ import javax.persistence.*;
 public class Job {
 
     @Id
-    private String jobId;
+    @GeneratedValue(strategy=GenerationType.IDENTITY)
+    @Column(name = "jobId", nullable = false, updatable = false)
+    private Long jobId;
     private String jobTitle;
     private String jobDescription;
     private String datePosted;
 
-    public String getJobId() {
+    public Long getJobId() {
         return jobId;
     }
 
-    public void setJobId(String jobId) {
+    public void setJobId(Long jobId) {
         this.jobId = jobId;
     }
 

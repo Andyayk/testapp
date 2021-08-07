@@ -19,6 +19,7 @@ public class AppUserController {
     @Autowired
     private ModelMapper modelMapper;
 
+    //check user credentials
     @PostMapping("/loginuser")
     public AppUser loginUser(@RequestBody HashMap<String, Object> payload) {
         return appUserService.loginUser(payload.get("username").toString(), payload.get("password").toString());
@@ -33,7 +34,7 @@ public class AppUserController {
     //retrieve user
     @PostMapping("/user")
     public AppUserDTO getUser(@RequestBody HashMap<String, Object> payload) {
-        AppUser appUser = appUserService.findUser(payload.get("jobId").toString());
+        AppUser appUser = appUserService.findUser((Long) (payload.get("employeeId"))); //convert to long and retrieve user
         AppUserDTO userDTO = modelMapper.map(appUser, AppUserDTO.class);
         return userDTO;
     }

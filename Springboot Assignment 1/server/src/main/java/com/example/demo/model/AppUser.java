@@ -5,47 +5,21 @@ import javax.persistence.*;
 @Entity
 public class AppUser {
     @Id
-    @Column(name = "jobId", insertable = false, updatable = false)
-    private String jobId;
+    @GeneratedValue(strategy=GenerationType.IDENTITY)
+    @Column(name = "employeeId", nullable = false, updatable = false)
+    private Long employeeId;
     private String username;
     private String password;
     private String name;
     private String email;
-
     private String isadmin;
 
-    @OneToOne(cascade = CascadeType.ALL)
-    @JoinColumn(name = "jobId")
-    @MapsId
-    private Job job;
-
-    public AppUser() {
+    public Long getEmployeeId() {
+        return employeeId;
     }
 
-    public AppUser(String jobId, String username, String password, String name, String email, String isadmin, Job job) {
-        this.jobId = jobId;
-        this.username = username;
-        this.password = password;
-        this.name = name;
-        this.email = email;
-        this.isadmin = isadmin;
-        this.job = job;
-    }
-
-    public Job getJob() {
-        return job;
-    }
-
-    public void setJob(Job job) {
-        this.job = job;
-    }
-
-    public String getJobId() {
-        return jobId;
-    }
-
-    public void setJobId(String jobId) {
-        this.jobId = jobId;
+    public void setEmployeeId(Long employeeId) {
+        this.employeeId = employeeId;
     }
 
     public String getUsername() {

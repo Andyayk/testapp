@@ -14,6 +14,8 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.scheduling.annotation.Scheduled;
 import org.springframework.stereotype.Component;
 
+import static java.lang.Long.parseLong;
+
 @Component
 public class ScheduledTasks {
 
@@ -28,7 +30,7 @@ public class ScheduledTasks {
     @Scheduled(cron = "0 0 2 15 * ?") //second, minute, hour, day, month, weekday, 2am of every 15th of month
     public void generatePopularJobStatistics() {
         //generate most popular job
-        HashMap<String, Integer> counterMap = new HashMap<>();
+        HashMap<Long, Integer> counterMap = new HashMap<>();
 
         List<Job> jobList = jobService.findAllJobs();
 
@@ -44,13 +46,13 @@ public class ScheduledTasks {
             for (String favourite : favouritesList) {
                 if (counterMap.containsKey(favourite)) {
                     int favouriteCount = counterMap.get(favourite); //get previous value
-                    counterMap.put(favourite, ++favouriteCount); //update value
+                    counterMap.put(parseLong(favourite), ++favouriteCount); //update value
                 }
             }
         }
 
         for (Job job : jobList) {
-            String jobId = job.getJobId();
+            Long jobId = job.getJobId();
             String jobTitle = job.getJobTitle();
             String jobDescription = job.getJobDescription();
             String datePosted = job.getDatePosted();

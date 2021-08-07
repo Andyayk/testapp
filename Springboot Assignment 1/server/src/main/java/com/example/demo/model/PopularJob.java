@@ -10,7 +10,7 @@ public class PopularJob {
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     int id;
-    private String jobId;
+    private Long jobId;
     private String jobTitle;
     private String jobDescription;
     private String datePosted;
@@ -20,7 +20,7 @@ public class PopularJob {
     public PopularJob() {
     }
 
-    public PopularJob(String jobId, String jobTitle, String jobDescription, String datePosted, int favouriteCount, String dateRetrieved) {
+    public PopularJob(Long jobId, String jobTitle, String jobDescription, String datePosted, int favouriteCount, String dateRetrieved) {
         this.jobId = jobId;
         this.jobTitle = jobTitle;
         this.jobDescription = jobDescription;
@@ -37,11 +37,11 @@ public class PopularJob {
         this.id = id;
     }
 
-    public String getJobId() {
+    public Long getJobId() {
         return jobId;
     }
 
-    public void setJobId(String jobId) {
+    public void setJobId(Long jobId) {
         this.jobId = jobId;
     }
 
