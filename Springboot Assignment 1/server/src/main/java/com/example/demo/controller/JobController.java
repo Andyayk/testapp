@@ -30,14 +30,14 @@ public class JobController {
 
     //delete job
     @PostMapping("/deletejob")
-    public String deleteJob(@RequestBody HashMap<String, Object> payload) {
-        return jobService.deleteJob(payload);
+    public String deleteJob(@RequestBody Job job) {
+        return jobService.deleteJob(job);
     }
 
     //edit job
     @PostMapping("/editjob")
-    public String editJob(@RequestBody HashMap<String, Object> payload) {
-        return jobService.editJob(payload);
+    public String editJob(@RequestBody Job job) {
+        return jobService.editJob(job);
     }
 
     //retrieve all favourites regardless of user

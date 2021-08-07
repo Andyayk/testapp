@@ -6,15 +6,18 @@
         <v-card>
             <v-card-title>
                 <span class="headline">
-                    <b>Job Title</b>
-                    - {{ job.jobTitle }}
+                   {{ job.jobTitle }}
                 </span>
             </v-card-title>
             <v-card-text>
                 <v-form @submit.prevent>
-                    <font color="red">Only completed textboxes will be updated</font>
-                    <v-text-field v-model="jobTitle" label="New Job Title"></v-text-field>
-                    <v-text-field v-model="jobDescription" label="New Job Description"></v-text-field>
+                    <v-text-field 
+                    v-model="jobTitle" 
+                    label="Title" 
+                    :rules="[() => !!jobTitle || 'This field is required']"
+                    required>
+                    </v-text-field>
+                    <v-text-field v-model="jobDescription" label="Description" required></v-text-field>
                     <v-text-field v-model="datePosted" label="Date Posted" disabled></v-text-field>
                 </v-form>
             </v-card-text>
@@ -39,8 +42,8 @@ export default {
     data: function() {
         return {
             dialog: false,
-            jobTitle: "",
-            jobDescription: "",
+            jobTitle: this.job.jobTitle,
+            jobDescription: this.job.jobDescription,
             datePosted: new Date().toISOString().split("T")[0]
         };
     },

@@ -17,62 +17,43 @@ public class JobService {
     @Autowired
     private JobRepo jobRepo;
 
+    //return all jobs from server
     public List<Job> findAllJobs() {
-/*        List<Job> jobList = new ArrayList<>();
-
-        //asynchronously retrieve all jobs
-        ApiFuture<QuerySnapshot> query = firestoreDB.collection("job").get();
-
-        try {
-            QuerySnapshot querySnapshot = query.get();
-            List<QueryDocumentSnapshot> documents = querySnapshot.getDocuments();
-
-            for (QueryDocumentSnapshot document : documents) {
-                String jobId = document.getId();
-                String jobTitle = document.getString("jobTitle");
-                String jobDescription = document.getString("jobDescription");
-                String datePosted = document.getString("datePosted");
-                Job eachJob = new Job(jobId, jobTitle, jobDescription, datePosted);
-
-                jobList.add(eachJob);
-            }
-        } catch (InterruptedException e) {
-            e.printStackTrace();
-        } catch (ExecutionException e) {
-            e.printStackTrace();
-        }*/
         return jobRepo.findAll();
     }
 
+    //create job
     public String addJob(Job job) {
-/*        firestoreDB.collection("job").document().set(payload); //add*/
         jobRepo.save(job);
         return "Job Added!";
     }
 
-    public String deleteJob(HashMap<String, Object> payload) {
-/*        firestoreDB.collection("job").document(payload.get("jobId").toString()).delete(); //delete*/
-
+    //delete job
+    public String deleteJob(Job job) {
+        jobRepo.delete(job);
         return "Job Deleted!";
     }
 
-    public String editJob(HashMap<String, Object> payload) {
-/*        DocumentReference docRef = firestoreDB.collection("job").document(payload.get("jobId").toString());
+    //edit job
+    public String editJob(Job job) {
+        Job currentJob = jobRepo.findByJobId(job.getJobId()); //retrieve current job
 
-        String jobTitle = payload.get("jobTitle").toString();
-        String jobDescription = payload.get("jobDescription").toString();
-        String datePosted = payload.get("datePosted").toString();
+        String jobTitle = job.getJobTitle();
+        String jobDescription = job.getJobDescription();
+        String datePosted = job.getDatePosted();
 
-        //update
+        //update if there are values
         if (!jobTitle.equals("")) {
-            docRef.update("jobTitle", jobTitle);
+            currentJob.setJobTitle(jobTitle);
         }
         if (!jobDescription.equals("")) {
-            docRef.update("jobDescription", jobDescription);
+            currentJob.setJobDescription(jobDescription);
         }
         if (!datePosted.equals("")) {
-            docRef.update("datePosted", datePosted);
-        }*/
+            currentJob.setDatePosted(datePosted);
+        }
+
+        jobRepo.save(currentJob);
 
         return "Job Saved!";
     }
