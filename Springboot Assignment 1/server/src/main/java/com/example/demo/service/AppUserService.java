@@ -1,11 +1,9 @@
 package com.example.demo.service;
 
 import com.example.demo.dto.AppUserDTO;
-import com.example.demo.dto.JobDTO;
-import com.example.demo.model.Job;
-import com.example.demo.repository.JobRepo;
 import com.example.demo.model.AppUser;
 import com.example.demo.repository.AppUserRepo;
+import com.example.demo.repository.JobRepo;
 import org.modelmapper.ModelMapper;
 import org.modelmapper.TypeToken;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -30,7 +28,7 @@ public class AppUserService {
     //authenticate user
     public AppUserDTO loginUser(String username, String password) {
         AppUser appUser = appUserRepo.findByUsername(username);
-        if (appUser != null && appUser.getPassword().equals(password) ) { //if user exists and password is correct
+        if (appUser != null && appUser.getPassword().equals(password)) { //if user exists and password is correct
             AppUserDTO appUserDTO = modelMapper.map(appUser, AppUserDTO.class);
             return appUserDTO;
         }
@@ -40,7 +38,8 @@ public class AppUserService {
     //return all users
     public List<AppUserDTO> findAllUsers() {
         List<AppUser> appUserList = appUserRepo.findAll();
-        Type listType = new TypeToken<List<AppUserDTO>>(){}.getType();
+        Type listType = new TypeToken<List<AppUserDTO>>() {
+        }.getType();
         List<AppUserDTO> appUserDTOList = modelMapper.map(appUserList, listType);
 
         return appUserDTOList;

@@ -1,4 +1,5 @@
 package com.example.demo.service;
+
 import com.example.demo.dto.FavouriteJobDTO;
 import com.example.demo.dto.JobDTO;
 import com.example.demo.model.AppUser;
@@ -14,7 +15,9 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
 import java.lang.reflect.Type;
+import java.time.LocalDate;
 import java.time.LocalDateTime;
+import java.time.format.DateTimeFormatter;
 import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.List;
@@ -39,20 +42,26 @@ public class JobService {
 
     //return all jobs from server
     public List<JobDTO> findAllJobs() {
-        LocalDateTime publishedDate = LocalDateTime.parse("2021-08-08T15:59:00.000");
-
         LocalDateTime localDateTime = LocalDateTime.now();
 
-        if (publishedDate.isBefore(localDateTime)) {
-            List<Job> jobList = jobRepo.retrieveAllByNotDeleted(0); //retrieve those that are not soft deleted
+        List<Job> jobList = jobRepo.retrieveAllByNotDeleted(0); //retrieve those that are not soft deleted
 
-            Type listType = new TypeToken<List<JobDTO>>(){}.getType();
-            List<JobDTO> jobDTOList = modelMapper.map(jobList, listType);
+        List<JobDTO> jobDTOList = new ArrayList<>();
 
-            return jobDTOList;
-        } else {
-            return null;
+        for (Job eachJob : jobList
+        ) {
+            DateTimeFormatter formatter = DateTimeFormatter.ofPattern("yyyy-MM-dd");
+            LocalDateTime eachJobPublishedDate = LocalDate.parse(eachJob.getDatePosted(), formatter).atStartOfDay(); //format date time
+            System.out.println(eachJobPublishedDate);
+            System.out.println(localDateTime);
+            if (eachJobPublishedDate.isBefore(localDateTime)) { //show job if publish date is < current date
+                JobDTO eachJobDTO = modelMapper.map(eachJob, JobDTO.class);
+
+                jobDTOList.add((eachJobDTO));
+            }
         }
+
+        return jobDTOList;
     }
 
     //create job
@@ -126,7 +135,7 @@ public class JobService {
         List<FavouriteJob> favouriteJobList = favouriteJobRepo.findAllByIdEmployeeId(parseLong(payload.get("employeeId").toString()));
 
         for (FavouriteJob favJob : favouriteJobList
-             ) {
+        ) {
             favouritesList.add(favJob.getJob().getJobId());
         }
         return favouritesList;
@@ -136,7 +145,8 @@ public class JobService {
     public List<FavouriteJobDTO> findAllFavouritesJobs(HashMap<String, Object> payload) {
         List<FavouriteJob> favouriteJobList = favouriteJobRepo.findAllByIdEmployeeId(parseLong(payload.get("employeeId").toString()));
 
-        Type listType = new TypeToken<List<FavouriteJobDTO>>(){}.getType();
+        Type listType = new TypeToken<List<FavouriteJobDTO>>() {
+        }.getType();
         List<FavouriteJobDTO> favouritesJobDTOList = modelMapper.map(favouriteJobList, listType);
 
         List<FavouriteJobDTO> filteredFavouritesJobDTOList = favouritesJobDTOList.stream()

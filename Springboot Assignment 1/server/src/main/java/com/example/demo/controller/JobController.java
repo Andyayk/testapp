@@ -2,10 +2,13 @@ package com.example.demo.controller;
 
 import com.example.demo.dto.FavouriteJobDTO;
 import com.example.demo.dto.JobDTO;
-import com.example.demo.service.JobService;
 import com.example.demo.model.Job;
+import com.example.demo.service.JobService;
 import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.web.bind.annotation.*;
+import org.springframework.web.bind.annotation.GetMapping;
+import org.springframework.web.bind.annotation.PostMapping;
+import org.springframework.web.bind.annotation.RequestBody;
+import org.springframework.web.bind.annotation.RestController;
 
 import java.util.ArrayList;
 import java.util.HashMap;

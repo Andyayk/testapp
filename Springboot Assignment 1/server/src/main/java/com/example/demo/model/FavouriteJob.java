@@ -23,6 +23,7 @@ public class FavouriteJob {
     public FavouriteJob() {
 
     }
+
     public FavouriteJob(FavouriteJobKey id, AppUser appUser, Job job) {
         this.id = id;
         this.appUser = appUser;

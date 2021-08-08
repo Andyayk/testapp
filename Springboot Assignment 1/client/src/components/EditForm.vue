@@ -18,7 +18,7 @@
                     required>
                     </v-text-field>
                     <v-text-field v-model="jobDescription" label="Description" required></v-text-field>
-                    <v-text-field v-model="datePosted" label="Date Posted" disabled></v-text-field>
+                    <v-text-field v-model="datePosted" label="Date Posted"></v-text-field>
                 </v-form>
             </v-card-text>
             <v-card-actions>

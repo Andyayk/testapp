@@ -8,8 +8,10 @@ import java.util.Set;
 @Entity
 @Data
 public class AppUser {
+    @OneToMany(mappedBy = "appUser")
+    Set<FavouriteJob> favouriteJob;
     @Id
-    @GeneratedValue(strategy=GenerationType.IDENTITY)
+    @GeneratedValue(strategy = GenerationType.IDENTITY)
     @Column(name = "employeeId", nullable = false, updatable = false)
     private Long employeeId;
     private String username;
@@ -17,7 +19,4 @@ public class AppUser {
     private String name;
     private String email;
     private String isadmin;
-
-    @OneToMany(mappedBy = "appUser")
-    Set<FavouriteJob> favouriteJob;
 }

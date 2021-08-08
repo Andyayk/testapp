@@ -2,7 +2,6 @@ package com.example.demo.controller;
 
 import com.example.demo.dto.AppUserDTO;
 import com.example.demo.service.AppUserService;
-import org.modelmapper.ModelMapper;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.web.bind.annotation.*;
 
@@ -41,7 +40,9 @@ public class AppUserController {
 
     //delete user from database
     @DeleteMapping("/deleteuser")
-    public String deleteUser(@RequestBody HashMap<String, Object> payload) { return appUserService.deleteUser(payload); }
+    public String deleteUser(@RequestBody HashMap<String, Object> payload) {
+        return appUserService.deleteUser(payload);
+    }
 
     //edit user in database
     @PutMapping("/edituser")

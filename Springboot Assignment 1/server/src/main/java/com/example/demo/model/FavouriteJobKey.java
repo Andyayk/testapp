@@ -15,7 +15,7 @@ public class FavouriteJobKey implements Serializable {
     @Column(name = "jobId")
     Long jobId;
 
-    public FavouriteJobKey () {
+    public FavouriteJobKey() {
 
     }
 

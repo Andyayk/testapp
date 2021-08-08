@@ -1,34 +1,22 @@
 package com.example.demo;
 
-import java.text.SimpleDateFormat;
-import java.time.LocalDate;
-import java.time.LocalDateTime;
-import java.time.ZoneId;
-import java.util.ArrayList;
-import java.util.Date;
-import java.util.HashMap;
-import java.util.List;
-
-import com.example.demo.model.Job;
-import com.example.demo.model.PopularJob;
 import com.example.demo.repository.PopularJobRepo;
 import com.example.demo.service.JobService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.scheduling.annotation.Scheduled;
 import org.springframework.stereotype.Component;
 
-import static java.lang.Long.parseLong;
+import java.text.SimpleDateFormat;
+import java.time.LocalDateTime;
 
 @Component
 public class ScheduledTasks {
 
+    private static final SimpleDateFormat dateFormat = new SimpleDateFormat("yyyy-MM-dd");
     @Autowired
     private JobService jobService;
-
     @Autowired
     private PopularJobRepo popularJobRepo;
-
-    private static final SimpleDateFormat dateFormat = new SimpleDateFormat("yyyy-MM-dd");
 
     @Scheduled(cron = "0 55 15 * * *") //every 3:55pm
     public void generateDateTime() {
