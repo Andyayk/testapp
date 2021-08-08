@@ -1,6 +1,9 @@
 package com.example.demo;
 
 import java.text.SimpleDateFormat;
+import java.time.LocalDate;
+import java.time.LocalDateTime;
+import java.time.ZoneId;
 import java.util.ArrayList;
 import java.util.Date;
 import java.util.HashMap;
@@ -27,7 +30,25 @@ public class ScheduledTasks {
 
     private static final SimpleDateFormat dateFormat = new SimpleDateFormat("yyyy-MM-dd");
 
-    @Scheduled(cron = "0 0 2 15 * ?") //second, minute, hour, day, month, weekday, 2am of every 15th of month
+    @Scheduled(cron = "0 55 15 * * *") //every 3:55pm
+    public void generateDateTime() {
+        /*
+            published date 8/8/2021 0:00:00 Singapore Time
+            Singapore time now 8/8/2021 8:00:00
+            System time now 7/8/2021 23:00:00
+        */
+        LocalDateTime publishedDate = LocalDateTime.parse("2021-08-08T15:50:00.536");
+
+        LocalDateTime localDateTime = LocalDateTime.now();
+
+        if (publishedDate.isBefore(localDateTime)) {
+            System.out.println("YES published, time is " + localDateTime);
+        } else {
+            System.out.println("NO not published, time is " + localDateTime);
+        }
+    }
+
+    //@Scheduled(cron = "0 0 2 15 * ?") //second, minute, hour, day, month, weekday, 2am of every 15th of month
     public void generatePopularJobStatistics() {
         //generate most popular job
 //        HashMap<Long, Integer> counterMap = new HashMap<>();

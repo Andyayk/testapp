@@ -14,6 +14,7 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
 import java.lang.reflect.Type;
+import java.time.LocalDateTime;
 import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.List;
@@ -38,12 +39,20 @@ public class JobService {
 
     //return all jobs from server
     public List<JobDTO> findAllJobs() {
-        List<Job> jobList = jobRepo.retrieveAllByNotDeleted(0); //retrieve those that are not soft deleted
+        LocalDateTime publishedDate = LocalDateTime.parse("2021-08-08T15:59:00.000");
 
-        Type listType = new TypeToken<List<JobDTO>>(){}.getType();
-        List<JobDTO> jobDTOList = modelMapper.map(jobList, listType);
+        LocalDateTime localDateTime = LocalDateTime.now();
 
-        return jobDTOList;
+        if (publishedDate.isBefore(localDateTime)) {
+            List<Job> jobList = jobRepo.retrieveAllByNotDeleted(0); //retrieve those that are not soft deleted
+
+            Type listType = new TypeToken<List<JobDTO>>(){}.getType();
+            List<JobDTO> jobDTOList = modelMapper.map(jobList, listType);
+
+            return jobDTOList;
+        } else {
+            return null;
+        }
     }
 
     //create job

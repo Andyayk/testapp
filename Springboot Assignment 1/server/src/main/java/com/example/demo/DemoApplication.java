@@ -8,9 +8,18 @@ import org.springframework.scheduling.annotation.EnableScheduling;
 import org.springframework.web.servlet.config.annotation.CorsRegistry;
 import org.springframework.web.servlet.config.annotation.WebMvcConfigurer;
 
+import javax.annotation.PostConstruct;
+import java.util.TimeZone;
+
 @SpringBootApplication
 @EnableScheduling
 public class DemoApplication {
+
+	@PostConstruct
+	public void init(){
+		// Setting Spring Boot SetTimeZone
+		TimeZone.setDefault(TimeZone.getTimeZone("GMT+9"));
+	}
 
 	public static void main(String[] args) {
 		SpringApplication.run(DemoApplication.class, args);
