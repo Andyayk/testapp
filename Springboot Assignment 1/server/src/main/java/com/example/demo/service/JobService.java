@@ -17,6 +17,8 @@ import org.springframework.stereotype.Service;
 import java.lang.reflect.Type;
 import java.time.LocalDate;
 import java.time.LocalDateTime;
+import java.time.ZoneId;
+import java.time.ZonedDateTime;
 import java.time.format.DateTimeFormatter;
 import java.util.ArrayList;
 import java.util.HashMap;
@@ -43,17 +45,21 @@ public class JobService {
     //return all jobs from server
     public List<JobDTO> findAllJobs() {
         LocalDateTime localDateTime = LocalDateTime.now();
+        ZonedDateTime zonedDateTime = ZonedDateTime.of(localDateTime, ZoneId.of("UTC+09:00"));
+        LocalDateTime ldt = zonedDateTime.toLocalDateTime();
+        System.out.println("Zone Date Time: " + zonedDateTime);
+        System.out.println("Converted Zone Date Time" + ldt);
 
         List<Job> jobList = jobRepo.retrieveAllByNotDeleted(0); //retrieve those that are not soft deleted
 
         List<JobDTO> jobDTOList = new ArrayList<>();
 
+        System.out.println("Local Date Time Now: " + localDateTime);
         for (Job eachJob : jobList
         ) {
             DateTimeFormatter formatter = DateTimeFormatter.ofPattern("yyyy-MM-dd");
             LocalDateTime eachJobPublishedDate = LocalDate.parse(eachJob.getDatePosted(), formatter).atStartOfDay(); //format date time
-            System.out.println(eachJobPublishedDate);
-            System.out.println(localDateTime);
+            System.out.println("Job " + eachJob.getJobId() + ") Published Date: " + eachJobPublishedDate);
             if (eachJobPublishedDate.isBefore(localDateTime)) { //show job if publish date is < current date
                 JobDTO eachJobDTO = modelMapper.map(eachJob, JobDTO.class);
 
