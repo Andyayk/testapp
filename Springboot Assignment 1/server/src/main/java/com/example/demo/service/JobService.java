@@ -45,10 +45,12 @@ public class JobService {
     //return all jobs from server
     public List<JobDTO> findAllJobs() {
         LocalDateTime localDateTime = LocalDateTime.now();
-        ZonedDateTime zonedDateTime = ZonedDateTime.of(localDateTime, ZoneId.of("UTC+09:00"));
-        LocalDateTime ldt = zonedDateTime.toLocalDateTime();
+        ZonedDateTime zonedDateTime = ZonedDateTime.of(localDateTime, ZoneId.of("UTC+08:00")); //set a timezone as a reference
+        ZoneId zone = ZoneId.of("Asia/Singapore"); //zone name
+        ZonedDateTime destZonedDateTime = zonedDateTime.withZoneSameInstant(zone); //convert a zoneddatetime using reference
+
         System.out.println("Zone Date Time: " + zonedDateTime);
-        System.out.println("Converted Zone Date Time" + ldt);
+        System.out.println("Converted Zone Date Time" + destZonedDateTime);
 
         List<Job> jobList = jobRepo.retrieveAllByNotDeleted(0); //retrieve those that are not soft deleted
 

@@ -22,7 +22,7 @@ public class DemoApplication {
     @PostConstruct
     public void init() {
         // Setting Spring Boot SetTimeZone
-        TimeZone.setDefault(TimeZone.getTimeZone("GMT+9"));
+        TimeZone.setDefault(TimeZone.getTimeZone("GMT+8"));
     }
 
     @Bean
