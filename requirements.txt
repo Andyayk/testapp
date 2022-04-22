@@ -96,7 +96,7 @@ PyJWT==2.3.0
 pyodbc==4.0.32
 pyOpenSSL==22.0.0
 pyparsing==3.0.7
-PyPDF2==1.26.0
+PyPDF2==1.27.5
 pypiwin32==223
 python-dateutil==2.8.2
 python-docx==0.8.11
