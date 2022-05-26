@@ -128,7 +128,7 @@ threadpoolctl==3.1.0
 tldextract==3.2.0
 toml==0.10.2
 tqdm==4.63.0
-Twisted==22.2.0
+Twisted==22.4.0
 twisted-iocpsupport==1.0.2
 typing_extensions==4.1.1
 urllib3==1.26.9
