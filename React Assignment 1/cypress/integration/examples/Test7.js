@@ -9,8 +9,5 @@ describe('My Second Test Suite', function () {
             cy.log(url)
             cy.visit(url)
         })
-
-        cy.contains('Top').click({ force: true })
-        cy.url().should('include', 'top')
     })
 })

@@ -1,5 +1,7 @@
 {
   "name": "Using fixtures to represent data",
+  "gender": "Female",
   "email": "hello@cypress.io",
+  "productName": ["Blackberry", "Nokia Edge"],
   "body": "Fixtures are a great way to mock data for responses to routes"
 }
