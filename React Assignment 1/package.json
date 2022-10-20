@@ -20,6 +20,9 @@
     "test": "react-scripts test",
     "eject": "react-scripts eject"
   },
+  "cypress-cucumber-preprocessor": {
+    "nonGlobalStepDefinitions": true
+  },
   "eslintConfig": {
     "extends": "react-app"
   },
@@ -36,5 +39,8 @@
       "last 1 safari version",
       "ie 11"
     ]
+  },
+  "devDependencies": {
+    "cypress-cucumber-preprocessor": "^4.3.1"
   }
 }

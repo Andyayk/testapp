@@ -1,5 +1,7 @@
 const { defineConfig } = require('cypress')
 
+const cucumber = require('cypress-cucumber-preprocessor').default
+
 module.exports = defineConfig({
   // chromeWebSecurity: false,
   defaultCommandTimeout: 8000,
@@ -16,8 +18,9 @@ module.exports = defineConfig({
     // We've imported your old cypress plugins here.
     // You may want to clean this up later by importing these.
     setupNodeEvents(on, config) {
+      on('file:preprocessor', cucumber())
       //return require('./cypress/plugins/index.js')(on, config)
     },
-    specPattern: 'cypress/integration/examples/*.js',
+    specPattern: 'cypress/integration/examples/BDD/*.feature',
   },
 })
